@@ -1,0 +1,9 @@
+<h1>All The Givings</h1>
+
+<% @givings.each do |giving| %>
+	<h2> <%= link_to giving.name, @giving %> </h2>
+	<p> <%= giving.desc %> </p>
+<% end %>
+
+<br>
+<%= link_to "Give", new_giving_path %>
