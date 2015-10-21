@@ -17,6 +17,7 @@ class GivingsController < ApplicationController
   end
 
   def show
+  	@giving = Giving.find(params[:id])
   end
 
   private

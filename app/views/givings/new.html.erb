@@ -1,2 +1,9 @@
-<h1>Givings#new</h1>
-<p>Find me in app/views/givings/new.html.erb</p>
+<h1>Add My Giving</h1>
+
+<%= form_for :giving, url: givings_path do |f| %>
+	<%= f.label :name %> <br>
+	<%= f.text_field :name %> <br>
+	<%= f.label :desc %> <br>
+	<%= f.text_area :desc %> <br>
+	<%= f.submit class:"btn btn-primary" %> <br>
+<% end %>

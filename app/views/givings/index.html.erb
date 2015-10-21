@@ -1,7 +1,7 @@
 <h1>All The Givings</h1>
 
 <% @givings.each do |giving| %>
-	<h2> <%= link_to giving.name, @giving %> </h2>
+	<h2> <%= link_to giving.name, giving %> </h2>
 	<p> <%= giving.desc %> </p>
 <% end %>
 
