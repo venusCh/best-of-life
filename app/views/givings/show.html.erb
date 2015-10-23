@@ -1,6 +1,6 @@
 
 <h2> <%= @giving.name %> </h2>
-<%= image_tag @giving.image.url(:thumb) %>
+<%= image_tag @giving.image.url(:medium) %>
 <p> <%= @giving.desc %> </p>
 
 <% if !current_user.nil? %>
