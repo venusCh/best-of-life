@@ -1,5 +1,5 @@
 class GivingsController < ApplicationController
-	before_action :authenticate_user!, only: [:new, :created]
+	before_action :authenticate_user!, only: [:new,:created,:destroy]
 
   def index
   	@givings = Giving.all
@@ -7,6 +7,12 @@ class GivingsController < ApplicationController
 
   def new
   	@giving = current_user.givings.build
+  end
+
+  def destroy
+    @giving = current_user.givings.find(params[:id])
+    @giving.destroy
+    redirect_to givings_path
   end
 
   def create 
@@ -22,7 +28,7 @@ class GivingsController < ApplicationController
 
   private
   def giving_params
-  	params.require(:giving).permit(:name,:desc)
+  	params.require(:giving).permit(:name,:desc,:image)
   end
 
 end

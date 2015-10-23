@@ -1,6 +1,15 @@
 
 <h2> <%= @giving.name %> </h2>
+<%= image_tag @giving.image.url(:thumb) %>
 <p> <%= @giving.desc %> </p>
+
+<% if !current_user.nil? %>
+	<% if current_user = @giving.user_id %>
+		<%= link_to "Delete", { action: :destroy }, 
+		method: :delete, 
+		data: { confirm: "Are you sure?" } %>
+	<% end %>
+<% end %>
 
 <br>
 <%= link_to "Back", givings_path, class: "btn btn-default" %>
