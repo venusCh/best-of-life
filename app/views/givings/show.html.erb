@@ -3,13 +3,42 @@
 <%= image_tag("gift.jpg", :alt => "Giving") %>
 <p> <%= @giving.desc %> </p>
 
+<p>
+	<% if @giving.asks.count > 0 %>
+		<b> <%= @giving.asks.count %> </b> <i> re-givers asked for this. </i>
+	<% end %>
+</p>
+
+
 <% if !current_user.nil? %>
-	<% if current_user = @giving.user_id %>
+	<% if current_user.id == @giving.user_id %>
 		<%= link_to "Delete", { action: :destroy }, 
 		method: :delete, 
-		data: { confirm: "Are you sure?" } %>
+		data: { confirm: "Are you sure?" } %> <br>
+	<% else %>
+		<% already_asked = false %>
+		<% timestamp = 1 %>
+		<% @giving.asks.each do |ask| %>
+			<% if ask.user_id = current_user.id %>
+				<% already_asked = true %>
+				<% timestamp = ask.created_at %>
+			<% end %>
+		<% end %>
+
+		<div class="indent">
+			<% if !already_asked %>
+				<%= form_for([@giving, @giving.asks.build]) do |f| %>
+					<p> <input type="checkbox"> I agree to re-give this as per Givers wishes! </p>
+					<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
+					<%= f.submit "Ask", class: "btn btn-primary" %>
+				<% end %>
+			<% else %>
+				You have already asked for this giving on <%= timestamp.to_s(:short) %>
+			<% end %>
+		</div>
+
 	<% end %>
 <% end %>
 
 <br>
-<%= link_to "Back", givings_path, class: "btn btn-default" %>
+<%= link_to "Back", givings_path %>

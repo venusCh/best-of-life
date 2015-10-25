@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :givings
+  resources :givings do
+    resources :asks
+  end
 
   get 'givings/index'
   get 'givings/new'

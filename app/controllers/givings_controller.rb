@@ -1,5 +1,5 @@
 class GivingsController < ApplicationController
-	before_action :authenticate_user!, only: [:new,:created,:destroy]
+	before_action :authenticate_user!, only: [:new,:created,:destroy,:show]
 
   def index
   	@givings = Giving.all
