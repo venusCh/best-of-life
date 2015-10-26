@@ -1,20 +1,30 @@
 
 <h2> <%= @giving.name %> </h2>
 <%= image_tag("gift.jpg", :alt => "Giving") %>
-<p> <%= @giving.desc %> </p>
-
-<p>
-	<% if @giving.asks.count > 0 %>
-		<b> <%= @giving.asks.count %> </b> <i> re-givers asked for this. </i>
-	<% end %>
-</p>
-
-
+<p> <%= @giving.desc %> <br>
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
 		<%= link_to "Delete", { action: :destroy }, 
 		method: :delete, 
 		data: { confirm: "Are you sure?" } %> <br>
+	<% end %>
+<% end %>
+</p>
+
+<% if !current_user.nil? %>
+	<% if current_user.id == @giving.user_id %>
+		<p>
+			<% if @giving.asks.count > 0 %>
+				<span class="step"><%= @giving.asks.count %></span><i>re-givers asked for this. </i>
+			<% end %>
+		</p>
+		<div class="indent">
+			<% @giving.asks.each do |ask| %>
+				<b><%= User.find(ask.user_id).email %> </b><br>
+				<%= ask.comment %> <br>
+				<%= link_to "Accept", @giving %>
+			<% end %>
+		</div>
 	<% else %>
 		<% already_asked = false %>
 		<% timestamp = 1 %>
@@ -25,6 +35,8 @@
 			<% end %>
 		<% end %>
 
+		<p> Giver <b> <%= User.find(@giving.user_id).email %> </b> </p>
+
 		<div class="indent">
 			<% if !already_asked %>
 				<%= form_for([@giving, @giving.asks.build]) do |f| %>
@@ -33,7 +45,7 @@
 					<%= f.submit "Ask", class: "btn btn-primary" %>
 				<% end %>
 			<% else %>
-				You have already asked for this giving on <%= timestamp.to_s(:short) %>
+				<i>You have already asked for this on <%= timestamp.to_s(:short) %> </i>
 			<% end %>
 		</div>
 
