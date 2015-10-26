@@ -14,7 +14,7 @@
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
 		<p>
-			<% if @giving.asks.count > 0 %>
+			<% if !@giving.asks.nil? && @giving.asks.count > 0 %>
 				<span class="step"><%= @giving.asks.count %></span><i>re-givers asked for this. </i>
 			<% end %>
 		</p>
@@ -45,7 +45,7 @@
 					<%= f.submit "Ask", class: "btn btn-primary" %>
 				<% end %>
 			<% else %>
-				<i>You have already asked for this on <%= timestamp.to_s(:short) %> </i>
+				<i>Your request sent on <%= timestamp.to_s(:short) %> </i>
 			<% end %>
 		</div>
 

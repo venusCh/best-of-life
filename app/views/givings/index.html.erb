@@ -2,11 +2,6 @@
 
 <% @givings.each do |giving| %>
 	<h2> <%= link_to giving.name, giving %> </h2>
-<!-- 
-	<% if !giving.image.nil? %>	
-		<%= image_tag giving.image.url(:thumb) %>
-	<% end %>
--->
 <% end %>
 
 <br><br>
