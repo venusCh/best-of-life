@@ -1,7 +1,16 @@
 
 <h2> <%= @giving.name %> </h2>
 <%= image_tag("gift.jpg", :alt => "Giving") %>
-<p> <%= @giving.desc %> <br>
+<p> <%= @giving.desc %> <br><br>
+Giver wishes this to be re-given in 
+<% if @giving.wish == 10 %>
+	<b> a month. </b> 
+<% elsif @giving.wish == 20 %>
+	<b> 3 months. </b> 
+<% elsif @giving.wish == 30 %>
+	<b> 6 months. </b> 
+<% end %>
+	<br>
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
 		<%= link_to "Delete", { action: :destroy }, 
@@ -9,6 +18,13 @@
 		data: { confirm: "Are you sure?" } %> <br>
 	<% end %>
 <% end %>
+
+<% if !current_user.nil? %>
+	<% if current_user.id != @giving.user_id %>
+		Posted by <b> <%= User.find(@giving.user_id).email %> </b>
+	<% end %>
+<% end %>
+
 </p>
 
 <% if !current_user.nil? %>
@@ -34,8 +50,6 @@
 				<% timestamp = ask.created_at %>
 			<% end %>
 		<% end %>
-
-		<p> Giver <b> <%= User.find(@giving.user_id).email %> </b> </p>
 
 		<div class="indent">
 			<% if !already_asked %>

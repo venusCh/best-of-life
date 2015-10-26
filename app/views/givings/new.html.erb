@@ -1,8 +1,7 @@
-<h1>Add My Giving</h1>
-
+<h2><b>Add A Giving</b></h2>
 <%= form_for :giving, url: givings_path do |f| %>
-	<p> <%= f.text_field :name, placeholder: "Name" %> </p>
-	<p> <%= f.file_field :image %> </p>
-	<p> <%= f.text_area :desc, cols: "22", rows: "3", placeholder: "Few words on this Giving..." %> </p>
-	<%= f.submit "Add Giving", class:"btn btn-primary" %> <br>
+	<p> <%= f.text_field :name, placeholder: "Name", size: 30 %> </p>
+	<%= f.text_area :desc, cols: "32", rows: "3", placeholder: "Few words on this Giving..." %> </p>
+	<p> I wish this to be re-given in <%= f.select :wish, options_for_select([["1 Month", 10], ["3 Months", 20], ["6 Months", 30]]) %> </p>
+	<%= f.submit "Add Giving", class:"btn btn-primary" %>
 <% end %>
