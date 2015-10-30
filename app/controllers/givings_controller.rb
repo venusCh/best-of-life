@@ -24,6 +24,19 @@ class GivingsController < ApplicationController
 
   def show
   	@giving = Giving.find(params[:id])
+
+    @already_asked = false
+    @timestamp = nil
+
+    if current_user.id != @giving.user_id
+      @giving.asks.each do |ask|
+        if ask.user_id == current_user.id
+          @already_asked = true
+          @timestamp = ask.created_at
+        end
+      end
+    end
+
   end
 
   private

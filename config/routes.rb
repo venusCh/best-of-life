@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   get 'givings/new'
   get 'givings/show'
 
-  root 'givings#index'
+  root 'givings#welcome'
 
 end

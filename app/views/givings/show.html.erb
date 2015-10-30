@@ -24,7 +24,6 @@ Giver wishes this to be re-given in
 		Posted by <b> <%= User.find(@giving.user_id).email %> </b>
 	<% end %>
 <% end %>
-
 </p>
 
 <% if !current_user.nil? %>
@@ -42,24 +41,15 @@ Giver wishes this to be re-given in
 			<% end %>
 		</div>
 	<% else %>
-		<% already_asked = false %>
-		<% timestamp = 1 %>
-		<% @giving.asks.each do |ask| %>
-			<% if ask.user_id = current_user.id %>
-				<% already_asked = true %>
-				<% timestamp = ask.created_at %>
-			<% end %>
-		<% end %>
-
 		<div class="indent">
-			<% if !already_asked %>
+			<% if !@already_asked %>
 				<%= form_for([@giving, @giving.asks.build]) do |f| %>
 					<p> <input type="checkbox"> I agree to re-give this as per Givers wishes! </p>
 					<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
 					<%= f.submit "Ask", class: "btn btn-primary" %>
 				<% end %>
 			<% else %>
-				<i>Your request sent on <%= timestamp.to_s(:short) %> </i>
+				<i>Your request sent on <%= @timestamp.to_s(:short) %> </i>
 			<% end %>
 		</div>
 

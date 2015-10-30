@@ -1,8 +1,13 @@
-<h1>All The Givings</h1>
+<section>
+	<div id="one">
+		<br><br><br><br><br><br>
+		<p> <%= link_to "Give", new_giving_path, class: "btn btn-default" %> </p>
+	</div>
+	<div id="two" class="verticalLine">
+		<h3>All The Givings</h3><br>
 
-<% @givings.each do |giving| %>
-	<h2> <%= link_to giving.name, giving %> </h2>
-<% end %>
-
-<br><br>
-<p> <%= link_to "Give", new_giving_path, class: "btn btn-default" %> </p>
+		<% @givings.each do |giving| %>
+			<h4> <%= link_to giving.name, giving %> </h4>
+		<% end %>
+	</div>
+</section>
