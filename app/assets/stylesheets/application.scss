@@ -74,3 +74,11 @@ div#two {
     min-width: 100px;
     text-align: center;
 }
+
+@media screen and (max-width: 1020px) { 
+	div, .welcome, #one, #two {
+		float: none;
+		width: auto;
+		font-size: 2em;
+	}
+}
