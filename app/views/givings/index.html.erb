@@ -1,9 +1,9 @@
-<section>
-	<div id="one">
-		<br><br><br><br><br><br>
-		<p> <%= link_to "Give", new_giving_path, class: "btn btn-default" %> </p>
+<section id="box-blocks">
+	<div class="floating-box">
+		<p id="give-section"> <%= link_to "Give", new_giving_path, class: "give-action" %> </p>
 	</div>
-	<div id="two" class="verticalLine">
+	<div class="verticalLine"> </div>
+	<div class="floating-box">
 		<h3>All The Givings</h3><br>
 
 		<% @givings.each do |giving| %>
