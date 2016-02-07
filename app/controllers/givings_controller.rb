@@ -41,7 +41,7 @@ class GivingsController < ApplicationController
 
   private
   def giving_params
-  	params.require(:giving).permit(:name,:desc,:image,:wish)
+  	params.require(:giving).permit(:name,:image,:desc,:wish)
   end
 
 end

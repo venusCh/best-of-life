@@ -1,7 +1,32 @@
+<script>
+$(function() {
+  $('#giving_image').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      img.width = 150;
+      $('#image-target').html(img);
+      $('#upload-image-text').text('Change image');
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+</script>
 <h2><b>Add A Giving</b></h2>
 <%= form_for :giving, url: givings_path do |f| %>
-	<p> <%= f.text_field :name, placeholder: "Name", size: 30 %> </p>
-	<%= f.text_area :desc, cols: "32", rows: "3", placeholder: "Few words on this Giving..." %> </p>
-	<p> I wish this to be re-given in <%= f.select :wish, options_for_select([["1 Month", 10], ["3 Months", 20], ["6 Months", 30]]) %> </p>
+	<p> <%= f.text_field :name, placeholder: "Name", size: 35 %> </p>
+	<p> <div id="image-target"> </div>
+	<span class="btn btn-default btn-file">
+	<span id="upload-image-text">Add image</span> <%= f.file_field :image, accept: "image/*;capture=camera" %> 
+	</span></p>
+	<%= f.text_area :desc, cols: "37", rows: "3", placeholder: "Few words on this Giving..."%> </p>
+	<p><div class="condition"> <i class="fa fa-calendar-check-o" style="color:#9E0652"> </i>
+	I wish this to be re-given in </div> 
+	<%= f.select :wish, options_for_select([["a month", 10], ["3 months", 20], ["6 months", 30]]) %> </p>
 	<%= f.submit "Add Giving", class:"btn btn-primary" %>
 <% end %>
