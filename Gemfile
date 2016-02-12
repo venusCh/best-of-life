@@ -17,7 +17,7 @@ gem 'font-awesome-sass'
 gem 'puma'
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'pg'
   gem 'byebug'
 end
 
