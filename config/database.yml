@@ -13,7 +13,7 @@ development:
   <<: *default
   database: GiversDB 
   username: venus
-  password: chintala
+  password: password 
   host:     giversappdb.c54xe2azikty.us-west-2.rds.amazonaws.com
   port:     5432
 
