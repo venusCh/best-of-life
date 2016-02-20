@@ -1,12 +1,12 @@
 class GivingsController < ApplicationController
-	before_action :authenticate_user!, only: [:new,:created,:destroy,:show]
+  before_action :authenticate_user!, only: [:new,:created,:destroy,:show]
 
   def index
-  	@givings = Giving.all
+    @givings = Giving.all
   end
 
   def new
-  	@giving = current_user.givings.build
+    @giving = current_user.givings.build
   end
 
   def destroy
@@ -16,14 +16,14 @@ class GivingsController < ApplicationController
   end
 
   def create 
-  	@giving = current_user.givings.build(giving_params)
-  	@giving.save
+    @giving = current_user.givings.build(giving_params)
+    @giving.save
 
-  	redirect_to @giving, notice: "Successfully posted your giving!"
+    redirect_to @giving, notice: "Successfully posted your giving!"
   end
 
   def show
-  	@giving = Giving.find(params[:id])
+    @giving = Giving.find(params[:id])
 
     @already_asked = false
     @timestamp = nil
@@ -41,7 +41,7 @@ class GivingsController < ApplicationController
 
   private
   def giving_params
-  	params.require(:giving).permit(:name,:image,:desc,:wish)
+    params.require(:giving).permit(:name,:image,:desc,:wish)
   end
-
+  
 end

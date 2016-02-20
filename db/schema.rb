@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207011819) do
+ActiveRecord::Schema.define(version: 20160220011813) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
-    t.text     "comment"
+    t.string   "comment"
+    t.integer  "status"
     t.integer  "giving_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,16 +27,18 @@ ActiveRecord::Schema.define(version: 20160207011819) do
   create_table "givings", force: :cascade do |t|
     t.string   "name"
     t.text     "desc"
-    t.integer  "user_id"
     t.integer  "wish"
     t.integer  "status"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "user_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
+
+  add_index "givings", ["user_id"], name: "index_givings_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -50,10 +53,6 @@ ActiveRecord::Schema.define(version: 20160207011819) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

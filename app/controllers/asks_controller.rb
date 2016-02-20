@@ -1,4 +1,5 @@
 class AsksController < ApplicationController
+
 	def create
 		@giving = Giving.find(params[:giving_id])
 		@ask = @giving.asks.create(ask_params)
@@ -11,4 +12,5 @@ class AsksController < ApplicationController
 	def ask_params
 		params.require(:ask).permit(:comment)
 	end
+
 end
