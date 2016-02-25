@@ -1,8 +1,8 @@
 class CreateAsks < ActiveRecord::Migration
   def change
     create_table :asks do |t|
-      t.string :from
-      t.text :body
+      t.integer :user_id
+      t.text :comment
       t.integer :status
       t.references :giving, index: true, foreign_key: true
 

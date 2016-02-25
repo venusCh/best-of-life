@@ -36,9 +36,9 @@ Giver wishes this to be re-given in
 		</p>
 		<div class="indent">
 			<% @giving.asks.each do |ask| %>
-				<b><%= User.find(ask.user_id).email %> </b><br>
+				<p><b><%= User.find(ask.user_id).email %> </b><br>
 				<%= ask.comment %> <br>
-				<%= link_to "Accept", @giving %>
+				<%= link_to "Accept", @giving %></p>
 			<% end %>
 		</div>
 	<% else %>
