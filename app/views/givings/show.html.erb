@@ -53,7 +53,12 @@ Giver wishes this to be re-given in
 				<i>Your request sent on <%= @timestamp.to_s(:short) %> </i>
 			<% end %>
 		</div>
-
+	<% end %>
+<% else %>
+	<% if @giving.asks.count == 1 %>
+		<b><%= @giving.asks.count %></b> <i>user has asked for this. </i>
+	<% elsif @giving.asks.count > 1 %>
+		<b><%= @giving.asks.count %></b> <i>users have asked for this. </i>
 	<% end %>
 <% end %>
 

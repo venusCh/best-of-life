@@ -1,5 +1,5 @@
 class GivingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new,:created,:destroy,:show]
+  before_action :authenticate_user!, only: [:new,:created,:destroy]
 
   def index
     @givings = Giving.all
@@ -28,7 +28,8 @@ class GivingsController < ApplicationController
     @already_asked = false
     @timestamp = nil
 
-    if current_user.id != @giving.user_id
+    if current_user != nil && 
+      current_user.id != @giving.user_id
       @giving.asks.each do |ask|
         if ask.user_id == current_user.id
           @already_asked = true
