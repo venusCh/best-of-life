@@ -38,10 +38,10 @@ Giver wishes this to be re-given in
 			<% @giving.asks.each do |ask| %>
 				<p><b><%= User.find(ask.user_id).email %> </b><br>
 				<%= ask.comment %> <br>
-				<% if ask.status == 0 %>
-				<%= link_to "Accept", edit_ask_path(id: ask.id, giving_id: @giving.id) %></p>
+				<% if ask.status == 1 %>
+					<span style="color:green"><i>You accepted this request! </i></span>
 				<% else %>
-					<span style="color:green"><i>You already accepted this request! </i></span>
+					<%= link_to "Accept", edit_ask_path(id: ask.id, giving_id: @giving.id) %></p>
 				<% end %>
 			<% end %>
 		</div>
@@ -63,11 +63,19 @@ Giver wishes this to be re-given in
 		</div>
 	<% end %>
 <% else %>
-	<% if @giving.asks.count == 1 %>
-		<b><%= @giving.asks.count %></b> <i>user has asked for this. </i>
-	<% elsif @giving.asks.count > 1 %>
-		<b><%= @giving.asks.count %></b> <i>users have asked for this. </i>
-	<% end %>
+	<div class="indent">
+		<%= form_for([@giving, @giving.asks.build]) do |f| %>
+			<p> <input type="checkbox"> I agree to re-give this as per Givers wishes! </p>
+			<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
+			<%= f.submit "Ask", class: "btn btn-primary" %>
+		<% end %>
+
+		<% if @giving.asks.count == 1 %>
+			<b><%= @giving.asks.count %></b> <i>user has asked for this. </i>
+		<% elsif @giving.asks.count > 1 %>
+			<b><%= @giving.asks.count %></b> <i>users have asked for this. </i>
+		<% end %>
+	</div>
 <% end %>
 
 <br>
