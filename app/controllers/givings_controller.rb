@@ -26,6 +26,7 @@ class GivingsController < ApplicationController
     @giving = Giving.find(params[:id])
 
     @already_asked = false
+    @ask_accepted = false
     @timestamp = nil
 
     if current_user != nil && 
@@ -34,6 +35,10 @@ class GivingsController < ApplicationController
         if ask.user_id == current_user.id
           @already_asked = true
           @timestamp = ask.created_at
+          if ask.status == 1
+            @ask_accepted = true
+            @timestamp = ask.updated_at
+          end
         end
       end
     end

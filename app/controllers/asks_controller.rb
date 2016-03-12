@@ -8,6 +8,16 @@ class AsksController < ApplicationController
 		redirect_to @giving
 	end
 
+	def edit
+		@ask = Ask.find(params[:id])
+		@ask.status = 1
+		@ask.save
+
+		puts :giving_id
+		@giving = Giving.find(params[:giving_id])
+		redirect_to @giving
+	end
+
 	private
 	def ask_params
 		params.require(:ask).permit(:comment)

@@ -38,7 +38,11 @@ Giver wishes this to be re-given in
 			<% @giving.asks.each do |ask| %>
 				<p><b><%= User.find(ask.user_id).email %> </b><br>
 				<%= ask.comment %> <br>
-				<%= link_to "Accept", @giving %></p>
+				<% if ask.status == 0 %>
+				<%= link_to "Accept", edit_ask_path(id: ask.id, giving_id: @giving.id) %></p>
+				<% else %>
+					<span style="color:green"><i>You already accepted this request! </i></span>
+				<% end %>
 			<% end %>
 		</div>
 	<% else %>
@@ -50,7 +54,11 @@ Giver wishes this to be re-given in
 					<%= f.submit "Ask", class: "btn btn-primary" %>
 				<% end %>
 			<% else %>
-				<i>Your request sent on <%= @timestamp.to_s(:short) %> </i>
+				<% if @ask_accepted %>
+					<span style="color:green"><i>Your request was accepted on <%= @timestamp.to_s(:short) %>! </i></span>
+				<% else %>
+					<i>Your request sent on <%= @timestamp.to_s(:short) %> </i>
+				<% end %>
 			<% end %>
 		</div>
 	<% end %>
