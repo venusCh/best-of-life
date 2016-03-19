@@ -20,7 +20,7 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
-body {
+.main-content {
 	width: 70%;
 	margin-left: auto;
 	margin-right: auto;
@@ -72,7 +72,7 @@ body {
  */
 .verticalLine {
 	display: inline-block;
-	width: 2px;
+	width: 0px;
     background-color: #e0eaf3;
     height: 250px;
     vertical-align: top;
@@ -82,15 +82,22 @@ body {
 .floating-box {
 	display: inline-block;
 	min-width: 250px;
-	background-color: #FAFAFA;
 	width: 40%;
 	min-height: 300px;
 	vertical-align: top;
 	margin: 10px;
-	border-radius: 0.3em;
+	border-radius: 1em;
+	border-width: 1em;
+	border-color: #500000;
 	padding: 10px;
-
 }
+.floating-box.give {
+	background-color: #d9e6f2;
+}
+.floating-box.take {
+	background-color: #ffeee6;
+}
+
 #box-blocks {
 	text-align: center
 }

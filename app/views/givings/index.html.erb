@@ -1,9 +1,9 @@
 <section id="box-blocks">
-	<div class="floating-box">
+	<div class="floating-box give">
 		<p id="give-section"> <%= link_to "Give", new_giving_path, class: "give-action" %> </p>
 	</div>
 	<div class="verticalLine"> </div>
-	<div class="floating-box">
+	<div class="floating-box take">
 		<h3>All The Givings</h3><br>
 
 		<% @givings.each do |giving| %>
