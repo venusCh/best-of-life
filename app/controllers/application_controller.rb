@@ -12,4 +12,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:warning] = 'Resource not found.'
+    redirect_back_or root_path
+  end
+
+  def redirect_back_or(path)
+    redirect_to request.referer || path
+  end
+
+  module MessagesHelper
+    def recipients_options
+      s = ''
+      User.all.each do |user|
+        s << "<option value='#{user.id}'>#{user.name}</option>"
+      end
+      s.html_safe
+    end
+  end
+
 end

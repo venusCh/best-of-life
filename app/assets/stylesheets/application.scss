@@ -25,6 +25,14 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.messages {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
 /**
  * Quote page styling 
  */
@@ -65,6 +73,9 @@
 }
 .indent {
 	margin-left: 30px;
+}
+a:hover {
+	text-decoration: none;
 }
 
 /**

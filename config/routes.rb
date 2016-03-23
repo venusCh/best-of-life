@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   end
   resources :asks
   
+  resources :conversations, only: [:index, :show, :destroy]
+  resources :messages, only: [:new, :create]
+
   get 'givings/index'
   get 'givings/new'
   get 'givings/show'
 
-  root 'givings#welcome'
+  root 'givings#index'
 
 end
