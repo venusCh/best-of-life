@@ -1,0 +1,13 @@
+branch-defaults:
+  development:
+    environment: giversapp-env
+  master:
+    environment: GiversApp-dev
+    group_suffix: null
+global:
+  application_name: GiversApp
+  default_ec2_keyname: venus-key-pair
+  default_platform: Ruby 2.2 (Puma)
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git
