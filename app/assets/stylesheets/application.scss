@@ -26,6 +26,10 @@
 	margin-right: auto;
 }
 
+.body {
+	background-color: #F3F3F3;
+}
+
 .messages {
   max-height: 400px;
   overflow-y: auto;
@@ -170,7 +174,7 @@ textarea {
  */
 @media screen and (max-width: 1020px) { 
 	body {
-		width: 78%;
+		font-size: 4em;
 	}
 	.quote {
 		width: 100%;
@@ -179,10 +183,10 @@ textarea {
 		border-radius: 1em;
 	}
 	.quote-body {
-		font-size:	4.1em;
+		font-size:	1em;
 	}
 	.quote-source {
-		font-size:	2.3em;
+		font-size:	0.6em;
 		margin-bottom: .5em;
 	}
 
@@ -199,17 +203,40 @@ textarea {
 		line-height: 390px;
 	}
 	.give-action {
-		font-size: 5.5em;
+		font-size: 2em;
 		font-weight: bold;
 	}
 	h2, h3 {
-		font-size: 4em;
+		font-size: 1.2em;
 		font-weight: bold;
 	}
-	h4, p {
-		font-size: 3em;
+	h4, p, a {
+		font-size: 1em;
+	}
+	p {
+		margin: 0 0 20px 0;
 	}
 	.indent {
 		font-size: 2em;
+	}
+	li.desktop {
+		display: none;
+	}
+	.navbar-brand {
+		font-size: 1.2em;
+	}
+	.navbar {
+		margin-bottom: 40px;
+	}
+	.main-content {
+		width: 90%;
+	}
+	.btn {
+	    padding: 18px 28px;
+	    font-size: 1.1em;
+	    border-radius: 8px;
+	}
+	select {
+	  	width: 200px;       
 	}
 }
