@@ -76,7 +76,7 @@
 	background-color: #FAFAFA;
 }
 .indent {
-	margin-left: 30px;
+	margin-left: 40px;
 }
 a:hover {
 	text-decoration: none;
@@ -174,7 +174,7 @@ textarea {
  */
 @media screen and (max-width: 1020px) { 
 	body {
-		font-size: 4em;
+		font-size: 4.2em;
 	}
 	.quote {
 		width: 100%;
@@ -217,7 +217,7 @@ textarea {
 		margin: 0 0 20px 0;
 	}
 	.indent {
-		font-size: 2em;
+		font-size: 1em;
 	}
 	li.desktop {
 		display: none;
@@ -238,5 +238,9 @@ textarea {
 	}
 	select {
 	  	width: 200px;       
+	}
+	img {
+    	width: 100%;
+    	height: auto;
 	}
 }

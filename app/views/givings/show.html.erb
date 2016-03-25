@@ -2,7 +2,16 @@
 <h2> <%= @giving.name %> </h2>
 <!-- <%= image_tag("gift.jpg", :alt => "Giving") %> -->
 <%= image_tag @giving.image.url(:medium) %>
-<p> <%= @giving.desc %> <br><br>
+<p> <%= @giving.desc %> <br>
+<% if !current_user.nil? %>
+	<% if current_user.id == @giving.user_id %>
+		<%= link_to "Delete", { action: :destroy }, 
+		method: :delete, 
+		data: { confirm: "Are you sure?" } %> <br>
+	<% end %>
+<% end %>
+</p>
+<div class="alert alert-info">
 Giver wishes this to be re-given in 
 <% if @giving.wish == 10 %>
 	<b> a month. </b> 
@@ -11,14 +20,7 @@ Giver wishes this to be re-given in
 <% elsif @giving.wish == 30 %>
 	<b> 6 months. </b> 
 <% end %>
-	<br>
-<% if !current_user.nil? %>
-	<% if current_user.id == @giving.user_id %>
-		<%= link_to "Delete", { action: :destroy }, 
-		method: :delete, 
-		data: { confirm: "Are you sure?" } %> <br>
-	<% end %>
-<% end %>
+</div>
 
 <% if !current_user.nil? %>
 	<% if current_user.id != @giving.user_id %>
@@ -30,8 +32,12 @@ Giver wishes this to be re-given in
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
 		<p>
-			<% if !@giving.asks.nil? && @giving.asks.count > 0 %>
-				<span class="step"><%= @giving.asks.count %></span><i>re-givers asked for this. </i>
+			<% if !@giving.asks.nil? %>
+				<% if @giving.asks.count == 1 %>
+					<span class="step"><%= @giving.asks.count %></span><i> re-giver asked for this. </i>
+				<% elsif @giving.asks.count > 1 %>
+					<span class="step"><%= @giving.asks.count %></span><i> re-givers asked for this. </i>
+				<% end %>
 			<% end %>
 		</p>
 		<div class="indent">
@@ -49,7 +55,7 @@ Giver wishes this to be re-given in
 		<div class="indent">
 			<% if !@already_asked %>
 				<%= form_for([@giving, @giving.asks.build]) do |f| %>
-					<p> <input type="checkbox"> I agree to re-give this as per Givers wishes! </p>
+					<p> <input type="checkbox" style="min-height:80px;min-width:80px;"> I agree to re-give this as per Givers wishes! </p>
 					<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
 					<%= f.submit "Ask", class: "btn btn-primary" %>
 				<% end %>
@@ -68,12 +74,6 @@ Giver wishes this to be re-given in
 			<p> <input type="checkbox"> I agree to re-give this as per Givers wishes! </p>
 			<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
 			<%= f.submit "Ask", class: "btn btn-primary" %>
-		<% end %>
-
-		<% if @giving.asks.count == 1 %>
-			<b><%= @giving.asks.count %></b> <i>user has asked for this. </i>
-		<% elsif @giving.asks.count > 1 %>
-			<b><%= @giving.asks.count %></b> <i>users have asked for this. </i>
 		<% end %>
 	</div>
 <% end %>
