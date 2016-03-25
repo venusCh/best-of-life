@@ -20,153 +20,171 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
-.main-content {
-	width: 70%;
-	margin-left: auto;
-	margin-right: auto;
+html, body {
+	height:  				100%;
 }
-
-.body {
-	background-color: #F3F3F3;
+.page {
+	position: 				relative;
+	height:  				100%;
+	margin: 				0 auto;
+}
+.main-content {
+	width: 					70%;
+	min-height:  			100%;
+	height:					auto !important;
+	height:  				100%;
+	margin-left: 			auto;
+	margin-right: 			auto;
+	margin-bottom:  		-60px;
+}
+footer {
+	position: 				absolute;
+    width:  				100%;
+	height: 				60px;
+    background-color: 		#f8f8f8;
+    border-color: 			#e7e7e7;
+    color:	 				#999;
+    font-size:  			.9em;
+    padding-top:  			20px;
+    text-align: 			center;
 }
 
 .messages {
-  max-height: 400px;
-  overflow-y: auto;
-  margin-bottom: 1em;
-  margin-top: 1em;
+  max-height: 				400px;
+  overflow-y: 				auto;
+  margin-bottom: 			1em;
+  margin-top: 				1em;
 }
-
 /**
  * Quote page styling 
  */
 .quote {
-	width: 45%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 1em;
-	background: #fbfbfb;
-	border-color: #c5d7ed;
-	border-style: solid;
-	border-width: 1px;
-	padding: 1.5em;
-	border-radius: .5em;
+	width: 					45%;
+	margin-left: 			auto;
+	margin-right: 			auto;
+	margin-top: 			1em;
+	background: 			#fbfbfb;
+	border-color: 			#c5d7ed;
+	border-style: 			solid;
+	border-width: 			1px;
+	padding: 				1.5em;
+	border-radius: 			0.5em;
 }
 .quote-body {
-	margin-top: .5em;
-	display: flex;
-	justify-content:	center;
-	align-items:	center;
-	font-family: Quicksand;
-	font-size:	2.1em;
-	font-weight: 500;
-	line-height: 1em;
+	margin-top: 			0.5em;
+	display: 				flex;
+	justify-content:		center;
+	align-items:			center;
+	font-family: 			Quicksand;
+	font-size:				2.1em;
+	font-weight: 			500;
+	line-height: 			1em;
 }
 .quote-source {
-	margin-top: 1.2em;
-	text-align:	right;
-	font-family: Quicksand;
-	font-size:	1.2em;
-	font-weight: 300;
-	font-style: italic;
-	margin-bottom: .4em;
+	margin-top: 			1.2em;
+	text-align:				right;
+	font-family: 			Quicksand;
+	font-size:				1.2em;
+	font-weight: 			300;
+	font-style: 			italic;
+	margin-bottom: 			0.4em;
 }
 
 .fade {
-	background-color: #FAFAFA;
+	background-color: 		#FAFAFA;
 }
 .indent {
-	margin-left: 40px;
+	margin-left: 			40px;
 }
 a:hover {
-	text-decoration: none;
+	text-decoration: 		none;
 }
 
 /**
  * Landing page boxes
  */
 .verticalLine {
-	display: inline-block;
-	width: 0px;
-    background-color: #e0eaf3;
-    height: 250px;
-    vertical-align: top;
-    margin-top: 35px;
-    border-radius: 0.3em;
+	display: 				inline-block;
+	width: 					0px;
+    background-color: 		#e0eaf3;
+    height: 				250px;
+    vertical-align: 		top;
+    margin-top: 			35px;
+    border-radius: 			0.3em;
 }
 .floating-box {
-	display: inline-block;
-	min-width: 250px;
-	width: 40%;
-	min-height: 300px;
-	vertical-align: top;
-	margin: 10px;
-	border-radius: 1em;
-	border-width: 1em;
-	border-color: #500000;
-	padding: 10px;
+	display: 				inline-block;
+	min-width: 				250px;
+	width: 					40%;
+	min-height: 			300px;
+	vertical-align: 		top;
+	margin: 				10px;
+	border-radius: 			1em;
+	border-width: 			1em;
+	border-color: 			#500000;
+	padding: 				10px;
 }
 .floating-box.give {
-	background-color: #d9e6f2;
+	background-color: 		#d9e6f2;
 }
 .floating-box.take {
-	background-color: #ffeee6;
+	background-color: 		#ffeee6;
 }
 
 #box-blocks {
-	text-align: center
+	text-align:				center
 }
 #give-section {
-	line-height: 260px;
+	line-height: 			260px;
 }
 .give-action {
-	font-size: 4em;
-	font-weight: 800;
-	vertical-align: middle;
+	font-size: 				4em;
+	font-weight: 			800;
+	vertical-align: 		middle;
 }
 .condition {
-	color: #337AB7;
-	margin: 0px;
-	padding: 0px;
-	display: inline;
+	color: 					#337AB7;
+	margin: 				10px;
+	padding: 				0px;
+	display: 				inline;
 }
 #image-target {
-	margin-bottom: 6px;
+	margin-bottom: 			6px;
 }
 #giving_name {
-	color: #353535;
-	font-size: .9em;
+	color: 					#353535;
+	font-size: 				0.9em;
 }
 
 select {
-	color: #454545;
-   	margin: 0 auto;
-  	width: 90px;       
+	color: 					#454545;
+   	margin: 				0 auto;
+  	width: 					90px;       
 }
 textarea {
-	color: #252525;
-	font-size: 0.9em;
+	color: 					#252525;
+	font-size: 				0.9em;
 }
 
 
 .btn-file {
-    position: relative;
-    overflow: hidden;
+    position: 				relative;
+    overflow: 				hidden;
 }
 .btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+    position: 				absolute;
+    top: 					0;
+    right:					0;
+    min-width: 				100%;
+    min-height: 			100%;
+    font-size: 				100px;
+    text-align: 			right;
+    filter: 				alpha(opacity=0);
+    opacity: 				0;
+    outline: 				none;
+    background: 			white;
+    cursor: 				inherit;
+    display: 				block;
 }
 
 /**
@@ -174,73 +192,80 @@ textarea {
  */
 @media screen and (max-width: 1020px) { 
 	body {
-		font-size: 4.2em;
+		font-size: 			4.2em;
 	}
 	.quote {
-		width: 100%;
-		margin-top: 3em;
-		padding: 1.5em;
-		border-radius: 1em;
+		width: 				100%;
+		margin-top: 		3em;
+		padding: 			1.5em;
+		border-radius: 		1em;
 	}
 	.quote-body {
-		font-size:	1em;
+		font-size:			1em;
 	}
 	.quote-source {
-		font-size:	0.6em;
-		margin-bottom: .5em;
+		font-size:			0.6em;
+		margin-bottom: 		0.5em;
 	}
 
 	.verticalLine {
-		display: none;
+		display: 			none;
 	}
 	.floating-box {
-		width: 100%;
-		border-radius: .2em;
-		min-height: 450px;
-		padding: 30px;
+		width: 				100%;
+		border-radius: 		0.2em;
+		min-height: 		450px;
+		padding: 			30px;
 	}
 	#give-section {
-		line-height: 390px;
+		line-height: 		390px;
 	}
 	.give-action {
-		font-size: 2em;
-		font-weight: bold;
+		font-size: 			2em;
+		font-weight: 		bold;
 	}
 	h2, h3 {
-		font-size: 1.2em;
-		font-weight: bold;
+		font-size: 			1.2em;
+		font-weight: 		bold;
 	}
 	h4, p, a {
-		font-size: 1em;
+		font-size: 			1em;
 	}
 	p {
-		margin: 0 0 20px 0;
+		margin: 			0 0 20px 0;
 	}
 	.indent {
-		font-size: 1em;
+		font-size: 			1em;
 	}
 	li.desktop {
-		display: none;
+		display:			none;
 	}
 	.navbar-brand {
-		font-size: 1.2em;
+		font-size: 			1.2em;
 	}
 	.navbar {
-		margin-bottom: 40px;
+		margin-bottom: 		40px;
+		min-height:  		80px;
+	}
+	.container {
+		padding-top:  		10px;
 	}
 	.main-content {
-		width: 90%;
+		width: 				90%;
 	}
 	.btn {
-	    padding: 18px 28px;
-	    font-size: 1.1em;
-	    border-radius: 8px;
+	    padding: 			18px 28px;
+	    font-size: 			1.1em;
+	    border-radius: 		8px;
 	}
 	select {
-	  	width: 200px;       
+	  	width: 				200px;       
 	}
 	img {
-    	width: 100%;
-    	height: auto;
+    	width: 				100%;
+    	height: 			auto;
+	}
+	footer {
+		padding-top:  		5px;
 	}
 }

@@ -6,24 +6,27 @@
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true
 	= csrf_meta_tags
 %body
-	%nav.navbar.navbar-default
-		.container
-			.navbar-brand= link_to "Givings", givings_path
+	.page
+		%nav.navbar.navbar-default
+			.container
+				.navbar-brand= link_to "Givings", givings_path
 
-			- if user_signed_in?
-				%ul.nav.navbar-nav.navbar-right
-					%li= link_to "Give", new_giving_path
-					%li.desktop= link_to "Account", edit_user_registration_path
-					%li.desktop= link_to "Messages", conversations_path
-					%li.desktop= link_to "Sign Out", destroy_user_session_path, method: :delete
-			- else
-				%ul.nav.navbar-nav.navbar-right
-					%li= link_to "Sign up", new_user_registration_path
-					%li= link_to "Sign In", new_user_session_path
-	
-	.main-content
-		- flash.each do |name, msg|
-			= content_tag :div, msg, class: "alert alert-info"
+				- if user_signed_in?
+					%ul.nav.navbar-nav.navbar-right
+						%li= link_to "Give", new_giving_path
+						%li.desktop= link_to "Account", edit_user_registration_path
+						%li.desktop= link_to "Messages", conversations_path
+						%li.desktop= link_to "Sign Out", destroy_user_session_path, method: :delete
+				- else
+					%ul.nav.navbar-nav.navbar-right
+						%li= link_to "Sign up", new_user_registration_path
+						%li= link_to "Sign In", new_user_session_path
 		
-		= yield
+		.main-content
+			- flash.each do |name, msg|
+				= content_tag :div, msg, class: "alert alert-info"
+			
+			= yield
 
+		%footer
+			© 2016 GiversApp.org
