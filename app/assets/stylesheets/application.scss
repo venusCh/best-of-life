@@ -144,7 +144,7 @@ a:hover {
 }
 .condition {
 	color: 					#337AB7;
-	margin: 				10px;
+	margin: 				12px 1px;
 	padding: 				0px;
 	display: 				inline;
 }
@@ -187,6 +187,19 @@ textarea {
     display: 				block;
 }
 
+.condition-toast {
+    background-color: 		#F7ECD9;
+    border-color: 			#F1BCBC;
+    color: 					#E65D0A;
+    padding: 				15px;
+    margin-bottom: 			20px;
+    border: 				1px solid #F1BCBC;
+    border-radius: 			4px;
+}
+h2, h3 {
+	font-size:  			1.4em;
+	margin-bottom: 	 		20px;
+}
 /**
  * Styling for mobile devices
  */
@@ -226,7 +239,7 @@ textarea {
 	}
 	h2, h3 {
 		font-size: 			1.2em;
-		font-weight: 		bold;
+		margin-bottom:   	30px;
 	}
 	h4, p, a {
 		font-size: 			1em;

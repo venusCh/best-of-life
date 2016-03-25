@@ -17,6 +17,8 @@ gem 'haml'
 gem 'mailboxer'
 gem 'bootstrap-will_paginate'
 gem 'will_paginate'
+gem 'aws-sdk-v1'
+gem 'aws-sdk', '~> 1.6'
 
 group :development, :test do
   gem 'sqlite3'  
