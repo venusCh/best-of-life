@@ -40,8 +40,6 @@ GEM
     autoprefixer-rails (6.3.3)
       execjs
       json
-    aws-sdk (1.66.0)
-      aws-sdk-v1 (= 1.66.0)
     aws-sdk-v1 (1.66.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -208,7 +206,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  aws-sdk (~> 1.6)
+  aws-sdk-v1
   bootstrap-sass (~> 3.3.5)
   bootstrap-will_paginate
   byebug
