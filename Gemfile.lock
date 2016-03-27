@@ -209,7 +209,6 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 1.6)
-  aws-sdk-v1
   bootstrap-sass (~> 3.3.5)
   bootstrap-will_paginate
   byebug
