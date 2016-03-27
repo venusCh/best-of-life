@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20160323010050) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
-    t.text     "comment"
+    t.string   "comment"
     t.integer  "status"
     t.integer  "giving_id"
     t.datetime "created_at", null: false

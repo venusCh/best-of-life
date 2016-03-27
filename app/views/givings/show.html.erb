@@ -55,7 +55,7 @@ Giver wishes this to be re-given in
 		<div class="indent">
 			<% if !@already_asked %>
 				<%= form_for([@giving, @giving.asks.build]) do |f| %>
-					<p> <input type="checkbox" style="min-height:80px;min-width:80px;"> I agree to re-give this as per Givers wishes! </p>
+					<p> <input type="checkbox" class="agreement"> I agree to re-give this as per Givers wishes! </p>
 					<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
 					<%= f.submit "Ask", class: "btn btn-primary" %>
 				<% end %>
