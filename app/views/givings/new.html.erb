@@ -20,7 +20,7 @@ $(function() {
 <div class="main-content">
   <h2><b>Add A Giving</b></h2>
   <%= form_for :giving, url: givings_path do |f| %>
-  	<p> <%= f.text_field :name, placeholder: "Name", size: 35 , :required => true %> </p>
+  	<p> <%= f.text_field :name, placeholder: "Name", size: 35 , :required => true, autofocus: true %> </p>
   	<p> <div id="image-target"> </div>
   	<span class="btn btn-default btn-file">
   	<span id="upload-image-text">Add image</span> <%= f.file_field :image, accept: "image/*;capture=camera" %> 
