@@ -4,10 +4,16 @@ class ConversationsController < ApplicationController
 	before_action :get_conversation, except: [:index, :empty_trash]
 
  	def index
-    	@conversations = @mailbox.inbox.paginate(page: params[:page], per_page: 10)
+    	@conversations = @mailbox.inbox.paginate(page: params[:page], per_page: 20)
  	end
 
 	def show
+	end
+	
+	def destroy
+		@conversation.move_to_trash(current_user)
+		flash[:success] = 'The conversation was moved to trash.'
+		redirect_to conversations_path
 	end
 	
 	private
@@ -18,12 +24,6 @@ class ConversationsController < ApplicationController
 
 	def get_conversation
 		@conversation ||= @mailbox.conversations.find(params[:id])
-	end
-
-	def destroy
-		@conversation.move_to_trash(current_user)
-		flash[:success] = 'The conversation was moved to trash.'
-		redirect_to conversations_path
 	end
 
 	def restore

@@ -8,10 +8,17 @@
       <% @conversation.receipts_for(current_user).each do |receipt| %>
         <% message = receipt.message %>
 
-        <%= message.sender.email %>
-          says at <%= message.created_at.strftime("%-d %B %Y, %H:%M:%S") %>
+        <span class="user_profile"> <%= message.sender.first_name %> <%= message.sender.last_name %> </span>
+          (<i><%= message.created_at.strftime("%-d %B %Y, %H:%M") %></i>)
         <%= message.body %>
       <% end %>
     </div>
   </div>
+</div>
+<div class="btn btn-default">
+  <% if !current_user.nil? %>
+    <%= link_to "Delete", { action: :destroy }, 
+    method: :delete, 
+    data: { confirm: "Are you sure?" } %> <br>
+  <% end %>
 </div>
