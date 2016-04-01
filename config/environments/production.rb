@@ -60,9 +60,9 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: 'http://giversapp-env.at2tevh5f9.us-west-2.elasticbeanstalk.com' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
