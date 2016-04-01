@@ -8,7 +8,7 @@
       <% @conversation.receipts_for(current_user).each do |receipt| %>
         <% message = receipt.message %>
 
-        <span class="user_profile"> <%= message.sender.first_name %> <%= message.sender.last_name %> </span>
+        <span class="user_profile"> <%= message.sender.name %> </span>
           (<i><%= message.created_at.strftime("%-d %B %Y, %H:%M") %></i>)
         <%= message.body %>
       <% end %>

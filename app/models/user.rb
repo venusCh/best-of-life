@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
 	def mailboxer_email(object)
 		return email
 	end
+
+	def name
+		return "#{first_name} #{last_name}"
+	end
 end

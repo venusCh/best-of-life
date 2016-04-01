@@ -22,13 +22,9 @@ Giver wishes this to be re-given in
 <% end %>
 </div>
 
-<% if !current_user.nil? %>
-	<% if current_user.id != @giving.user_id %>
-		Posted by <span class="user_profile"> 
-		<% @this_user = User.find(@giving.user_id) %>
-		<%= @this_user.first_name %> <%= @this_user.last_name %> </span>
-	<% end %>
-<% end %>
+Posted by <span class="user_profile"> 
+<%= User.find(@giving.user_id).name %>
+</span>
 </p>
 
 <% if !current_user.nil? %>
