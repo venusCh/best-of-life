@@ -1,8 +1,10 @@
 
-<h2> <%= @giving.name %> </h2>
+<h2><b> <%= @giving.name %></b> </h2>
 <!-- <%= image_tag("gift.jpg", :alt => "Giving") %> -->
 <%= image_tag @giving.image.url(:medium) %>
 <p> <%= @giving.desc %> <br>
+
+<!--
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
 		<%= link_to "Delete", { action: :destroy }, 
@@ -10,6 +12,12 @@
 		data: { confirm: "Are you sure?" } %> <br>
 	<% end %>
 <% end %>
+-->
+
+</p>
+Posted by <span class="user_profile"> 
+<%= User.find(@giving.user_id).name %>
+</span>
 </p>
 <div class="condition-toast">
 Giver wishes this to be re-given in 
@@ -21,11 +29,7 @@ Giver wishes this to be re-given in
 	<b> 6 months. </b> 
 <% end %>
 </div>
-
-Posted by <span class="user_profile"> 
-<%= User.find(@giving.user_id).name %>
-</span>
-</p>
+<br/>
 
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>

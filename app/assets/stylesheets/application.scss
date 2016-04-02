@@ -66,6 +66,10 @@ footer {
   margin-bottom: 			1em;
   margin-top: 				1em;
 }
+.message_timestamp {
+	font-size: 	 			0.8em;
+	font-style: 			italic;
+}
 .user_profile {
 	font-weight: 			bold;
 	font-size:  			1em;
@@ -270,14 +274,20 @@ h2, h3 {
 		display:			none;
 	}
 	.navbar-brand {
-		font-size: 			1.2em;
+		font-size: 			1.6em;
+		line-height:  		100px;
 	}
 	.navbar {
 		margin-bottom: 		40px;
-		min-height:  		80px;
+		min-height:  		160px;
+	}
+	.navbar-nav li a {
+		line-height: 	  	100px;
 	}
 	.container {
 		padding-top:  		10px;
+		width: 				90%;
+
 	}
 	.main-content {
 		width: 				90%;
@@ -300,5 +310,17 @@ h2, h3 {
 	.agreement {
 		min-height:			36px;
 		min-width:			36px;
+	}
+	.round-image-50 {
+	    background-color: 	white;
+	    border: 			1px solid #d9d9d9;
+	    border-radius: 		25px;
+	    -moz-border-radius: 25px;
+	    -webkit-border-radius: 25px;
+	    height: 			135px;
+	    width: 				135px;
+	    overflow: 			hidden;
+	    text-align: 		center;
+	    img 				{ width: 100% }
 	}
 }
