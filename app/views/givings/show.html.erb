@@ -4,7 +4,7 @@
 <%= image_tag @giving.image.url(:medium) %>
 <p> <%= @giving.desc %> <br>
 
-<!--
+<!-- // seems deleting is less important for now //
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
 		<%= link_to "Delete", { action: :destroy }, 
@@ -29,7 +29,6 @@ Giver wishes this to be re-given in
 	<b> 6 months. </b> 
 <% end %>
 </div>
-<br/>
 
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
@@ -71,12 +70,8 @@ Giver wishes this to be re-given in
 		</div>
 	<% end %>
 <% else %>
-	<div class="indent">
-		<%= form_for([@giving, @giving.asks.build]) do |f| %>
-			<p> <input type="checkbox"> I agree to re-give this as per Givers wishes! </p>
-			<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
-			<%= f.submit "Ask", class: "btn btn-primary" %>
-		<% end %>
+	<div>
+		<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
 	</div>
 <% end %>
 
