@@ -53,26 +53,10 @@ Giver wishes this to be re-given in
 			<% end %>
 		</div>
 	<% else %>
-		<div class="indent">
-			<% if !@already_asked %>
-				<%= form_for([@giving, @giving.asks.build]) do |f| %>
-					<p> <input type="checkbox" class="agreement"> I agree to re-give this as per Givers wishes! </p>
-					<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
-					<%= f.submit "Ask", class: "btn btn-primary" %>
-				<% end %>
-			<% else %>
-				<% if @ask_accepted %>
-					<span style="color:green"><i>Your request was accepted on <%= @timestamp.to_s(:short) %>! </i></span>
-				<% else %>
-					<i>Your request sent on <%= @timestamp.to_s(:short) %> </i>
-				<% end %>
-			<% end %>
+		<div>
+			<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
 		</div>
 	<% end %>
-<% else %>
-	<div>
-		<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
-	</div>
 <% end %>
 
 <br>
