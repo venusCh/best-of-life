@@ -17,7 +17,6 @@ class ConversationsController < ApplicationController
 	end
 	
 	private
-
 	def get_mailbox
 		@mailbox ||= current_user.mailbox
 	end
@@ -31,5 +30,4 @@ class ConversationsController < ApplicationController
 		flash[:success] = 'The conversation was restored.'
 		redirect_to conversations_path
 	end
-
 end

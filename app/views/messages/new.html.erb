@@ -22,5 +22,7 @@
     <%= text_field_tag 'recipients', nil, type: 'hidden', value: [params[:recipient]] %>
   </div>
 
+  <p> <input type="checkbox" class="agreement"> I agree to re-give this as per Givers wishes! </p>
+
   <%= submit_tag 'Send', class: 'btn btn-primary' %>
 <% end %>
