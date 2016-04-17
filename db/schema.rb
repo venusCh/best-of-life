@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415201533) do
+ActiveRecord::Schema.define(version: 20160417015359) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
@@ -97,8 +97,9 @@ ActiveRecord::Schema.define(version: 20160415201533) do
     t.integer  "from"
     t.integer  "to"
     t.integer  "giving_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "conversation"
   end
 
   add_index "transfers", ["giving_id"], name: "index_transfers_on_giving_id"

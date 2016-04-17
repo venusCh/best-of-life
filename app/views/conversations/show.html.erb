@@ -1,13 +1,18 @@
 <% page_header "Conversation" %>
 
 <div class="panel panel-default">
-  <div class="panel-heading"><%= Giving.find(@conversation.subject).name %></div>
+  <div class="panel-heading">
+    <%= Giving.find(@conversation.subject).name %>
+  </div>
 
   <div class="panel-body">
     <div class="messages">
       <% @conversation.receipts_for(current_user).each do |receipt| %>
         <% message = receipt.message %>
 
+        <div class="round-image-50">
+          <%= image_tag(User.find(message.sender.id).avatar.url(:thumb)) %>
+        </div>
         <span class="user_profile"> <%= message.sender.name %> </span> <br/>
         <%= message.body %> <br/>
         <span class="message_timestamp"><%= message.created_at.strftime("%-d %B %Y, %H:%M") %></span>
@@ -17,14 +22,37 @@
 </div>
 
 <% if current_user != @conversation.originator %>
-  <div>
-    <% @giving = Giving.find(@conversation.subject) %>
-    <%= form_for([@giving, @giving.transfers.build]) do |f| %>
-      <%= f.hidden_field :to, value: @conversation.originator %>
-      <%= f.hidden_field :conversation, value: @conversation.id %>
-      <%= f.submit "Accept", class: "btn btn-primary" %>
-    <% end %><br/>
+  <% @giving = Giving.find(@conversation.subject) %>
+  <% @given = false %>
+  <% @recipient = -1 %>
+
+  <% if !@giving.status.nil? && @giving.status == 1 %>
+    <% @given = true %>
+  <% end %>
+
+  <% @giving.transfers.each do |transfer| %>
+    <% if transfer.conversation == @conversation.id %>
+      <% @recipient = transfer.to %>
+    <% end %>
+  <% end %>
+
+  <% if !@given %>
+    <div>
+      <%= form_for([@giving, @giving.transfers.build]) do |f| %>
+        <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
+        <%= f.hidden_field :conversation, :value => @conversation.id %>
+        <%= f.submit "Accept", class: "btn btn-primary" %>
+      <% end %><br/>
+    </div>
+  <% else %>
+  <div class="condition-toast">
+    <% if @recipient == @conversation.originator.id %>
+      You already accepted this request! Please arrange for an exchage of this giving.
+    <% else %>
+      You already gave this book to another user.
+    <% end %>
   </div>
+  <% end %>
 <% end %>
 
 <div>
@@ -34,6 +62,5 @@
     data: { confirm: "Are you sure?" } %> <br>
   <% end %>
 </div> 
-
 
 <% @conversation.mark_as_read(current_user) %>

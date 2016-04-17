@@ -4,7 +4,6 @@
 <%= image_tag @giving.image.url(:medium) %>
 <p> <%= @giving.desc %> <br>
 
-<!-- // seems deleting is less important for now //
 <% if !current_user.nil? %>
 	<% if current_user.id == @giving.user_id %>
 		<%= link_to "Delete", { action: :destroy }, 
@@ -12,51 +11,41 @@
 		data: { confirm: "Are you sure?" } %> <br>
 	<% end %>
 <% end %>
--->
+
 
 </p>
-Posted by <span class="user_profile"> 
-<%= User.find(@giving.user_id).name %>
+<span class="user_profile"> 
+	<div class="round-image-50">
+		<%= image_tag(User.find(@giving.user_id).avatar.url(:thumb)) %>
+	</div>
+	<%= User.find(@giving.user_id).name %>
+	<% @giving.transfers.each do |transfer| %>
+		<div class="round-image-50">
+			<%= image_tag(User.find(transfer.to).avatar.url(:thumb)) %>
+		</div>
+		<%= User.find(transfer.to).name %>
+	<% end %>
 </span>
 </p>
-<div class="condition-toast">
-Giver wishes this to be re-given in 
-<% if @giving.wish == 10 %>
-	<b> a month. </b> 
-<% elsif @giving.wish == 20 %>
-	<b> 3 months. </b> 
-<% elsif @giving.wish == 30 %>
-	<b> 6 months. </b> 
-<% end %>
-</div>
 
-<% if !current_user.nil? %>
-	<% if current_user.id == @giving.user_id %>
-		<p>
-			<% if !@giving.asks.nil? %>
-				<% if @giving.asks.count == 1 %>
-					<span class="step"><%= @giving.asks.count %></span><i> re-giver asked for this. </i>
-				<% elsif @giving.asks.count > 1 %>
-					<span class="step"><%= @giving.asks.count %></span><i> re-givers asked for this. </i>
-				<% end %>
-			<% end %>
-		</p>
-		<div class="indent">
-			<% @giving.asks.each do |ask| %>
-				<p><b><%= User.find(ask.user_id).email %> </b><br>
-				<%= ask.comment %> <br>
-				<% if ask.status == 1 %>
-					<span style="color:green"><i>You accepted this request! </i></span>
-				<% else %>
-					<%= link_to "Accept", edit_ask_path(id: ask.id, giving_id: @giving.id) %></p>
-				<% end %>
-			<% end %>
-		</div>
-	<% else %>
-		<div>
-			<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
-		</div>
-	<% end %>
+<% if !@giving.status.nil? && @giving.status == 1 %>
+	<div class="condition-toast">
+		Sorry this is currently in-use till end of this month. 
+	</div>
+<% else %>
+	<div class="condition-toast">
+		Giver wishes this to be re-given in 
+		<% if @giving.wish == 10 %>
+			<b> a month. </b> 
+		<% elsif @giving.wish == 20 %>
+			<b> 3 months. </b> 
+		<% elsif @giving.wish == 30 %>
+			<b> 6 months. </b> 
+		<% end %>
+	</div>
+	<div>
+		<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
+	</div>
 <% end %>
 
 <br>

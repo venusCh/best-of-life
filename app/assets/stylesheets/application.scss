@@ -24,30 +24,6 @@ html, body {
 	height:  				100%;
 }
 
-.notification-container {
-    position: relative;
-    width: 18px;
-    height: 18px;
-    top: 15px;
-    left: 15px;
-    
-    i {
-        color: #fff;
-    }
-}
-
-.notification-counter {   
-    position: absolute;
-    top: -2px;
-    left: 12px;
-    
-    background-color: rgba(212, 19, 13, 1);
-    color: #fff;
-    border-radius: 3px;
-    padding: 1px 3px;
-    font: 1em Verdana;
-}
-
 .page {
 	position: 				relative;
 	height:  				100%;
@@ -133,6 +109,10 @@ footer {
 	font-weight: 			300;
 	font-style: 			italic;
 	margin-bottom: 			0.4em;
+}
+.checkbox-text {
+	font-weight:  			normal;
+	font-color: 			#4595EA;
 }
 
 .fade {

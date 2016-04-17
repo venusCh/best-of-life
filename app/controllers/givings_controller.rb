@@ -17,6 +17,7 @@ class GivingsController < ApplicationController
 
   def create 
     @giving = current_user.givings.build(giving_params)
+    @giving.status = 0 # Available
     @giving.save
 
     redirect_to @giving, notice: "Successfully posted your giving!"
