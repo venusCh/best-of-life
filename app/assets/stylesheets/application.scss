@@ -226,9 +226,9 @@ h2, h3 {
 	margin-bottom: 	 		20px;
 }
 /**
- * Styling for mobile devices
+ * Styling for mobile devices (iPhone)
  */
-@media screen and (max-width: 1020px) { 
+@media only screen and (max-device-width: 480px) { 
 	body {
 		font-size: 			4.2em;
 	}
@@ -327,5 +327,8 @@ h2, h3 {
 	    overflow: 			hidden;
 	    text-align: 		center;
 	    img 				{ width: 100% }
+	}
+	.form-control {
+		font-size: 				0.9em;
 	}
 }
