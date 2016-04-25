@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 		where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
 			user.provider = auth.provider
 			user.uid = auth.uid
+			logger.debug "\n\n==================================="
+			logger.debug auth.info
 			user.email = auth.info.email
 			user.first_name = auth.info.first_name
 			user.last_name = auth.info.last_name

@@ -43,9 +43,11 @@
 			<b> 6 months. </b> 
 		<% end %>
 	</div>
-	<div>
-		<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
-	</div>
+	<% if current_user.nil? || current_user.id != @giving.user_id %>
+		<div>
+			<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
+		</div>
+	<% end %>
 <% end %>
 
 <br>
