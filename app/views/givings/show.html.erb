@@ -18,8 +18,11 @@
 	<div class="round-image-50">
 		<%= image_tag(User.find(@giving.user_id).avatar.url(:thumb)) %>
 	</div>
-	<%= User.find(@giving.user_id).name %> <br>
-	<span class="user-location"><%= User.find(@giving.user_id).location.to_region %></span>
+	<%= User.find(@giving.user_id).name %>
+	<% @giver_location = User.find(@giving.user_id).location %>
+	<% if !@giver_location.nil? && @giver_location != "" %>
+		<br><span class="user-location"><%= @giver_location.to_region %></span>
+	<% end %>
 	<% @giving.transfers.each do |transfer| %>
 		<br> &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-down arrow" aria-hidden="true"></span>
 		<div class="round-image-50">

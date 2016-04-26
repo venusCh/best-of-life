@@ -43,7 +43,10 @@ $(function() {
 
   <div class="form-group">
     <%= f.text_field :location, placeholder: "Postal Code" %>
-    <%= f.object.location.to_region %>
+    <% @location = f.object.location %>
+    <% if !@location.nil? && @location != "" %>
+      <%= @location.to_region %>
+    <% end %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
