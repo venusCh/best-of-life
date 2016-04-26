@@ -18,18 +18,25 @@
 	<div class="round-image-50">
 		<%= image_tag(User.find(@giving.user_id).avatar.url(:thumb)) %>
 	</div>
-	<%= User.find(@giving.user_id).name %>
+	<%= User.find(@giving.user_id).name %> <br>
+	<span class="user-location"><%= User.find(@giving.user_id).location.to_region %></span>
 	<% @giving.transfers.each do |transfer| %>
+		<br> &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-down arrow" aria-hidden="true"></span>
 		<div class="round-image-50">
 			<%= image_tag(User.find(transfer.to).avatar.url(:thumb)) %>
 		</div>
 		<%= User.find(transfer.to).name %>
+		<% @location = User.find(transfer.to).location %>
+		<% if !@location.nil? %>
+			<br><span class="user-location"><%= User.find(transfer.to).location.to_region %></span>
+		<% end %>
 	<% end %>
 </span>
 </p>
 
 <% if !@giving.status.nil? && @giving.status == 1 %>
 	<div class="condition-toast">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 		Sorry this is currently in-use till end of this month. 
 	</div>
 <% else %>

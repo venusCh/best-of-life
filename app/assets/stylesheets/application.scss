@@ -76,6 +76,11 @@ footer {
 	font-size:  			1em;
 	color:  				#2A9096;
 }
+.glyphicon.glyphicon-arrow-down.arrow {
+	color: 					red;
+	font-size: 		 		1.2em;
+}
+
 /**
  * Quote page styling 
  */
@@ -112,7 +117,12 @@ footer {
 }
 .checkbox-text {
 	font-weight:  			normal;
-	font-color: 			#4595EA;
+	color: 					#4595EA;
+}
+.user-location {
+	font-weight:  			normal;
+	color: 					#808080;
+	font-style: 			italic;
 }
 
 .fade {

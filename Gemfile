@@ -19,6 +19,7 @@ gem 'bootstrap-will_paginate'
 gem 'will_paginate'
 gem 'aws-sdk-v1'
 gem 'omniauth-facebook'
+gem 'area'
 
 group :development, :test do
   gem 'sqlite3'  
