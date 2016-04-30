@@ -8,7 +8,15 @@ Rails.application.routes.draw do
   resources :asks
   resources :transfers
   
-  resources :conversations, only: [:index, :show, :destroy]
+  resources :conversations do
+    member do
+      post :reply
+      post :index
+      post :show
+      post :destroy
+    end
+  end
+
   resources :messages, only: [:new, :create]
 
   get 'givings/index'

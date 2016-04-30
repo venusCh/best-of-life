@@ -1,6 +1,5 @@
 
 <h2><b> <%= @giving.name %></b> </h2>
-<!-- <%= image_tag("gift.jpg", :alt => "Giving") %> -->
 <%= image_tag @giving.image.url(:medium) %>
 <p> <%= @giving.desc %> <br>
 
@@ -35,7 +34,7 @@
 		<% end %>
 	<% end %>
 </span>
-</p>
+</p>  
 
 <% if !@giving.status.nil? && @giving.status == 1 %>
 	<div class="condition-toast">

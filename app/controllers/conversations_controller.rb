@@ -9,7 +9,12 @@ class ConversationsController < ApplicationController
 
 	def show
 	end
-	
+
+	def reply
+		current_user.reply_to_conversation(get_conversation, params[:message][:body])
+		redirect_to conversation_path(get_conversation)
+	end
+
 	def destroy
 		@conversation.move_to_trash(current_user)
 		flash[:success] = 'The conversation was moved to trash.'

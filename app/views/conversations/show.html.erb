@@ -4,7 +4,6 @@
   <div class="panel-heading">
     <%= Giving.find(@conversation.subject).name %>
   </div>
-
   <div class="panel-body">
     <div class="messages">
       <% @conversation.receipts_for(current_user).each do |receipt| %>
@@ -54,6 +53,12 @@
   </div>
   <% end %>
 <% end %>
+
+<%= form_for :message, url: reply_conversation_path do |f| %>
+  <%= f.text_area 'body', cols: "38", rows: "3" %><br>
+  <%= f.submit "Reply", class: 'btn btn-primary' %>
+<% end %>
+<br>
 
 <div>
   <% if !current_user.nil? %>
