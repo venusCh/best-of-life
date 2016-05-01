@@ -6,8 +6,8 @@
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true
 	= csrf_meta_tags
 %body
-	.page
-		%nav.navbar.navbar-defaul
+	.full-content
+		%nav.navbar.navbar-default
 			.container
 				.navbar-brand= link_to "GiversApp", givings_path
 
@@ -24,12 +24,12 @@
 						%li.desktop= link_to "Sign up", new_user_registration_path
 						%li= link_to "Sign In", new_user_session_path
 						%li.desktop= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
-		
+	
 		.main-content
 			- flash.each do |name, msg|
 				= content_tag :div, msg, class: "alert alert-info"
 			
 			= yield
 
-		%footer
-			© 2016 GiversApp.org
+	%footer.site-footer
+		© 2016 GiversApp.org

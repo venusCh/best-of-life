@@ -2,12 +2,22 @@
 	<div class="floating-box give">
 		<p id="give-section"> <%= link_to "Give", new_giving_path, class: "give-action" %> </p>
 	</div>
-	<div class="verticalLine"> </div>
-	<div class="floating-box take">
-		<h3>All The Givings</h3><br>
-
+	<div class="givings-header"> 
+		<div class="givings-header left"><h3>Givings</h3> </div>
+		<div class="givings-header right">
+			<input class="givings-header-search" type="text_field" placeholder="New York" size="9"/>
+		</div>
+	</div>
+	<div class="floating-box give">
 		<% @givings.each do |giving| %>
-			<h4> <%= link_to giving.name, giving %> </h4>
+			<div class="giving-preview"> 
+				<div class="giving-preview-image">
+					<%= link_to(image_tag(giving.image.url(:thumb)), giving) %>
+				</div>
+				<div class="giving-preview-title">
+					<%= link_to giving.name, giving %> 
+				</div>
+			</div>
 		<% end %>
 	</div>
 </section>
