@@ -2,7 +2,7 @@ class GivingsController < ApplicationController
   before_action :authenticate_user!, only: [:new,:created,:destroy]
 
   def index
-    @givings = Giving.all
+    @givings = Giving.paginate(:page => params[:page], :per_page => 20)
   end
 
   def new

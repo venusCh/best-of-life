@@ -23,6 +23,9 @@
 html, body {
 	height:  				100%;
 }
+body {
+	/* background-image: image-url('background.png'); */
+}
 
 .navbar-default {
 	background-color: 	#252525;
@@ -281,6 +284,14 @@ h2, h3 {
 	font-size:  			1.4em;
 	margin-bottom: 	 		20px;
 }
+.special-background {
+ 	background-image: url('../../images/background.png') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+ }
+
 /**
  * Styling for mobile devices (iPhone)
  */
@@ -364,7 +375,7 @@ h2, h3 {
 		height:  			150px;
 		padding-top:  		40px;
 	}
-	
+
 	.giving-preview {
 		min-height:			450px;
 		height:  			auto;
