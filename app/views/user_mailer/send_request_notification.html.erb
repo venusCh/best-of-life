@@ -4,14 +4,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h3>Hi <%= @user.first_name %>!</h3>
+    <p>Hi <%= @user.first_name %>,</p>
     <p>
-      <%= @requester.name %> is requesting for <%= @object.name %>.
-      <p style="color:#205E65; margin-left: 10px;">
+      <b><%= @requester.name %></b> sent a request for <i><%= @object.name %>.</i>
+      <p style="color:#205E65; margin-left: 20px;">
         "<%= @msg %>"
       </p>
-      Please go to <%= @url + "/messages" %> for accepting this request.
-    </p>
-    <p>Thanks for usign GiversApp and have a great day!</p>
+      Please go to <%= @url + "/messages" %> to accept this request.
+    </p><br>
+    <p style="color:#636363">Thanks for using GiversApp and have a great day!</p>
   </body>
 </html>
