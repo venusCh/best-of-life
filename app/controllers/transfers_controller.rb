@@ -14,10 +14,10 @@ class TransfersController < ApplicationController
 		@giving.status = 1 # In-use
 		@giving.save
 
-		# TODO: need to figure out how to do the following
-		# @convo = Conversation.find(params[:conversation])
+		@recipient = User.find(@transfer.to)
+	    UserMailer.send_accept_notification(@recipient, current_user, @giving).deliver_now
 
-		redirect_to conversations_path, notice: "You accepted the request for this book! Please arrange the exchange. "
+		redirect_to :back
 	end
 
 	private
