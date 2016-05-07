@@ -5,7 +5,8 @@ module ApplicationHelper
 
 	def self.send_notifications
 		puts "\ninside ApplicationHelper::send_notifications\n"
-		users = User.all.each do |user|
+		puts User.all
+		User.all.each do |user|
 			send_notification_summary(user)
 		end
 	end
