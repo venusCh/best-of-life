@@ -1,14 +1,11 @@
 module ApplicationHelper
-	#
-	# Summary emails that get sent end of day at certain time
-	#
 
+	# Summary emails that get sent end of day at certain time
 	def self.send_notifications
-		Rails.application.eager_load!
 
 		puts "\ninside ApplicationHelper::send_notifications\n"
 		puts User.all
-		
+
 		User.all.each do |user|
 			puts "\ninside ApplicationHelper::send_notification_summary\n"		
 			new_conversations_today = 0
