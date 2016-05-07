@@ -1,0 +1,18 @@
+Hi <%= @user.first_name %>,
+
+You have received <%= @request_count %> <%= "request".pluralize(@request_count) %> in the past 24 hours for 
+<% count = 0 %>
+<% @object_names.each do |obj| %> 
+  <%= obj %> 
+  <% count += 1 %>
+  <% if count == @object_names.count - 1 %>
+    and 
+  <% elsif count < @object_names.count - 1 %>
+    ,
+  <% else %>
+    .
+  <% end %>
+<% end %>
+Please go to <%= @url + "/messages" %> to accept pending requests.
+
+Thanks for usign GiversApp and have a great day!

@@ -20,6 +20,7 @@ gem 'will_paginate'
 gem 'aws-sdk-v1'
 gem 'omniauth-facebook'
 gem 'area'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'sqlite3'  

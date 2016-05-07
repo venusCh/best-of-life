@@ -17,4 +17,13 @@ class UserMailer < ApplicationMailer
 		@url = 'http://giversapp.org'
 		mail(to: @user.email, subject: "Your request accepted!")
 	end
+
+	def send_request_summary_notification(user, request_count, object_names) 
+		@user = user
+		@request_count = request_count
+		@object_names = object_names
+		@url = 'http://giversapp.org'
+		mail(to: @user.email, subject: "You have #{request_count} new request".pluralize(request_count))
+	end
+
 end

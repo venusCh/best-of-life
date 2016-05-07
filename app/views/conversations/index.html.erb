@@ -6,7 +6,9 @@
 	  <%= render partial: 'conversations/conversation', collection: @conversations %>
 	</ul>
 <% else %>
-	You have no messages. 
+	<div class="condition-toast">
+		You have no messages. 
+	</div>
 <% end %>
 
 <%= will_paginate %>
