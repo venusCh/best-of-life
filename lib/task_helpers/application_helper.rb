@@ -4,12 +4,14 @@ module ApplicationHelper
 	#
 
 	def self.send_notifications
+		puts "\ninside ApplicationHelper::send_notifications\n"
 		users = User.all.each do |user|
 			send_notification_summary(user)
 		end
 	end
 
 	def self.send_notification_summary(user)
+		puts "\ninside ApplicationHelper::send_notification_summary\n"		
 		new_conversations_today = 0
 		requested_objects = []
 
@@ -22,6 +24,7 @@ module ApplicationHelper
 		
 		if new_conversations_today > 0
 			object_names = requested_objects.uniq.collect! {|obj| Giving.find(obj).name}
+			puts "\nSending the email to user...\n"
 			UserMailer.send_request_summary_notification(user, new_conversations_today, object_names).deliver_now
 		end
 	end
