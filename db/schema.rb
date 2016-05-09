@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428222736) do
+ActiveRecord::Schema.define(version: 20160509015906) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160428222736) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "current_location"
+    t.integer  "current_holder"
   end
 
   add_index "givings", ["user_id"], name: "index_givings_on_user_id"

@@ -4,7 +4,8 @@
 <p> <%= @giving.desc %> <br>
 
 <% if !current_user.nil? %>
-	<% if current_user.id == @giving.user_id %>
+	<% if current_user.id == @giving.user_id &&
+		@giving.transfers.count == 0 %>
 		<%= link_to "Delete", { action: :destroy }, 
 		method: :delete, 
 		data: { confirm: "Are you sure?" } %> <br>
@@ -37,13 +38,17 @@
 </p>  
 
 <% if !@giving.status.nil? && @giving.status == 1 %>
-	<div class="condition-toast">
-		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-		Sorry this is currently in-use till end of this month. 
-	</div>
+	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
+		<%= link_to "Re-Give", regive_giving_path(@giving.id), class: "btn btn-primary" %><br>
+	<% else %>
+		<div class="condition-toast">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			Currently with <%= User.find(@giving.current_holder).name %> till end of this month. 
+		</div>
+	<% end %>
 <% else %>
 	<div class="condition-toast">
-		Giver wishes this to be re-given in 
+		<%= User.find(@giving.current_holder).name %> wishes this to be re-given in 
 		<% if @giving.wish == 10 %>
 			<b> a month. </b> 
 		<% elsif @giving.wish == 20 %>
@@ -52,9 +57,9 @@
 			<b> 6 months. </b> 
 		<% end %>
 	</div>
-	<% if current_user.nil? || current_user.id != @giving.user_id %>
+	<% if current_user.nil? || current_user.id != @giving.current_holder %>
 		<div>
-			<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.user_id), class: "btn btn-primary"%></p>
+			<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.current_holder), class: "btn btn-primary"%></p>
 		</div>
 	<% end %>
 <% end %>

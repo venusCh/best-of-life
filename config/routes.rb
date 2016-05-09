@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", registrations: 'registrations'}
   resources :givings do
+    member do
+      get :regive
+    end
     resources :asks
     resources :transfers
   end

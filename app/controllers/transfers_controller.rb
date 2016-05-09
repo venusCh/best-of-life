@@ -16,6 +16,7 @@ class TransfersController < ApplicationController
 
 			@transfer.save
 
+			@giving.current_holder = @transfer.to
 			@giving.status = 1 # In-use
 			@giving.save
 

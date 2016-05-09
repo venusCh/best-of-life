@@ -1,5 +1,5 @@
 class GivingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new,:created,:destroy]
+  before_action :authenticate_user!, only: [:new,:create,:destroy,:regive]
 
   def index
     @givings = Giving.paginate(:page => params[:page], :per_page => 20)
@@ -11,12 +11,30 @@ class GivingsController < ApplicationController
 
   def destroy
     @giving = current_user.givings.find(params[:id])
-    @giving.destroy
-    redirect_to givings_path
+
+    if (current_user.id != @giving.user_id)
+        return
+    end
+    
+    if (@giving.transfers.count == 0)
+      @giving.destroy
+      redirect_to givings_path
+    else
+      redirect_to :back, notice: "Sorry, those already given can't be deleted. "
+    end
+  end
+
+  def regive
+    @giving = Giving.find(params[:id])
+    @giving.status = 0
+    @giving.save
+
+    redirect_to :back, notice: "Successfully re-given! You will now start recieving requests for this."
   end
 
   def create 
     @giving = current_user.givings.build(giving_params)
+    @giving.current_holder = current_user.id
     @giving.status = 0 # Available
     @giving.save
 
