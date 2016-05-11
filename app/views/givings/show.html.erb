@@ -16,22 +16,22 @@
 </p>
 <span class="user_profile"> 
 	<div class="round-image-50">
-		<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(User.find(@giving.user_id).avatar.url(:thumb)) %></a>
+		<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(User.find_by_id(@giving.user_id).avatar.url(:thumb)) %></a>
 	</div>
-	<%= User.find(@giving.user_id).name %>
-	<% @giver_location = User.find(@giving.user_id).location %>
+	<%= User.find_by_id(@giving.user_id).name %>
+	<% @giver_location = User.find_by_id(@giving.user_id).location %>
 	<% if !@giver_location.nil? && @giver_location != "" %>
 		<br><span class="user-location"><%= @giver_location.to_region %></span>
 	<% end %>
 	<% @giving.transfers.each do |transfer| %>
 		<br> &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-down arrow" aria-hidden="true"></span>
 		<div class="round-image-50">
-			<a href="/profiles/<%= transfer.to%>"><%= image_tag(User.find(transfer.to).avatar.url(:thumb)) %></a>
+			<a href="/profiles/<%= transfer.to%>"><%= image_tag(User.find_by_id(transfer.to).avatar.url(:thumb)) %></a>
 		</div>
-		<%= User.find(transfer.to).name %>
-		<% @location = User.find(transfer.to).location %>
+		<%= User.find_by_id(transfer.to).name %>
+		<% @location = User.find_by_id(transfer.to).location %>
 		<% if !@location.nil? %>
-			<br><span class="user-location"><%= User.find(transfer.to).location.to_region %></span>
+			<br><span class="user-location"><%= User.find_by_id(transfer.to).location.to_region %></span>
 		<% end %>
 	<% end %>
 </span>
@@ -43,12 +43,12 @@
 	<% else %>
 		<div class="condition-toast">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			Currently with <%= User.find(@giving.current_holder).name %> till end of this month. 
+			Currently with <%= User.find_by_id(@giving.current_holder).name %> till end of this month. 
 		</div>
 	<% end %>
 <% else %>
 	<div class="condition-toast">
-		<%= User.find(@giving.current_holder).name %> wishes this to be re-given in 
+		<%= User.find_by_id(@giving.current_holder).name %> wishes this to be re-given in 
 		<% if @giving.wish == 10 %>
 			<b> a month. </b> 
 		<% elsif @giving.wish == 20 %>

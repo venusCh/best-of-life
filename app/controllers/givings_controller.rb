@@ -10,7 +10,7 @@ class GivingsController < ApplicationController
   end
 
   def destroy
-    @giving = current_user.givings.find(params[:id])
+    @giving = current_user.givings.find_by_id(params[:id])
 
     if (current_user.id != @giving.user_id)
         return
@@ -25,7 +25,7 @@ class GivingsController < ApplicationController
   end
 
   def regive
-    @giving = Giving.find(params[:id])
+    @giving = Giving.find_by_id(params[:id])
     @giving.status = 0
     @giving.save
 
@@ -42,7 +42,7 @@ class GivingsController < ApplicationController
   end
 
   def show
-    @giving = Giving.find(params[:id])
+    @giving = Giving.find_by_id(params[:id])
 
     @already_asked = false
     @ask_accepted = false

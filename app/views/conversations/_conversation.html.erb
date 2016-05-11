@@ -1,14 +1,15 @@
-<% @giving = Giving.find(conversation.subject) %>
-<% if conversation.is_unread?(current_user) %>
-	<% if !@giving.nil? %>
-		<li class="list-group-item clearfix">
-  			<b><%= link_to Giving.find(conversation.subject).name, conversation_path(conversation) %> </b>
-		</li>
-  	<% end %>
+<% @giving = Giving.find_by_id(conversation.subject) %>
+<% if @giving.nil? %>
+	<% @giving = "** This giving seems to have been deleted **" %>
 <% else %>
-	<% if !@giving.nil? %>
-		<li class="list-group-item disabled">
-	  		<%= link_to Giving.find(conversation.subject).name, conversation_path(conversation) %>
-		</li>
-	<% end %>
+	<% @giving = @giving.name %>
+<% end %>
+<% if conversation.is_unread?(current_user) %>
+	<li class="list-group-item clearfix">
+			<b><%= link_to @giving, conversation_path(conversation) %> </b>
+	</li>
+<% else %>
+	<li class="list-group-item disabled">
+  		<%= link_to @giving, conversation_path(conversation) %>
+	</li>
 <% end %>

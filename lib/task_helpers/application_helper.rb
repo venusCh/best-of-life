@@ -19,7 +19,7 @@ module ApplicationHelper
 			end
 			
 			if new_conversations_today > 0
-				object_names = requested_objects.uniq.collect! {|obj| Giving.find(obj).name}
+				object_names = requested_objects.uniq.collect! {|obj| Giving.find_by_id(obj).name}
 				puts "\nSending the email to user...\n"
 				UserMailer.send_request_summary_notification(user, new_conversations_today, object_names).deliver_now
 			end

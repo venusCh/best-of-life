@@ -1,8 +1,15 @@
 <% page_header "Conversation" %>
 
+<% @subject = Giving.find_by_id(@conversation.subject) %>
+<% if @subject.nil? %>
+  <% @subject = "** This giving seems to have been deleted **" %>
+<% else %>
+  <% @subject = @subject.name %>
+<% end %>
+
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= Giving.find(@conversation.subject).name %>
+    <%= @subject %>
   </div>
   <div class="panel-body">
     <div class="messages">
@@ -11,7 +18,7 @@
 
         <div class="round-image-50">
           <a href="/profiles/<%= message.sender.id%>">
-            <%= image_tag(User.find(message.sender.id).avatar.url(:thumb)) %>
+            <%= image_tag(User.find_by_id(message.sender.id).avatar.url(:thumb)) %>
           </a>
         </div>
         <span class="user_profile"> <%= message.sender.name %> </span> <br/>
@@ -23,42 +30,44 @@
 </div>
 
 <% if current_user != @conversation.originator %>
-  <% @giving = Giving.find(@conversation.subject) %>
-  <% @given = false %>
-  <% @recipient = -1 %>
+  <% @giving = Giving.find_by_id(@conversation.subject) %>
+  <% if !@giving.nil? %>
+    <% @given = false %>
+    <% @recipient = -1 %>
 
-  <% if !@giving.status.nil? && @giving.status == 1 %>
-    <% @given = true %>
-  <% end %>
-
-  <% @giving.transfers.each do |transfer| %>
-    <% if transfer.conversation == @conversation.id %>
-      <% @recipient = transfer.to %>
+    <% if !@giving.status.nil? && @giving.status == 1 %>
+      <% @given = true %>
     <% end %>
-  <% end %>
 
-  <% if !@given %>
-    <div>
-      <%= form_for([@giving, @giving.transfers.build]) do |f| %>
-        <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
-        <%= f.hidden_field :conversation, :value => @conversation.id %>
-        <%= f.submit "Accept", class: "btn btn-primary" %>
-      <% end %><br/>
-    </div>
-  <% else %>
-  <div class="condition-toast">
-    <% if @recipient == @conversation.originator.id %>
-      You accepted this request! Please arrange for an exchage of this giving.
+    <% @giving.transfers.each do |transfer| %>
+      <% if transfer.conversation == @conversation.id %>
+        <% @recipient = transfer.to %>
+      <% end %>
+    <% end %>
+
+    <% if !@given %>
+      <div>
+        <%= form_for([@giving, @giving.transfers.build]) do |f| %>
+          <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
+          <%= f.hidden_field :conversation, :value => @conversation.id %>
+          <%= f.submit "Accept", class: "btn btn-primary" %>
+        <% end %><br/>
+      </div>
     <% else %>
-      You already gave this book to another user.
+      <div class="condition-toast">
+        <% if @recipient == @conversation.originator.id %>
+          You accepted this request! Please arrange for an exchage of this giving.
+        <% else %>
+          You already gave this book to another user.
+        <% end %>
+      </div>
     <% end %>
-  </div>
-  <% end %>
-<% end %>
 
-<%= form_for :message, url: reply_conversation_path do |f| %>
-  <%= f.text_area 'body', cols: "38", rows: "3" %><br>
-  <%= f.submit "Reply", class: 'btn btn-primary' %>
+    <%= form_for :message, url: reply_conversation_path do |f| %>
+      <%= f.text_area 'body', cols: "38", rows: "3" %><br>
+      <%= f.submit "Reply", class: 'btn btn-primary' %>
+    <% end %>
+  <% end %>
 <% end %>
 <br>
 
