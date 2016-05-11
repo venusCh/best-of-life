@@ -14,11 +14,15 @@
 				- if user_signed_in?
 					%ul.nav.navbar-nav.navbar-right
 						%li.desktop= link_to "Give", new_giving_path
-						%li.desktop= link_to "Edit Profile", edit_user_registration_path
-						%li= link_to "Messages(#{current_user.unread_inbox_count})", conversations_path
+						%li
+							%div 
+								.side-by-side= link_to "Messages", conversations_path
+								- if current_user.unread_inbox_count > 0
+									.badge.message #{current_user.unread_inbox_count}
 						%li.desktop= link_to "Sign Out", destroy_user_session_path, method: :delete
 
-						%li.round-image-50= image_tag(current_user.avatar.url(:thumb))
+						%li
+							.round-image-50= link_to image_tag(current_user.avatar.url(:thumb)), edit_user_registration_path
 				- else
 					%ul.nav.navbar-nav.navbar-right
 						%li.desktop= link_to "Sign up", new_user_registration_path

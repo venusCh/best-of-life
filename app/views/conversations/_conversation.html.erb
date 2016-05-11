@@ -1,9 +1,14 @@
+<% @giving = Giving.find(conversation.subject) %>
 <% if conversation.is_unread?(current_user) %>
-	<li class="list-group-item clearfix">
-  		<b><%= link_to Giving.find(conversation.subject).name, conversation_path(conversation) %> </b>
-	</li>
+	<% if !@giving.nil? %>
+		<li class="list-group-item clearfix">
+  			<b><%= link_to Giving.find(conversation.subject).name, conversation_path(conversation) %> </b>
+		</li>
+  	<% end %>
 <% else %>
-	<li class="list-group-item disabled">
-  		<%= link_to Giving.find(conversation.subject).name, conversation_path(conversation) %>
-	</li>
+	<% if !@giving.nil? %>
+		<li class="list-group-item disabled">
+	  		<%= link_to Giving.find(conversation.subject).name, conversation_path(conversation) %>
+		</li>
+	<% end %>
 <% end %>

@@ -28,11 +28,11 @@ html, body {
 	background-color: 	#252525;
 	border-color:  		#cacaca;
 }
-.navbar-default .navbar-nav > li > a {
+.navbar-default .navbar-nav > li a {
 	transition: 			all 0.3s;
     color: 					#bababa;
 }
-.navbar-default .navbar-nav > li > a:hover{
+.navbar-default .navbar-nav > li a:hover{
     color: 					#fafafa;
 }
 .navbar-brand > a {
@@ -138,11 +138,6 @@ html, body {
 	font-weight:  			normal;
 	color: 					#4595EA;
 }
-.user-location {
-	font-weight:  			normal;
-	color: 					#808080;
-	font-style: 			italic;
-}
 
 .fade {
 	background-color: 		#FAFAFA;
@@ -153,7 +148,22 @@ html, body {
 a:hover {
 	text-decoration: 		none;
 }
-
+.side-by-side {
+	display: 				inline-block;
+	padding: 				15px 5px;
+	padding-right: 			0px;
+}
+.badge.message {
+	background-color:  		red;
+	padding: 				2px 4px;
+	border-radius: 			3px;
+	vertical-align:  		top;
+	margin-top: 			12px;
+}
+.badge.givings {
+	background-color:  		#8C68D6;
+	font-size:  			1.0em;
+}
 /**
  * Landing page boxes
  */
@@ -205,6 +215,7 @@ a:hover {
 	border-radius:  		5px;
 	box-shadow: 			5px 5px 15px #999999;
 	vertical-align: 		top;
+	text-align:  			center;
 }
 .giving-preview a {
 	color: 					#494949;
@@ -282,6 +293,26 @@ h2, h3 {
 	margin-bottom: 	 		20px;
 }
 
+.profile-name {
+	font-size:  			1.8em;
+	font-weight:   			bold;
+	color: 					#3A6682;
+	margin-top:  			3px;
+	margin-bottom:  		-3px;
+}
+.profile-pic {
+	border-radius: 			4%;
+}
+.profile-timestamp {
+	color:  				#3C3E82;
+	margin-bottom:  		12px;
+	margin-top:  			8px;
+}
+.user-location {
+	font-weight:  			normal;
+	color: 					#808080;
+	font-style: 			italic;
+}
 /**
  * Styling for mobile devices (iPhone)
  */

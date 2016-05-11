@@ -1,3 +1,20 @@
+<script>
+$(function() {
+  $('#agree-and-send').attr("disabled", "disabled");
+
+  $('#gentleman-agreement').change(function () {
+    if ($('#gentleman-agreement')[0].checked == true) {
+      console.log("just checked!");
+      $('#agree-and-send').removeAttr("disabled");      
+    }
+    else {
+      console.log("not checked");
+      $('#agree-and-send').attr("disabled", "disabled");
+    }
+  });
+});
+</script>
+
 <% page_header "Start Conversation" %>
   
   <b><i> <%= Giving.find(params[:subject]).name %> </i></b><br>
@@ -5,7 +22,9 @@
   <br>
   <div style="text-align: right; float: right">
     <div class="round-image-50">
-      <%= image_tag(User.find(params[:recipient]).avatar.url(:thumb)) %>
+      <a href="/profiles/<%= params[:recipient]%>">
+        <%= image_tag(User.find(params[:recipient]).avatar.url(:thumb)) %>
+      </a>
     </div>
     <%= User.find(params[:recipient]).name %>
     </div>
@@ -23,7 +42,16 @@
     <%= text_field_tag 'recipients', nil, type: 'hidden', value: [params[:recipient]] %>
   </div>
 
-  <p> <label class="checkbox-text"><input type="checkbox" class="agreement"> I agree to re-give this as per your wishes! </label></p>
+  <p> <label class="checkbox-text"><input type="checkbox" class="agreement" id="gentleman-agreement"> I agree to re-give this in 
+    <% @wish = Giving.find(params[:subject]).wish %>
+    <% if Giving.find(params[:subject]).wish == 10 %>
+      <b> a month </b> 
+    <% elsif wish == 20 %>
+      <b> 3 months </b> 
+    <% elsif wish == 30 %>
+      <b> 6 months </b> 
+    <% end %>
+  as per your wish! </label></p>
 
-  <%= submit_tag 'Send', class: 'btn btn-primary' %>
+  <%= submit_tag 'Send', class: 'btn btn-primary', id: 'agree-and-send' %>
 <% end %>

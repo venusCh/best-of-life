@@ -1,0 +1,34 @@
+<div>
+	<div><%= image_tag(@user.avatar.url(:medium), class: "profile-pic") %></div>
+	<div class="profile-name"><%= @user.name %> </div>
+	<% @giver_location = @user.location %>
+   	<div class="user-location">
+   		<% if !@giver_location.nil? && @giver_location != "" %>
+   			<%= @giver_location.to_region %>
+   		<% end %>
+   	</div>
+	<% if @user.givings.count > 0 %>
+		<div class="profile-timestamp"><span class="badge givings"><%= @user.givings.count %> </span> Givings since <%= @user.created_at.strftime("%B, %Y") %> </div>
+		<div class="givings-header">
+			<div class="givings-header left"> <h3> Givings </h3>
+			</div>
+		</div>
+		<div class="floating-box give">
+			<% @user_givings.each do |giving| %>
+				<div class="giving-preview"> 
+					<div class="giving-preview-image">
+						<%= link_to(image_tag(giving.image.url(:thumb)), giving) %>
+					</div>
+					<div class="giving-preview-title">
+						<%= link_to giving.name, giving %> 
+					</div>
+				</div>
+			<% end %>
+			<div>
+				<%= will_paginate @user_givings %>
+			</div>
+		</div>
+	<% else %>
+		<div class="profile-timestamp">Member since <%= @user.created_at.strftime("%B, %Y") %></div>
+	<% end %>
+</div>

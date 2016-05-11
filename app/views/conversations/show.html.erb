@@ -10,7 +10,9 @@
         <% message = receipt.message %>
 
         <div class="round-image-50">
-          <%= image_tag(User.find(message.sender.id).avatar.url(:thumb)) %>
+          <a href="/profiles/<%= message.sender.id%>">
+            <%= image_tag(User.find(message.sender.id).avatar.url(:thumb)) %>
+          </a>
         </div>
         <span class="user_profile"> <%= message.sender.name %> </span> <br/>
         <%= message.body %> <br/>

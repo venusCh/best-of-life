@@ -16,7 +16,7 @@
 </p>
 <span class="user_profile"> 
 	<div class="round-image-50">
-		<%= image_tag(User.find(@giving.user_id).avatar.url(:thumb)) %>
+		<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(User.find(@giving.user_id).avatar.url(:thumb)) %></a>
 	</div>
 	<%= User.find(@giving.user_id).name %>
 	<% @giver_location = User.find(@giving.user_id).location %>
@@ -26,7 +26,7 @@
 	<% @giving.transfers.each do |transfer| %>
 		<br> &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-down arrow" aria-hidden="true"></span>
 		<div class="round-image-50">
-			<%= image_tag(User.find(transfer.to).avatar.url(:thumb)) %>
+			<a href="/profiles/<%= transfer.to%>"><%= image_tag(User.find(transfer.to).avatar.url(:thumb)) %></a>
 		</div>
 		<%= User.find(transfer.to).name %>
 		<% @location = User.find(transfer.to).location %>
