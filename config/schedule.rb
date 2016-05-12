@@ -1,7 +1,11 @@
-set :output, "#{path}/log/cron.log"
+#set :output, "#{path}/log/cron.log"
 
-every :day, :at => '5:00pm' do
-	rake "send_digest_email"
+#every :day, :at => '5:00pm' do
+#	rake "send_digest_email"
+#end
+
+every 2.minutes do
+	runner "Transfer.send_notifications", output: {:error => '#{path}/log/error.log', :standard => '#{path}/log/cron.log'}
 end
 
 # every 2.hours do
