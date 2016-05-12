@@ -1,6 +1,6 @@
 branch-defaults:
   development:
-    environment: giversapp-env
+    environment: GiversApp
   master:
     environment: GiversApp-dev
     group_suffix: null
