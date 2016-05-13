@@ -2,10 +2,12 @@ class GivingsController < ApplicationController
   before_action :authenticate_user!, only: [:new,:create,:destroy,:regive]
 
   def index
+    puts "\n\ninside the index...!!!\n"
     @givings = Giving.paginate(:page => params[:page], :per_page => 20)
   end
 
   def new
+    logger.debug("\n\ninside the new...!!!\n")
     @giving = current_user.givings.build
   end
 
