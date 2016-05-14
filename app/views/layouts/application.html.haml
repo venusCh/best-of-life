@@ -5,6 +5,7 @@
 	= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true
 	= csrf_meta_tags
+	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
 %body
 	.full-content
 		%nav.navbar.navbar-default
@@ -14,14 +15,17 @@
 				- if user_signed_in?
 					%ul.nav.navbar-nav.navbar-right
 						%li.desktop= link_to "Give", new_giving_path
-						%li
-							%div 
+						%li.mobile
+							.float-to-right
 								.side-by-side= link_to "Messages", conversations_path
+								.side-by-side.mobile
+									= link_to conversations_path(@user) do
+										%i.fa.fa-envelope-o{"aria-hidden" => "true"}
 								- if current_user.unread_inbox_count > 0
 									.badge.message #{current_user.unread_inbox_count}
 						%li.desktop= link_to "Sign Out", destroy_user_session_path, method: :delete
 
-						%li
+						%li.mobile
 							.round-image-50= link_to image_tag(current_user.avatar.url(:thumb)), edit_user_registration_path
 				- else
 					%ul.nav.navbar-nav.navbar-right
