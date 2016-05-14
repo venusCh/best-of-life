@@ -1,6 +1,13 @@
 Hi <%= @user.first_name %>,
 
-You have received <%= @request_count %> <%= "request".pluralize(@request_count) %> in the past 24 hours for 
+<% @countString = "" %>
+<% if @request_count == 1 %>
+<% @countString = "a new" %>
+<% else %>
+<% @countString = @request_count + " new" %>
+<% end %>
+
+You have received <%= @countString %> <%= "request".pluralize(@request_count) %> in the past 24 hours for 
 <% count = 0 %>
 <% @object_names.each do |obj| %> 
   <%= obj %> 

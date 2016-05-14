@@ -19,7 +19,15 @@
         <% objectString += "." %>
       <% end %>
     <% end %>
-      You have received <i><%= @request_count %> <%= "request".pluralize(@request_count) %></i> in the past 24 hours for <b><%= objectString %></b>
+
+    <% @countString = "" %>
+    <% if @request_count == 1 %>
+      <% @countString = "a new" %>
+    <% else %>
+      <% @countString = @request_count + " new" %>
+    <% end %>
+
+      You have received <i><%= @countString %> <%= "request".pluralize(@request_count) %></i> in the past 24 hours for <b><%= objectString %></b>
         <br>
       Please go to <%= @url + "/conversations" %> to accept pending requests.
     </p><br><br>
