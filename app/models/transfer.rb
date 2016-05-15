@@ -8,7 +8,7 @@ class Transfer < ActiveRecord::Base
 		puts User.all
 
 		User.all.each do |user|
-			puts "\ninside ApplicationHelper::send_notification_summary\n"		
+			puts "\ninside ApplicationHelper::looping through users\n"		
 			new_conversations_today = 0
 			requested_objects = []
 
@@ -22,6 +22,7 @@ class Transfer < ActiveRecord::Base
 			if new_conversations_today > 0
 				object_names = requested_objects.uniq.collect! {|obj| Giving.find_by_id(obj).name}
 				puts "\nSending the email to user...\n"
+				puts user.name
 				UserMailer.send_request_summary_notification(user, new_conversations_today, object_names).deliver_now
 			end
 		end
