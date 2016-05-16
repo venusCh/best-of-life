@@ -4,7 +4,7 @@ Hi <%= @user.first_name %>,
 <% if @request_count == 1 %>
 <% @countString = "a new" %>
 <% else %>
-<% @countString = "#{request_count} new" %>
+<% @countString = "#{@request_count} new" %>
 <% end %>
 
 You have received <%= @countString %> <%= "request".pluralize(@request_count) %> in the past 24 hours for 
