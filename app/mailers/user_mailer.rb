@@ -31,7 +31,7 @@ class UserMailer < ApplicationMailer
 			@count_string = "#{request_count} new"
 		end
 
-		mail(to: @user.email, subject: "You have #{count_string} request".pluralize(request_count))
+		mail(to: @user.email, subject: "You have #{@count_string} request".pluralize(request_count))
 	end
 
 end
