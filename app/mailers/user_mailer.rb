@@ -28,7 +28,7 @@ class UserMailer < ApplicationMailer
 		if request_count == 1
 			@count_string = "a new"
 		else
-			@count_string = request_count + " new"
+			@count_string = "#{request_count} new"
 		end
 
 		mail(to: @user.email, subject: "You have #{count_string} request".pluralize(request_count))
