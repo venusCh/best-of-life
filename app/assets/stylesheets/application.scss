@@ -30,7 +30,7 @@ html, body {
 }
 .navbar-default .navbar-nav > li a {
 	transition: 			all 0.3s;
-    color: 					#bababa;
+    color: 					#a0a0a0;
     padding-top:   			15px;
     padding-bottom: 		15px;
 }
@@ -345,11 +345,10 @@ h2, h3 {
 	.floating-box {
 		width: 				100%;
 		border-radius: 		0.2em;
-		min-height: 		500px;
-		padding: 			30px;
-	}
-	#give-section {
-		line-height: 		390px;
+		padding: 			2px;
+		margin:				0px;
+		margin-top: 		10px;
+		min-height:  		200px;
 	}
 	.give-action {
 		font-size: 			2.6em;
@@ -399,8 +398,11 @@ h2, h3 {
 		width: 				100%;
 	}
 	.givings-header {
-		height: 			74px;
-		padding: 			10px;
+		height: 			64px;
+		padding: 			6px;
+	}
+	.givings-header.right {
+		padding: 			6px;
 	}
 
 	.full-content {
@@ -417,9 +419,10 @@ h2, h3 {
 	.giving-preview {
 		min-height:			200px;
 		height:  			auto;
-		width: 				150px;
-		padding: 			12px;
+		width: 				130px;
+		padding: 			8px;
 		box-shadow:  		10px 10px 15px #999999;
+		margin: 			4px;
 	}
 	.main-content {
 		width: 				90%;
@@ -479,14 +482,8 @@ h2, h3 {
 		margin-right:  		15px;
 		margin-top:  		-5px;
 	}
-	.floating-box {
-		padding: 			2px;
-		margin:				2px;
-	}
 	#give-section {
-		line-height:   		120px;
-	}
-	.floating-box.give {
-		min-height:  		200px;
+		line-height:   		150px;
+		min-height:  		185px;
 	}
 }
