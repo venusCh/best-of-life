@@ -16,42 +16,50 @@ $(function() {
 </script>
 
 <% page_header "Start Conversation" %>
-  
-  <b><i> <%= Giving.find_by_id(params[:subject]).name %> </i></b><br>
-  <%= image_tag Giving.find_by_id(params[:subject]).image.url(:thumb) %>
-  <br>
-  <div style="text-align: right; float: right">
-    <div class="round-image-50">
-      <a href="/profiles/<%= params[:recipient]%>">
-        <%= image_tag(User.find_by_id(params[:recipient]).avatar.url(:thumb)) %>
-      </a>
+
+<%if params[:recipient].to_s != current_user.id.to_s %>
+    <b><i> <%= Giving.find_by_id(params[:subject]).name %> </i></b><br>
+    <%= image_tag Giving.find_by_id(params[:subject]).image.url(:thumb), class: "mobile-image" %>
+    <br>
+    <div style="text-align: right; float: right">
+      <div class="round-image-50">
+        <a href="/profiles/<%= params[:recipient]%>">
+          <%= image_tag(User.find_by_id(params[:recipient]).avatar.url(:thumb)) %>
+        </a>
+      </div>
+      <%= User.find_by_id(params[:recipient]).name %>
+      </div>
+
+  <%= form_tag messages_path, method: :post do %>
+    <div class="form-group">
+      <%= text_field_tag 'message[subject]', nil, type: 'hidden', class: 'form-control', value: params[:subject], required: true %>
     </div>
-    <%= User.find_by_id(params[:recipient]).name %>
+
+    <div class="form-group">
+      <%= text_area_tag 'message[body]', nil, cols: 3, rows: 4, class: 'form-control', required: true %>
     </div>
 
-<%= form_tag messages_path, method: :post do %>
-  <div class="form-group">
-    <%= text_field_tag 'message[subject]', nil, type: 'hidden', class: 'form-control', value: params[:subject], required: true %>
+    <div class="form-group">
+      <%= text_field_tag 'recipients', nil, type: 'hidden', value: [params[:recipient]] %>
+    </div>
+
+    <p> <label class="checkbox-text"><input type="checkbox" class="agreement" id="gentleman-agreement"> I agree to re-give this in 
+      <% @wish = Giving.find_by_id(params[:subject]).wish %>
+      <% if Giving.find_by_id(params[:subject]).wish == 10 %>
+        <b> a month </b> 
+      <% elsif wish == 20 %>
+        <b> 3 months </b> 
+      <% elsif wish == 30 %>
+        <b> 6 months </b> 
+      <% end %>
+    as per your wishes! </label></p>
+
+    <%= submit_tag 'Send', class: 'btn btn-primary', id: 'agree-and-send' %>
+  <% end %>
+<% else %>
+  <div class="condition-toast">
+    Interesting, but don't see the point in talking to yourself!
   </div>
-
-  <div class="form-group">
-    <%= text_area_tag 'message[body]', nil, cols: 3, rows: 4, class: 'form-control', required: true %>
-  </div>
-
-  <div class="form-group">
-    <%= text_field_tag 'recipients', nil, type: 'hidden', value: [params[:recipient]] %>
-  </div>
-
-  <p> <label class="checkbox-text"><input type="checkbox" class="agreement" id="gentleman-agreement"> I agree to re-give this in 
-    <% @wish = Giving.find_by_id(params[:subject]).wish %>
-    <% if Giving.find_by_id(params[:subject]).wish == 10 %>
-      <b> a month </b> 
-    <% elsif wish == 20 %>
-      <b> 3 months </b> 
-    <% elsif wish == 30 %>
-      <b> 6 months </b> 
-    <% end %>
-  as per your wishes! </label></p>
-
-  <%= submit_tag 'Send', class: 'btn btn-primary', id: 'agree-and-send' %>
+  <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+  <%= link_to "Back", givings_path %>
 <% end %>
