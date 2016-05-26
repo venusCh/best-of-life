@@ -41,12 +41,33 @@ $(function() {
     <%= f.email_field :email, placeholder: "Email" %>
   </div>
 
-  <div class="form-group">
-    <%= f.text_field :location, placeholder: "Postal Code" %>
-    <% @location = f.object.location %>
-    <% if !@location.nil? && @location != "" %>
-      <%= @location.to_region %>
-    <% end %>
+  <!-- TODO: 
+    1. bootstrap col-xs- sucks on mobile => replace them with better styling
+  -->
+
+  <div style="margin-bottom: 70px;">
+  <div class="col-xs-2 zip">
+    <div class="form-group">
+      <%= f.text_field :zip, class: 'form-control', placeholder: "Zip Code", required: true %>
+        <% @zip_code = f.object.zip %>
+        <% if !@zip_code.nil? && @zip_code != "" %>
+          <%= @zip_code.to_s.to_region %>
+        <% end %>
+    </div>
+  </div>
+  
+  <div class="col-xs-2 country">
+    <div class="form-group">
+      <%= f.text_field :country, list: 'country-list', class: 'form-control', placeholder: "United States" %>
+    </div>
+      <datalist id="country-list">
+        <select>
+          <option value="United States"></option>
+          <option value="United Kingdom"></option>
+          <option value="India"></option>
+        </select>
+      </datalist>
+    </div>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
