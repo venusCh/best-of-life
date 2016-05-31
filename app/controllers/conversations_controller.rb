@@ -5,6 +5,8 @@ class ConversationsController < ApplicationController
 
  	def index
     	@conversations = @mailbox.inbox.paginate(page: params[:page], per_page: 20)
+
+    	@grouped_convos = @conversations.group_by(&:subject)
  	end
 
 	def show

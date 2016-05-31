@@ -37,28 +37,20 @@ $(function() {
     <%= f.text_field :last_name, placeholder: "Last Name" %>
   </div>
 
+  <div class="user-zip">
+    <div class="form-group">
+      <%= f.text_field :zip, placeholder: "Zip Code", required: true %>
+    </div>
+  </div>
+  
   <div class="form-group">
     <%= f.email_field :email, placeholder: "Email" %>
   </div>
 
-  <!-- TODO: 
-    1. bootstrap col-xs- sucks on mobile => replace them with better styling
-  -->
-
-  <div style="margin-bottom: 70px;">
-  <div class="col-xs-2 zip">
+<% if false %> <!-- disabling country for now -->
+  <div class="user-country">
     <div class="form-group">
-      <%= f.text_field :zip, class: 'form-control', placeholder: "Zip Code", required: true %>
-        <% @zip_code = f.object.zip %>
-        <% if !@zip_code.nil? && @zip_code != "" %>
-          <%= @zip_code.to_s.to_region %>
-        <% end %>
-    </div>
-  </div>
-  
-  <div class="col-xs-2 country">
-    <div class="form-group">
-      <%= f.text_field :country, list: 'country-list', class: 'form-control', placeholder: "United States" %>
+      <%= f.text_field :country, list: 'country-list', placeholder: "United States" %>
     </div>
       <datalist id="country-list">
         <select>
@@ -67,18 +59,20 @@ $(function() {
           <option value="India"></option>
         </select>
       </datalist>
-    </div>
   </div>
+<% end %>
+
+  <br>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <!-- create a separate link for this later
+<% if false %> <!-- disabling password re-entry for now -->
   <div class="form-group">
     <%= f.password_field :password, placeholder: "New Password", autocomplete: "off" %>
   </div>
-  -->
+<% end %>
 
   <% if f.object.password_required? %>
     <div class="form-group">
@@ -95,8 +89,9 @@ $(function() {
   </div>
 <% end %>
 
-<!-- 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p> -->
+<% if false %> <!-- disabling account cancellation for now -->
+  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<% end %>
 
 <span style="color: #3E89C1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
 <%= link_to "Back", :back %>

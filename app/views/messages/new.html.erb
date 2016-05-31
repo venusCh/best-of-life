@@ -36,37 +36,12 @@ $(function() {
     </div>
 
     <div class="form-group">
-      <%= text_area_tag 'message[body]', nil, cols: 3, rows: 4, class: 'form-control', required: true %>
+      <%= text_area_tag 'message[body]', nil, cols: 3, rows: 4, class: 'form-control', required: true,  placeholder: "Write your request...", autofocus: true%>
     </div>
 
     <div class="form-group">
       <%= text_field_tag 'recipients', nil, type: 'hidden', value: [params[:recipient]] %>
     </div>
-
-    <!-- TODO: 
-      1. Then check if the zip is not null
-      2. show a modal asking zip and country to update profile?
-      OR: render the location portion of the profile form and direct them back to message page
-    -->
-
-    <%if current_user.zip.nil? %>
-      <div style="margin-bottom: 70px">
-        <p style="color: #C16F4E"> Your profile doesn't have location details, please provide. (why) </p>
-        <div class="col-xs-2 zip">
-          <%= f.text_field :zip, nil, class: 'form-control', required: true %>
-        </div>
-        <div class="col-xs-1 country">
-          <%= f.text_field :country, nil, list: 'country-list', class: 'form-control' %>
-          <datalist id="country-list">
-            <select>
-              <option value="US"></option>
-              <option value="UK"></option>
-              <option value="India"></option>
-            </select>
-          </datalist>
-        </div>
-      </div>
-    <% end %>
 
     <p> <label class="checkbox-text"><input type="checkbox" class="agreement" id="gentleman-agreement"> I agree to re-give this in 
       <% @wish = Giving.find_by_id(params[:subject]).wish %>

@@ -19,9 +19,9 @@
 		<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(User.find_by_id(@giving.user_id).avatar.url(:thumb)) %></a>
 	</div>
 	<%= User.find_by_id(@giving.user_id).name %>
-	<% @giver_location = User.find_by_id(@giving.user_id).location %>
+	<% @giver_location = User.find_by_id(@giving.user_id).zip %>
 	<% if !@giver_location.nil? && @giver_location != "" %>
-		<br><span class="user-location"><%= @giver_location.to_region %></span>
+		<br><span class="user-location"><%= @giver_location.to_s.to_region %></span>
 	<% end %>
 	<% @giving.transfers.each do |transfer| %>
 		<br> &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-down arrow" aria-hidden="true"></span>
@@ -29,9 +29,9 @@
 			<a href="/profiles/<%= transfer.to%>"><%= image_tag(User.find_by_id(transfer.to).avatar.url(:thumb)) %></a>
 		</div>
 		<%= User.find_by_id(transfer.to).name %>
-		<% @location = User.find_by_id(transfer.to).location %>
+		<% @location = User.find_by_id(transfer.to).zip %>
 		<% if !@location.nil? %>
-			<br><span class="user-location"><%= User.find_by_id(transfer.to).location.to_region %></span>
+			<br><span class="user-location"><%= @location.to_s.to_region %></span>
 		<% end %>
 	<% end %>
 </span>

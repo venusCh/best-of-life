@@ -11,3 +11,24 @@
 <% end %>
 
 <%= will_paginate %>
+
+<!-- TODO: 
+	1. sylize this page and make it user friendly!!
+	2. Once people click on the book, show them users listed
+	3. sort the users by giving score (later by proximity)
+
+	* Why can users send multiple requests on the same object? 
+	(thought I fixed this already..)
+-->
+
+<% @grouped_convos.each_pair do |subject, convos| %>
+	<% @giving = Giving.find_by_id(subject) %>
+	<% if !@giving.nil? %> 
+		<b><%= @giving.name %></b>
+		<br>
+		<% convos.each do |convo| %>
+			<%= User.find_by_id(convo.originator).name %><br>
+		<% end %>
+		<br>
+	<% end %>
+<% end %>

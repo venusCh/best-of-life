@@ -1,11 +1,28 @@
+<script>
+    function submitOnClick(formName){
+        console.log("Hello..", $('textarea#reply_message').val());
+        if ($('textarea#reply_message').val() !== "")
+          document.forms[formName].submit();
+    }
+</script>
+
 <% page_header "Conversation" %>
 
 <% @subject = Giving.find_by_id(@conversation.subject) %>
 <% if @subject.nil? %>
-  <% @subject = "** This giving seems to have been deleted **" %>
+  <% @subject = "** This giving has been deleted **" %>
 <% else %>
   <% @subject = @subject.name %>
 <% end %>
+<div style="float: right; padding: 10px 2px;">
+  <% if !current_user.nil? %>
+    <%= link_to "Delete", { action: :destroy }, 
+    method: :delete, 
+    data: { confirm: "Are you sure?" } %> <br>
+  <% end %>
+</div> 
+
+<% user_deleted = false %>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -16,12 +33,17 @@
       <% @conversation.receipts_for(current_user).each do |receipt| %>
         <% message = receipt.message %>
 
-        <div class="round-image-50">
-          <a href="/profiles/<%= message.sender.id%>">
-            <%= image_tag(User.find_by_id(message.sender.id).avatar.url(:thumb)) %>
-          </a>
-        </div>
-        <span class="user_profile"> <%= message.sender.name %> </span> <br/>
+        <% if message.sender.nil? %>
+          <% user_deleted = true %>
+          *** USER DELETED *** <br>
+        <% else %>
+          <div class="round-image-50">
+            <a href="/profiles/<%= message.sender.id%>">
+              <%= image_tag(User.find_by_id(message.sender.id).avatar.url(:thumb)) %>
+            </a>
+          </div>
+          <span class="user_profile"> <%= message.sender.name %> </span> <br/>
+        <% end %>
         <%= message.body %> <br/>
         <span class="message_timestamp"><%= message.created_at.strftime("%-d %B %Y, %H:%M") %></span>
       <% end %>
@@ -29,54 +51,55 @@
   </div>
 </div>
 
-<% if current_user != @conversation.originator %>
-  <% @giving = Giving.find_by_id(@conversation.subject) %>
-  <% if !@giving.nil? %>
-    <% @given = false %>
-    <% @recipient = -1 %>
+<% if user_deleted == false %>
+  <% if current_user != @conversation.originator %>
+    <% @giving = Giving.find_by_id(@conversation.subject) %>
+    <% if !@giving.nil? %>
+      <% @given = false %>
+      <% @recipient = -1 %>
 
-    <% if !@giving.status.nil? && @giving.status == 1 %>
-      <% @given = true %>
-    <% end %>
-
-    <% @giving.transfers.each do |transfer| %>
-      <% if transfer.conversation == @conversation.id %>
-        <% @recipient = transfer.to %>
+      <% if !@giving.status.nil? && @giving.status == 1 %>
+        <% @given = true %>
       <% end %>
-    <% end %>
 
-    <% if !@given %>
-      <div>
-        <%= form_for([@giving, @giving.transfers.build]) do |f| %>
-          <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
-          <%= f.hidden_field :conversation, :value => @conversation.id %>
-          <%= f.submit "Accept", class: "btn btn-primary" %>
-        <% end %><br/>
-      </div>
-    <% else %>
-      <div class="condition-toast">
-        <% if @recipient == @conversation.originator.id %>
-          You accepted this request! Please arrange for an exchage of this giving.
-        <% else %>
-          You already gave this book to another user.
+      <% @giving.transfers.each do |transfer| %>
+        <% if transfer.conversation == @conversation.id %>
+          <% @recipient = transfer.to %>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
 
-    <%= form_for :message, url: reply_conversation_path do |f| %>
-      <%= f.text_area 'body', cols: "38", rows: "3" %><br>
-      <%= f.submit "Reply", class: 'btn btn-primary' %>
+      <%= form_for :message, url: reply_conversation_path, :html => {:id => "form_reply"} do |f| %>
+      <div class="input-group">
+          <%= f.text_area 'body', rows: "3", class: 'form-control custom-control', style: "resize:none", required: true, placeholder: "Your reply...", autofocus: true, id: "reply_message" %>
+          <span onclick="submitOnClick('form_reply')" class="input-group-addon btn btn-default" %>Send
+          </span>
+      </div>
+      <% end %>
+
+      <% if !@given %>
+        <div style="margin-top: 20px;">
+          <%= form_for([@giving, @giving.transfers.build]) do |f| %>
+            <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
+            <%= f.hidden_field :conversation, :value => @conversation.id %>
+            <%= f.submit "Accept", class: "btn btn-primary" %>
+          <% end %><br/>
+        </div>
+      <% else %>
+      <br>
+        <div class="condition-toast">
+          <% if @recipient == @conversation.originator.id %>
+            You accepted this request! Please arrange for an exchage of this giving.
+          <% else %>
+            You already gave this book to another user.
+          <% end %>
+        </div>
+      <% end %>
+
     <% end %>
   <% end %>
 <% end %>
-<br>
 
-<div>
-  <% if !current_user.nil? %>
-    <%= link_to "Delete", { action: :destroy }, 
-    method: :delete, 
-    data: { confirm: "Are you sure?" } %> <br>
-  <% end %>
-</div> 
+<span style="color: #3E89C1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
+<%= link_to "Back", conversations_path %><br><br>
 
 <% @conversation.mark_as_read(current_user) %>

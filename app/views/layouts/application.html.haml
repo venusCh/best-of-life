@@ -31,7 +31,7 @@
 					%ul.nav.navbar-nav.navbar-right
 						%li.desktop= link_to "Sign up", new_user_registration_path
 						%li.float-to-right= link_to "Sign In", new_user_session_path
-						%li.desktop= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
+						-# %li.desktop= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
 	
 		.main-content
 			- flash.each do |name, msg|

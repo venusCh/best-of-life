@@ -263,6 +263,10 @@ textarea {
 	font-size: 				0.9em;
 }
 
+.field_with_errors {
+	display: 				inline-block;
+	color:  				#DC7231;
+}
 
 .btn-file {
     position: 				relative;
@@ -318,13 +322,13 @@ h2, h3 {
 	color: 					#808080;
 	font-style: 			italic;
 }
+.user-zip {
+	padding-left: 			0px;
+}
+.user-country {
+	padding-left: 			0px;
+}
 
-.col-xs-2.zip {
-	padding-left: 			0px;
-}
-.col-xs-1.country {
-	padding-left: 			0px;
-}
 /**
  * Styling for mobile devices (iPhone)
  */

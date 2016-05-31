@@ -1,10 +1,10 @@
 <div>
 	<div><%= image_tag(@user.avatar.url(:medium), class: "profile-pic") %></div>
 	<div class="profile-name"><%= @user.name %> </div>
-	<% @giver_location = @user.location %>
+	<% @giver_location = @user.zip %>
    	<div class="user-location">
-   		<% if !@giver_location.nil? && @giver_location != "" %>
-   			<%= @giver_location.to_region %>
+   		<% if !@giver_location.nil? && @giver_location > 0 %>
+   			<%= @giver_location.to_s.to_region %>
    		<% end %>
    	</div>
 	<% if @user.givings.count > 0 %>

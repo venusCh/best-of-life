@@ -1,6 +1,6 @@
 <% @giving = Giving.find_by_id(conversation.subject) %>
 <% if @giving.nil? %>
-	<% @giving = "** This giving seems to have been deleted **" %>
+	<% @giving = "** This giving has been deleted **" %>
 <% else %>
 	<% @giving = @giving.name %>
 <% end %>
