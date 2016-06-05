@@ -6,10 +6,10 @@
 <% end %>
 <% if conversation.is_unread?(current_user) %>
 	<li class="list-group-item clearfix">
-			<b><%= link_to @giving, conversation_path(conversation) %> </b>
+			<b><%= link_to User.find_by_id(conversation.originator).name, conversation_path(conversation) %></b>
 	</li>
 <% else %>
 	<li class="list-group-item disabled">
-  		<%= link_to @giving, conversation_path(conversation) %>
+  		<%= link_to User.find_by_id(conversation.originator).name, conversation_path(conversation) %>
 	</li>
 <% end %>

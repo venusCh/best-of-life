@@ -1,34 +1,68 @@
 <% page_header "Your Conversations" %>
 
-<% if @conversations.count > 0 %>
-	<ul class="list-group">
-	  <%= render partial: 'conversations/conversation', collection: @conversations %>
-	</ul>
-<% else %>
-	<div class="condition-toast">
-		You have no messages. 
-	</div>
+<% if false %> <!-- avoid flat listing of messages -->
+	<% if @conversations.count > 0 %>
+		<ul class="list-group">
+		  <%= render partial: 'conversations/conversation', collection: @conversations %>
+		</ul>
+	<% else %>
+		<div class="condition-toast">
+			You have no messages. 
+		</div>
+	<% end %>
+
+	<%= will_paginate %>
 <% end %>
 
-<%= will_paginate %>
-
 <!-- TODO: 
-	1. sylize this page and make it user friendly!!
-	2. Once people click on the book, show them users listed
-	3. sort the users by giving score (later by proximity)
+	1. handle no messages case
+	2. sort the users by giving score (later by proximity)
 
 	* Why can users send multiple requests on the same object? 
 	(thought I fixed this already..)
 -->
 
-<% @grouped_convos.each_pair do |subject, convos| %>
-	<% @giving = Giving.find_by_id(subject) %>
-	<% if !@giving.nil? %> 
-		<b><%= @giving.name %></b>
-		<br>
-		<% convos.each do |convo| %>
-			<%= User.find_by_id(convo.originator).name %><br>
+<% if !@topic_convos.nil? %>
+	<% if @topic_convos.count > 0 %>
+		<h3><%= Giving.find_by_id(@topic_convos[0].subject).name %></h3>
+	<% end %>
+	<ul class="list-group">
+	  <%= render partial: 'conversations/conversation', collection: @topic_convos %>
+	</ul>
+<% else %>
+	<% @grouped_convos.each_pair do |subject, convos| %>
+		<% @giving = Giving.find_by_id(subject) %>
+		<% if !@giving.nil? %> 
+			<% @unread_count = 0 %>
+			<% convos.each do |convo| %>
+				<% if convo.is_unread?(current_user) %>
+					<% @unread_count += 1 %>
+				<% end %>
+			<% end %>
+
+			<% if @unread_count > 0 %>
+				<div class="topic-box unread">
+			<% else %>
+				<div class="topic-box read">
+			<% end %>
+				<div class="topic-box-image">
+					<%= image_tag @giving.image.url(:thumb) %>
+				</div>
+				<div style="display:inline-block;">
+					<div><b><%= @giving.name %></b></div>
+					<div>
+					<% if @unread_count > 0 %>
+						<%= link_to topic_conversations_path(:topic_id => subject) do %>
+							<span class="badge givings"><%= @unread_count %></span> new <%= "request".pluralize(@unread_count) %>
+						<% end %>
+					<% else %>
+						<%= link_to topic_conversations_path(:topic_id => subject) do %>
+							<%= convos.count %> total <%= "request".pluralize(convos.count)%>
+						<% end %>
+					<% end %>
+					</div>
+				</div>
+			</div>
 		<% end %>
-		<br>
 	<% end %>
 <% end %>

@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :asks
   resources :transfers
   
+  resources :topics do 
+    resources :conversations
+  end
+
   resources :conversations do
     member do
       post :reply
