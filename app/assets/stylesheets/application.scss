@@ -343,8 +343,17 @@ h2, h3 {
 
 .topic-box-image {
 	display:				inline-block; 
-	width: 					110px;
+	width: 					90px;
+	height:  				45px;
 	text-align:  			center;
+	vertical-align: 		top;
+	margin:	 				2px;
+	position:  				relative;
+    border-radius:			5%;
+    overflow:				hidden;
+}
+.topic-box-image img {
+	height:  				inherit;
 }
 
 /**
@@ -510,5 +519,8 @@ h2, h3 {
 	#give-section {
 		line-height:   		150px;
 		min-height:  		185px;
+	}
+	.topic-box-image {
+		height:				60px;
 	}
 }

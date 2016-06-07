@@ -6,6 +6,19 @@ class ConversationsController < ApplicationController
  	def index
 		@conversations = @mailbox.inbox.paginate(page: params[:page], per_page: 20)
 		@grouped_convos = @conversations.group_by(&:subject)
+
+		@new_messages = current_user.unread_inbox_count
+		@groups = @grouped_convos.count
+
+		@MESSAGE_LIMIT = 7
+		@GROUP_LIMIT = 2
+
+		@show_aggregate = false
+		if @new_messages >= @MESSAGE_LIMIT &&
+ 			@groups >= @GROUP_LIMIT then
+ 			@show_aggregate = true
+ 		end
+
  		if !params[:topic_id].nil? then
 	    	@topic_convos = @grouped_convos[params[:topic_id]]
     	end

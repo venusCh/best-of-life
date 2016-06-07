@@ -4,12 +4,19 @@
 <% else %>
 	<% @giving = @giving.name %>
 <% end %>
+<% @today = Time.new().strftime("%m/%d/%Y") %>
 <% if conversation.is_unread?(current_user) %>
-	<li class="list-group-item clearfix">
-			<b><%= link_to User.find_by_id(conversation.originator).name, conversation_path(conversation) %></b>
-	</li>
+	<div class="list-group-item clearfix">
 <% else %>
-	<li class="list-group-item disabled">
-  		<%= link_to User.find_by_id(conversation.originator).name, conversation_path(conversation) %>
-	</li>
+	<div class="list-group-item disabled">
 <% end %>
+		<% @user = User.find_by_id(conversation.originator) %>
+  		<%= link_to User.find_by_id(conversation.originator).name, conversation_path(conversation) %>
+  		| <%= @user.givings.count %>
+		| <%= conversation.last_message.body %> |
+		<% if @today == conversation.last_message.updated_at.strftime("%m/%d/%Y") %>
+			<%= conversation.last_message.updated_at.strftime("%I:%M%p") %>
+		<% else %>
+			<%= conversation.last_message.updated_at.strftime("%m/%d/%Y") %>
+		<% end %>
+	</div>
