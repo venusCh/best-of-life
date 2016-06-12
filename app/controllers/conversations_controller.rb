@@ -4,24 +4,47 @@ class ConversationsController < ApplicationController
 	before_action :get_conversation, except: [:index, :empty_trash]
 
  	def index
-		@conversations = @mailbox.inbox.paginate(page: params[:page], per_page: 20)
-		@grouped_convos = @conversations.group_by(&:subject)
-
 		@new_messages = current_user.unread_inbox_count
-		@groups = @grouped_convos.count
+ 		@all_conversations = @mailbox.inbox
 
 		@MESSAGE_LIMIT = 7
 		@GROUP_LIMIT = 2
 
+ 		if params[:sent] == "true" then
+ 			@new_messages = 0
+ 			@all_conversations = @mailbox.sentbox
+ 			@MESSAGE_LIMIT = 1
+ 			@GROUP_LIMIT = 1
+ 		end
+
+		@grouped_convos = @all_conversations.group_by(&:subject)
 		@show_aggregate = false
-		if @new_messages >= @MESSAGE_LIMIT &&
- 			@groups >= @GROUP_LIMIT then
+
+		if params[:group] == "true" ||
+			(@new_messages >= @MESSAGE_LIMIT &&
+ 			@grouped_convos.count >= @GROUP_LIMIT) then
  			@show_aggregate = true
+ 		else
+ 			@conversations = @all_conversations.paginate(page: params[:page], per_page: 20)
  		end
 
  		if !params[:topic_id].nil? then
 	    	@topic_convos = @grouped_convos[params[:topic_id]]
     	end
+
+    	# pass the parameters back to view
+    	if params[:group] == "true" then
+    		@group_by_givings = true
+    	else
+    		@group_by_givings = false
+    	end
+
+    	if params[:sent] == "true" then
+    		@show_sentbox = true
+    	else
+    		@show_sentbox = false
+    	end
+
  	end
 
 	def show

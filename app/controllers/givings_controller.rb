@@ -43,22 +43,17 @@ class GivingsController < ApplicationController
 
   def show
     @giving = Giving.find_by_id(params[:id])
+    @sentbox = current_user.mailbox.sentbox.find_by_subject(params[:id])
 
     @already_asked = false
-    @ask_accepted = false
-    @timestamp = nil
+    @already_asked_at = nil
 
-    if current_user != nil && 
-      current_user.id != @giving.user_id
-      @giving.asks.each do |ask|
-        if ask.user_id == current_user.id
-          @already_asked = true
-          @timestamp = ask.created_at
-          if ask.status == 1
-            @ask_accepted = true
-            @timestamp = ask.updated_at
-          end
-        end
+    if (current_user != nil && 
+      current_user.id != @giving.user_id) then
+      if (@sentbox.recipients[0].id == @giving.user_id &&
+          @sentbox.subject == @giving.id.to_s) then
+        @already_asked = true
+        @already_asked_at = @sentbox.updated_at
       end
     end
 

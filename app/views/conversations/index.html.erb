@@ -1,6 +1,22 @@
 <% page_header "Your Conversations" %>
 
-<!-- TODO: Give users the option get both list and grouped views -->
+<div style="margin-bottom: 10px">
+	<div style="display: inline-block; font-size: 1.3em;">
+		<% if @show_sentbox %>
+			<%= link_to "Inbox", conversations_path(:group => @group_by_givings) %> | <b>Sent</b>
+		<% else %>
+			<b>Inbox</b> | <%= link_to "Sent", conversations_path(:sent => "true", :group => @group_by_givings) %>
+		<% end %>
+	</div>
+	<div style="display: inline-block; float:right">
+		<i class="fa fa-list-ul" aria-hidden="true"></i> 
+		<% if @show_aggregate %>
+			<%= link_to "Time", conversations_path(:sent => @show_sentbox) %> | <b>Giving</b>
+		<% else %>
+			<b>Time</b> | <%= link_to "Giving", conversations_path(:group => "true", :sent => @show_sentbox) %>
+		<% end %>
+	</div>
+</div>
 
 <% if @show_aggregate == false %>
 	<% if @conversations.count > 0 %>
@@ -12,17 +28,8 @@
 			You have no messages. 
 		</div>
 	<% end %>
-
 	<%= will_paginate %>
 <% else %>
-
-<!-- TODO: 
-	2. sort the users by giving score (later by proximity)
-
-	* Why can users send multiple requests on the same object? 
-	(thought I fixed this already..)
--->
-
 	<% if !@topic_convos.nil? %>
 		<% if @topic_convos.count > 0 %>
 			<h3><%= Giving.find_by_id(@topic_convos[0].subject).name %></h3>

@@ -58,9 +58,22 @@
 		<% end %>
 	</div>
 	<% if current_user.nil? || current_user.id != @giving.current_holder %>
-		<div>
-			<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.current_holder), class: "btn btn-primary"%></p>
-		</div>
+		<% if !@already_asked %>
+			<div>
+				<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.current_holder), class: "btn btn-primary"%></p>
+			</div>
+		<% else %>
+			<div style="color:#44362A">
+				<i class="fa fa-paper-plane" aria-hidden="true"></i>
+				<% @today = Time.new().strftime("%m/%d/%Y") %>
+				Your request is already sent on
+				<% if @today == @already_asked_at.strftime("%m/%d/%Y") %>
+	   				<%= @already_asked_at.strftime("%I:%M%p") %>
+	   			<% else %>
+	   				<%= @already_asked_at.strftime("%m/%d/%Y") %>
+	   			<% end %>
+   			</div>
+		<% end %>
 	<% end %>
 <% end %>
 
