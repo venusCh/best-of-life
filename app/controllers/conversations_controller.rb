@@ -4,6 +4,7 @@ class ConversationsController < ApplicationController
 	before_action :get_conversation, except: [:index, :empty_trash]
 
  	def index
+
 		@new_messages = current_user.unread_inbox_count
  		@all_conversations = @mailbox.inbox
 
@@ -44,7 +45,6 @@ class ConversationsController < ApplicationController
     	else
     		@show_sentbox = false
     	end
-
  	end
 
 	def show

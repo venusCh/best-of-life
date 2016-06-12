@@ -2,7 +2,19 @@ class GivingsController < ApplicationController
   before_action :authenticate_user!, only: [:new,:create,:destroy,:regive]
 
   def index
-    @givings = Giving.paginate(:page => params[:page], :per_page => 20)
+    if (params[:givings] === "true") then
+      @myGivings = Giving.where(:user_id => current_user.id)
+      if @myGivings.count === 0 then
+        redirect_to :back, notice: "You haven't given anything yet. Click on Give below to get started!"
+      end
+    elsif (params[:holdings] === "true") then
+      @myHoldings = Giving.where("current_holder = ? and status != ?", current_user.id, 0)
+      if @myHoldings.count === 0 then
+        redirect_to :back, notice: "You currently don't hold any givings."
+      end
+    else
+      @givings = Giving.paginate(:page => params[:page], :per_page => 20)
+    end
   end
 
   def new
@@ -50,7 +62,8 @@ class GivingsController < ApplicationController
 
     if (current_user != nil && 
       current_user.id != @giving.user_id) then
-      if (@sentbox.recipients[0].id == @giving.user_id &&
+      if (!@sentbox.nil? && 
+          @sentbox.recipients[0].id == @giving.user_id &&
           @sentbox.subject == @giving.id.to_s) then
         @already_asked = true
         @already_asked_at = @sentbox.updated_at

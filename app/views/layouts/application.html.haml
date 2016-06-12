@@ -6,11 +6,49 @@
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true
 	= csrf_meta_tags
 	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+	:javascript
+		$(window).resize(function() {
+			adjustOptionsDropdown();
+		});
+		$(function() {
+			adjustOptionsDropdown();
+
+			$("#user-pic").click(function() {
+				if ($("#options-dropdown").is(":visible"))
+					$("#options-dropdown").hide();
+				else 
+					$("#options-dropdown").show();
+			});
+
+			$("#options-dropdown").on("click", "li", function() {
+				$("#options-dropdown").hide();
+			});
+		});
+		function adjustOptionsDropdown() {
+			$("#options-dropdown").hide();
+			
+			if ($("#user-pic")[0] !== undefined) {
+				var posn = $("#user-pic").offset();
+				
+				var width = $(window).width();
+				console.log($("#user-pic")[0], posn, width);
+				if (width > 480) {
+					$("#options-dropdown").css("top", 52);
+					$("#options-dropdown").css("right", width - posn.left - 60);
+				}
+				else {
+					$("#options-dropdown").css("top", 104);
+					$("#options-dropdown").css("right", 1);
+				}
+
+			}
+		}
+
 %body
 	.full-content
 		%nav.navbar.navbar-default
 			.container
-				.navbar-brand= link_to "GiversApp", givings_path
+				.navbar-brand= link_to "Gycle", givings_path
 
 				- if user_signed_in?
 					%ul.nav.navbar-nav.navbar-right
@@ -23,16 +61,20 @@
 										%i.fa.fa-envelope-o{"aria-hidden" => "true"}
 								- if current_user.unread_inbox_count > 0
 									.badge.message #{current_user.unread_inbox_count}
-						%li.desktop= link_to "Sign Out", destroy_user_session_path, method: :delete
 
 						%li.mobile
-							.round-image-50= link_to image_tag(current_user.avatar.url(:thumb)), edit_user_registration_path
+							#user-pic.round-image-50= link_to image_tag(current_user.avatar.url(:thumb)), "#"
 				- else
 					%ul.nav.navbar-nav.navbar-right
 						%li.desktop= link_to "Sign up", new_user_registration_path
 						%li.float-to-right= link_to "Sign In", new_user_session_path
-						-# %li.desktop= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
 	
+		#options-dropdown
+			%li.mobile.editprofile=link_to "Edit Profile", edit_user_registration_path
+			%li.mobile=link_to "My Givings", givings_path(:givings => true)
+			%li.mobile=link_to "My Holdings", givings_path(:holdings => true)
+			%li.mobile.signout= link_to "Sign Out", destroy_user_session_path, method: :delete
+
 		.main-content
 			- flash.each do |name, msg|
 				= content_tag :div, msg, class: "alert alert-info"

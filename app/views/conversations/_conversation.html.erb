@@ -12,10 +12,10 @@
 	  		| <%= @user.givings.count %>
 	  		| <%= conversation.subject %>
 			| <%= conversation.last_message.body %> |
-			<% if @today == conversation.last_message.updated_at.strftime("%m/%d/%Y") %>
+			<% if @today == conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
 				<%= conversation.last_message.updated_at.strftime("%I:%M%p") %>
 			<% else %>
-				<%= conversation.last_message.updated_at.strftime("%m/%d/%Y") %>
+				<%= conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
 			<% end %>
 		</div>
 <% end %>
