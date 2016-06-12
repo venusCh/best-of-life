@@ -55,7 +55,9 @@ class GivingsController < ApplicationController
 
   def show
     @giving = Giving.find_by_id(params[:id])
-    @sentbox = current_user.mailbox.sentbox.find_by_subject(params[:id])
+    if (!current_user.nil?)
+      @sentbox = current_user.mailbox.sentbox.find_by_subject(params[:id])
+    end
 
     @already_asked = false
     @already_asked_at = nil
