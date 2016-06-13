@@ -33,7 +33,7 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: 'http://giversapp-env.at2tevh5f9.us-west-2.elasticbeanstalk.com' }
+  config.action_mailer.default_url_options = { host: 'http://giversapp.at2tevh5f9.us-west-2.elasticbeanstalk.com' }
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random

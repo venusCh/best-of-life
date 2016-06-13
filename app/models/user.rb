@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     		:recoverable, :rememberable, :trackable, :validatable
 	has_many :givings
 	acts_as_messageable
-	validates :zip, :numericality => {:only_integer => true}
+	validates :zip, :numericality => {:only_integer => true}, :allow_nil => true
 
   	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100#" }, :default_url => "user-avatar.jpg"
   	validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
