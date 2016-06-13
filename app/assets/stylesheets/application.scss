@@ -43,6 +43,11 @@ html, body {
 	width:  				140;
 	font-size:  			1.1em;
 }
+.navbar-brand > img {
+	display: 				inline-block;
+	height:  				20px;
+	vertical-align:  		bottom;
+}
 .full-content {
 	min-height:				100%;
 	margin-bottom:  		-60px;
