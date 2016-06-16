@@ -36,26 +36,76 @@
 	<% end %>
 </span>
 </p>  
+<!-- TODO: get the date and also fix the emailing code -->
+<% @giving_period = "a month" %>
+<% if @giving.wish == 20 %>
+	<% @giving_period = "3 months" %>
+<% elsif @giving.wish == 30 %>
+	<% @giving_period = "6 months" %>
+<% end %>
 
-<% if !@giving.status.nil? && @giving.status == 1 %>
+<% if !@giving.status.nil? && @giving.status == 111 %> <!-- confirmed giving & getting -->
 	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
+		<div class="condition-toast">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			You currently hold this item. We will send you a reminder email when it's time to re-give!
+		</div>
 		<%= link_to "Re-Give", regive_giving_path(@giving.id), class: "btn btn-primary" %><br>
 	<% else %>
 		<div class="condition-toast">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			Currently with <%= User.find_by_id(@giving.current_holder).name %> till end of this month. 
+			Currently with <%= User.find_by_id(@giving.current_holder).name %> for <%= @giving_period %>
+		</div>
+	<% end %>
+<% elsif !@giving.status.nil? && @giving.status == 101 %> <!-- confirmed getting -->
+	<% if !current_user.nil? && @giving.user_id == current_user.id %>
+		<% if !@giving.transfers.nil? %>
+			<% @getter = @giving.transfers.last.to %>
+			<% @getter_name = User.find_by_id(@giving.transfers.last.to).first_name %>
+		<% end %>
+		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
+	<% else %>
+		<div class="condition-toast">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			Currently with <%= User.find_by_id(@giving.current_holder).name %> for <%= @giving_period %>
+		</div>
+	<% end %>
+<% elsif !@giving.status.nil? && @giving.status == 11 %> <!-- confirmed giving -->
+	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
+		<% if !@giving.transfers.nil? %>
+			<% @getter = @giving.transfers.last.to %>
+			<% @giver = User.find_by_id(@giving.transfers.last.from).first_name %>
+		<% end %>
+		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
+	<% else %>
+		<div class="condition-toast">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			Currently with <%= User.find_by_id(@giving.current_holder).name %> for <%= @giving_period %>
+		</div>
+	<% end %>
+<% elsif !@giving.status.nil? && @giving.status == 1 %> <!-- agreed to give -->
+	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
+		<% if !@giving.transfers.nil? %>
+			<% @getter = @giving.transfers.last.to %>
+			<% @giver = User.find_by_id(@giving.transfers.last.from).first_name %>
+		<% end %>
+		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
+	<% elsif !current_user.nil? && @giving.user_id == current_user.id %>
+		<% if !@giving.transfers.nil? %>
+			<% @getter = @giving.transfers.last.to %>
+			<% @getter_name = User.find_by_id(@giving.transfers.last.to).first_name %>
+		<% end %>
+		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
+	<% else %>
+		<div class="condition-toast">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			Currently with <%= User.find_by_id(@giving.current_holder).name %> for <%= @giving_period %>
 		</div>
 	<% end %>
 <% else %>
 	<div class="condition-toast">
 		<%= User.find_by_id(@giving.current_holder).name %> wishes this to be re-given in 
-		<% if @giving.wish == 10 %>
-			<b> a month. </b> 
-		<% elsif @giving.wish == 20 %>
-			<b> 3 months. </b> 
-		<% elsif @giving.wish == 30 %>
-			<b> 6 months. </b> 
-		<% end %>
+		<b> <%= @giving_period %>. </b> 
 	</div>
 	<% if current_user.nil? || current_user.id != @giving.current_holder %>
 		<% if !@already_asked %>

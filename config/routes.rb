@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :givings do
     member do
       get :regive
+      get :confirm_giving
+      get :confirm_getting
     end
     resources :asks
     resources :transfers

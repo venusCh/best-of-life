@@ -44,6 +44,34 @@ class GivingsController < ApplicationController
     redirect_to :back, notice: "Successfully re-given! You will now start recieving requests for this."
   end
 
+  def confirm_giving
+    logger.debug("\n\n=======================\n")
+    logger.debug(params)
+    @giving = Giving.find_by_id(params[:id])
+    @transfer = Transfer.find_by_from_and_to_and_conversation(current_user.id, 
+                                                              params[:recipient],
+                                                              params[:id])
+    if (@giving.status >= 1)
+      @giving.status += 10
+    end
+    @giving.save
+
+    redirect_to :back, notice: "Thanks for confirming your giving!"
+  end
+
+  def confirm_getting
+    @giving = Giving.find_by_id(params[:id])
+    @transfer = Transfer.find_by_from_and_to_and_conversation(current_user.id, 
+                                                              params[:recipient],
+                                                              params[:id])
+    if (@giving.status >= 1)
+      @giving.status += 100
+    end
+    @giving.save
+
+    redirect_to :back, notice: "Thanks for confirming your receiving!"
+  end
+
   def create 
     @giving = current_user.givings.build(giving_params)
     @giving.current_holder = current_user.id

@@ -17,7 +17,7 @@ class TransfersController < ApplicationController
 			@transfer.save
 
 			@giving.current_holder = @transfer.to
-			@giving.status = 1 # In-use
+			@giving.status = 1 # Agreed to give
 			@giving.save
 
 			@recipient = User.find_by_id(@transfer.to)
