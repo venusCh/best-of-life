@@ -12,6 +12,11 @@ class GivingsController < ApplicationController
       if @myHoldings.count === 0 then
         redirect_to :back, notice: "You currently don't hold any givings."
       end
+    elsif (params[:favorites] === "true") then
+      @myFavorites = current_user.find_up_voted_items
+      if @myFavorites.count === 0 then
+        redirect_to :back, notice: "You haven't marked any favorites yet."
+      end
     else
       @givings = Giving.paginate(:page => params[:page], :per_page => 20)
     end
@@ -102,6 +107,19 @@ class GivingsController < ApplicationController
       end
     end
 
+    @bookmarked = current_user.voted_up_on? @giving, vote_scope: 'bookmark'
+  end
+
+  def add_bookmark
+    @giving = Giving.find_by_id(params[:id])
+    @giving.vote_by :voter => current_user, :vote_scope => 'bookmark'
+    redirect_to :back
+  end
+
+  def remove_bookmark
+    @giving = Giving.find_by_id(params[:id])
+    @giving.downvote_from current_user, :vote_scope => 'bookmark'
+    redirect_to :back
   end
 
   private

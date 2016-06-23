@@ -1,8 +1,22 @@
 <section id="box-blocks">
 
+<% @givingList = nil %>
+<% @givingListName = "" %>
+
 <% if !@myGivings.nil? %>
-	<h3> My Givings </h3>
-	<% @myGivings.each do |giving| %>
+	<% @givingList = @myGivings %>
+	<% @givingListName = "My Givings" %>
+<% elsif !@myHoldings.nil? %>
+	<% @givingList = @myHoldings %>
+	<% @givingListName = "My Holdings" %>
+<% elsif !@myFavorites.nil? %>
+	<% @givingList = @myFavorites %>
+	<% @givingListName = "My Favorites" %>
+<% end %>
+	
+<% if !@givingList.nil? %>
+	<h3> <%= @givingListName %> </h3>
+	<% @givingList.each do |giving| %>
 		<div class="giving-preview"> 
 			<div class="giving-preview-image">
 				<%= link_to(image_tag(giving.image.url(:thumb)), giving) %>
@@ -11,18 +25,6 @@
 				<%= link_to giving.name, giving %> 
 			</div>
 		</div>
-	<% end %>
-<% elsif !@myHoldings.nil? %>
-	<h3> My Holdings </h3>
-	<% @myHoldings.each do |giving| %>
-	<div class="giving-preview"> 
-		<div class="giving-preview-image">
-			<%= link_to(image_tag(giving.image.url(:thumb)), giving) %>
-		</div>
-		<div class="giving-preview-title">
-			<%= link_to giving.name, giving %> 
-		</div>
-	</div>
 	<% end %>
 <% else %>
 		<div class="floating-box give">

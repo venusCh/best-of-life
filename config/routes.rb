@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       get :regive
       get :confirm_giving
       get :confirm_getting
+      put "add_bookmark", to: "givings#add_bookmark"
+      put "remove_bookmark", to: "givings#remove_bookmark"
     end
     resources :asks
     resources :transfers

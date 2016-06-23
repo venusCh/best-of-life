@@ -34,4 +34,8 @@ class UserMailer < ApplicationMailer
 		mail(to: @user.email, subject: "You have #{@count_string} request".pluralize(request_count))
 	end
 
+	def send_due_date_reminder(user, object)
+		puts "Add code for sending reminder email"
+	end
+
 end

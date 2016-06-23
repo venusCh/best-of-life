@@ -11,7 +11,15 @@
 		data: { confirm: "Are you sure?" } %> <br>
 	<% end %>
 <% end %>
-
+<% if !@bookmarked %>
+	<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
+		<i class="fa fa-heart-o" aria-hidden="true"></i> favorite
+	<% end %>
+<% else %>
+	<%= link_to remove_bookmark_giving_path(@giving), method: :put do %>
+		<i class="fa fa-heart" aria-hidden="true"></i> un-favorite
+	<% end %>
+<% end %>
 
 </p>
 <span class="user_profile"> 
