@@ -41,12 +41,14 @@ class GivingsController < ApplicationController
     @giving.status = 0
     @giving.save
 
+    @transfer = Transfer.find_by_giving_id_and_to_and_is_active(params[:id], current_user.id, true)
+    @transfer.is_active = false;
+    @transfer.save
+
     redirect_to :back, notice: "Successfully re-given! You will now start recieving requests for this."
   end
 
   def confirm_giving
-    logger.debug("\n\n=======================\n")
-    logger.debug(params)
     @giving = Giving.find_by_id(params[:id])
     @transfer = Transfer.find_by_from_and_to_and_conversation(current_user.id, 
                                                               params[:recipient],
@@ -91,9 +93,9 @@ class GivingsController < ApplicationController
     @already_asked_at = nil
 
     if (current_user != nil && 
-      current_user.id != @giving.user_id) then
+      current_user.id != @giving.current_holder) then
       if (!@sentbox.nil? && 
-          @sentbox.recipients[0].id == @giving.user_id &&
+          @sentbox.recipients[0].id == @giving.current_holder &&
           @sentbox.subject == @giving.id.to_s) then
         @already_asked = true
         @already_asked_at = @sentbox.updated_at

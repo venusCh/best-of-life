@@ -44,26 +44,18 @@
 	<% @giving_period = "6 months" %>
 <% end %>
 
-<% if !@giving.status.nil? && @giving.status == 111 %> <!-- confirmed giving & getting -->
+<% if !@giving.status.nil? && @giving.status >= 101 %> <!-- getter or both confirmed -->
 	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
 		<div class="condition-toast">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			You currently hold this item. We will send you a reminder email when it's time to re-give!
+			You currently hold this item. We will send a reminder email when it's time to re-give!
 		</div>
 		<%= link_to "Re-Give", regive_giving_path(@giving.id), class: "btn btn-primary" %><br>
-	<% else %>
-		<div class="condition-toast">
-			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			Currently with <%= User.find_by_id(@giving.current_holder).name %> for <%= @giving_period %>
+	<% elsif !current_user.nil? && @giving.previous_holder == current_user.id %>
+		<div class="condition-info">
+			<i class="fa fa-exchange" aria-hidden="true"></i> &nbsp;
+			<%= User.find_by_id(@giving.current_holder).name %> confirms your transfer. Thanks for giving!
 		</div>
-	<% end %>
-<% elsif !@giving.status.nil? && @giving.status == 101 %> <!-- confirmed getting -->
-	<% if !current_user.nil? && @giving.user_id == current_user.id %>
-		<% if !@giving.transfers.nil? %>
-			<% @getter = @giving.transfers.last.to %>
-			<% @getter_name = User.find_by_id(@giving.transfers.last.to).first_name %>
-		<% end %>
-		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
 	<% else %>
 		<div class="condition-toast">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

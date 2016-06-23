@@ -14,8 +14,12 @@ class TransfersController < ApplicationController
 			@transfer.to = params[:transfer][:recipient]
 			@transfer.conversation = params[:transfer][:conversation]
 
+			@transfer.is_active = true
+			@transfer.due_date = Date.today + get_months(@giving)
+
 			@transfer.save
 
+			@giving.previous_holder = @giving.current_holder
 			@giving.current_holder = @transfer.to
 			@giving.status = 1 # Agreed to give
 			@giving.save
@@ -32,5 +36,15 @@ class TransfersController < ApplicationController
 	private
 	def transfer_params
 		params.require(:transfer).permit(:to)
+	end
+
+	def get_months(giving)
+		@months = 1.month
+		if @giving.wish == 20
+			@months = 3.months
+		elsif @giving.wish == 30
+			@months = 6.months
+		end
+		return @months
 	end
 end

@@ -21,6 +21,7 @@ gem 'aws-sdk-v1'
 gem 'omniauth-facebook'
 gem 'area'
 gem 'whenever', require: false
+gem 'acts_as_votable', '~> 0.10.0'
 
 group :development, :test do
   gem 'sqlite3'  

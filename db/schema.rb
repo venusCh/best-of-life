@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523022506) do
+ActiveRecord::Schema.define(version: 20160619214853) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160523022506) do
     t.integer  "current_holder"
     t.integer  "zip"
     t.string   "country"
+    t.integer  "previous_holder"
   end
 
   add_index "givings", ["user_id"], name: "index_givings_on_user_id"
@@ -104,6 +105,8 @@ ActiveRecord::Schema.define(version: 20160523022506) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "conversation"
+    t.boolean  "is_active"
+    t.datetime "due_date"
   end
 
   add_index "transfers", ["giving_id"], name: "index_transfers_on_giving_id"
