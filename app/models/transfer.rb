@@ -45,7 +45,7 @@ class Transfer < ActiveRecord::Base
 			if (today == due_date)
 				UserMailer.send_lastday_reminder(user, object, transfer).deliver_now
 			elsif (today > due_date)
-				if ((due_date - today) % 4 == 0) # remind every 4 days if overdue
+				if ((today - due_date) % 4 == 0) # remind every 4 days if overdue
 					UserMailer.send_overdue_reminder(user, object, transfer).deliver_now
 				end
 			elsif (7.days.from_now == due_date)

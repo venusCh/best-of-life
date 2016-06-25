@@ -35,7 +35,6 @@ class UserMailer < ApplicationMailer
 	end
 
 	def send_7day_reminder(user, object, transfer)
-		puts "\n\n\n Sending 7 day reminder....\n\n"
 		@user = user
 		@object = object
 		@transfer = transfer

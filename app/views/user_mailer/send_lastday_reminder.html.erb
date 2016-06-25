@@ -6,8 +6,8 @@
   <body>
     Hi <%= @user.first_name %>,
     <p>
-      We hope you enjoyed <b><%= @object.name %></b>. It's time to reGive and pass on the giving to others! <br>
-      Please go to <%= @url + "/giving/" + @transfer.giving_id.to_s %> and click on "reGive". 
+      We hope you enjoyed <b><%= @object.name %></b>. It's time to reGive and continue to giving cycle! <br>
+      Please visit <%= @url + "/giving/" + @transfer.giving_id.to_s %> and click on "reGive". 
     </p><br><br>
     <p style="color:#636363;">Thanks for using GiversApp and have a great day!</p>
   </body>
