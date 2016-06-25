@@ -10,14 +10,14 @@
 		method: :delete, 
 		data: { confirm: "Are you sure?" } %> <br>
 	<% end %>
-<% end %>
-<% if !@bookmarked %>
-	<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
-		<i class="fa fa-heart-o" aria-hidden="true"></i> favorite
-	<% end %>
-<% else %>
-	<%= link_to remove_bookmark_giving_path(@giving), method: :put do %>
-		<i class="fa fa-heart" aria-hidden="true"></i> un-favorite
+	<% if !@bookmarked %>
+		<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
+			<i class="fa fa-heart-o" aria-hidden="true"></i> favorite
+		<% end %>
+	<% else %>
+		<%= link_to remove_bookmark_giving_path(@giving), method: :put do %>
+			<i class="fa fa-heart" aria-hidden="true"></i> un-favorite
+		<% end %>
 	<% end %>
 <% end %>
 
@@ -98,8 +98,8 @@
 		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
 	<% else %>
 		<div class="condition-toast">
-			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			Currently with <%= User.find_by_id(@giving.current_holder).name %> for <%= @giving_period %>
+			<i class="fa fa-bicycle" aria-hidden="true"></i>
+			In the process of being transferred to <%= User.find_by_id(@giving.current_holder).name %>
 		</div>
 	<% end %>
 <% else %>

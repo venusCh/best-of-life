@@ -1,5 +1,6 @@
 class GivingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new,:create,:destroy,:regive]
+  before_action :authenticate_user!, only: [:new,:create,:destroy,:regive, 
+                      :confirm_giving, :confirm_getting, :add_bookmark, :remove_bookmark]
 
   def index
     if (params[:givings] === "true") then
@@ -107,12 +108,18 @@ class GivingsController < ApplicationController
       end
     end
 
-    @bookmarked = current_user.voted_up_on? @giving, vote_scope: 'bookmark'
+    @bookmarked = false;
+    if (!current_user.nil?)
+      @bookmarked = current_user.voted_up_on? @giving, vote_scope: 'bookmark'
+    end
   end
 
   def add_bookmark
     @giving = Giving.find_by_id(params[:id])
     @giving.vote_by :voter => current_user, :vote_scope => 'bookmark'
+
+    @transfer = Transfer.find_by_id(25)
+    UserMailer.send_7day_reminder(@current_user, @giving, @transfer).deliver_now
     redirect_to :back
   end
 

@@ -34,8 +34,32 @@ class UserMailer < ApplicationMailer
 		mail(to: @user.email, subject: "You have #{@count_string} request".pluralize(request_count))
 	end
 
-	def send_due_date_reminder(user, object)
-		puts "Add code for sending reminder email"
+	def send_7day_reminder(user, object, transfer)
+		puts "\n\n\n Sending 7 day reminder....\n\n"
+		@user = user
+		@object = object
+		@transfer = transfer
+		@url = 'http://giversapp.org'
+
+		mail(to: @user.email, subject: "reGive reminder for #{object}")
+	end
+
+	def send_lastday_reminder(user, object, transfer)
+		@user = user
+		@object = object
+		@transfer = transfer
+		@url = 'http://giversapp.org'
+
+		mail(to: @user.email, subject: "reGive reminder for #{object}")
+	end
+
+	def send_overdue_reminder(user, object, transfer)
+		@user = user
+		@object = object
+		@transfer = transfer
+		@url = 'http://giversapp.org'
+
+		mail(to: @user.email, subject: "reGive overdue for #{object}")
 	end
 
 end
