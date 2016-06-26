@@ -54,4 +54,24 @@ class Transfer < ActiveRecord::Base
 		end
 	end
 
+	# send emails when items in their wishlist become available
+	def self.send_wishlist_reminders
+
+		puts "\ninside ApplicationHelper::send_reminders\n"
+
+		User.all.each do |user|
+			puts "\ninside ApplicationHelper::looping through users\n"		
+
+			today = Time.now.to_date
+			wishlist = user.find_up_voted_items
+
+			wishlist.each do |item|
+				if (item.status == 0 && # available
+					item.updated_at.to_date == today)
+					UserMailer.send_wishlist_item_available(user, item).deliver_now
+				end
+			end
+		end
+	end
+
 end

@@ -3,6 +3,8 @@ class GivingsController < ApplicationController
                       :confirm_giving, :confirm_getting, :add_bookmark, :remove_bookmark]
 
   def index
+    puts "\n\n **** Inside index of Givings..****\n\n"
+
     if (params[:givings] === "true") then
       @myGivings = Giving.where(:user_id => current_user.id)
       if @myGivings.count === 0 then
@@ -52,6 +54,16 @@ class GivingsController < ApplicationController
     @transfer.save
 
     redirect_to :back, notice: "Successfully re-given! You will now start recieving requests for this."
+
+    # this isn't a scalable solution; move to sheduled tasks
+    if (false) 
+      @usersToUpdate = @giving.votes_for(:vote_scope => 'bookmark').up.by_type(User).voters
+
+      @usersToUpdate.each do |user|
+        UserMailer.send_wishlist_item_available(user, @giving).deliver_now
+      end
+    end
+
   end
 
   def confirm_giving
@@ -90,6 +102,7 @@ class GivingsController < ApplicationController
   end
 
   def show
+    puts "\n\n **** inside show of controller **** \n"
     @giving = Giving.find_by_id(params[:id])
     if (!current_user.nil?)
       @sentbox = current_user.mailbox.sentbox.find_by_subject(params[:id])
@@ -118,6 +131,8 @@ class GivingsController < ApplicationController
     @giving = Giving.find_by_id(params[:id])
     @giving.vote_by :voter => current_user, :vote_scope => 'bookmark'
 
+    @transfer = Transfer.find_by_id(25)
+    UserMailer.send_lastday_reminder(current_user, @giving, @transfer).deliver_now
     redirect_to :back
   end
 

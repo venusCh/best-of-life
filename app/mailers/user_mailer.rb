@@ -40,7 +40,7 @@ class UserMailer < ApplicationMailer
 		@transfer = transfer
 		@url = 'http://giversapp.org'
 
-		mail(to: @user.email, subject: "reGive reminder for #{object}")
+		mail(to: @user.email, subject: "reGive reminder for #{object.name}")
 	end
 
 	def send_lastday_reminder(user, object, transfer)
@@ -49,7 +49,7 @@ class UserMailer < ApplicationMailer
 		@transfer = transfer
 		@url = 'http://giversapp.org'
 
-		mail(to: @user.email, subject: "reGive reminder for #{object}")
+		mail(to: @user.email, subject: "reGive #{object.name} today")
 	end
 
 	def send_overdue_reminder(user, object, transfer)
@@ -58,7 +58,15 @@ class UserMailer < ApplicationMailer
 		@transfer = transfer
 		@url = 'http://giversapp.org'
 
-		mail(to: @user.email, subject: "reGive overdue for #{object}")
+		mail(to: @user.email, subject: "reGive overdue for #{object.name}")
+	end
+
+	def send_wishlist_item_available(user, object)
+		@user = user
+		@object = object
+		@url = 'http://giversapp.org'
+
+		mail(to: @user.email, subject: "#{object.name} in your wishlist now available!")
 	end
 
 end

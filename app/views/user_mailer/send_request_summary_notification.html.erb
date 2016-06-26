@@ -29,7 +29,7 @@
 
       You have received <%= @countString %> <%= "request".pluralize(@request_count) %> in the past 24 hours for <b><%= objectString %></b>
         <br>
-      Please go to <%= @url + "/conversations" %> to accept pending requests.
+      Please go to your <%= link_to 'inbox', @url + "/conversations" %> to accept pending requests.
     </p><br><br>
     <p style="color:#636363;">Thanks for using GiversApp and have a great day!</p>
   </body>

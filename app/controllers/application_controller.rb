@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound do
     flash[:warning] = 'Resource not found.'
+    puts "\n\n ****** redirect_back_or root_path ****\n"
     redirect_back_or root_path
   end
 
