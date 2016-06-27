@@ -4,8 +4,18 @@ class GivingsController < ApplicationController
 
   def index
     puts "\n\n **** Inside index of Givings..****\n\n"
+    puts params
 
-    if (params[:givings] === "true") then
+    # TODO: sql injection checks
+    if (!params[:query].nil? && params[:query] != "") then
+      @searchResults = Giving.where("name LIKE ?", "%#{params[:query]}%")
+      @searchTerm = params[:query]
+      puts "\n\nhello ***** \n"
+      puts @searchResults
+      if @searchResults.count === 0 then
+        redirect_to :back, notice: "We found no results for #{@searchTerm}!"
+      end
+    elsif (params[:givings] === "true") then
       @myGivings = Giving.where(:user_id => current_user.id)
       if @myGivings.count === 0 then
         redirect_to :back, notice: "You haven't given anything yet. Click on Give below to get started!"
@@ -146,5 +156,5 @@ class GivingsController < ApplicationController
   def giving_params
     params.require(:giving).permit(:name,:image,:desc,:wish)
   end
-  
+
 end
