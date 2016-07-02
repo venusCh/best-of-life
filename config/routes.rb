@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
   get 'profiles/:id' => 'profiles#show'
-  
+
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", registrations: 'registrations'}
+
   resources :givings do
     member do
       get :regive
@@ -11,10 +12,8 @@ Rails.application.routes.draw do
       put "add_bookmark", to: "givings#add_bookmark"
       put "remove_bookmark", to: "givings#remove_bookmark"
     end
-    resources :asks
     resources :transfers
   end
-  resources :asks
   resources :transfers
   
   resources :topics do 

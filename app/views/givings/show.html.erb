@@ -23,7 +23,7 @@
 		<br><span class="user-location"><%= @giver_location.to_s.to_region %></span>
 	<% end %>
 	<% @giving.transfers.each do |transfer| %>
-		<br> &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-down arrow" aria-hidden="true"></span>
+		<br> <i class="fa fa-arrow-down" aria-hidden="true" style="margin-left: 18px;color:#e46633;"></i>
 		<div class="round-image-50">
 			<a href="/profiles/<%= transfer.to%>"><%= image_tag(User.find_by_id(transfer.to).avatar.url(:thumb)) %></a>
 		</div>

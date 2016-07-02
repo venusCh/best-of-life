@@ -32,3 +32,16 @@
 		<div class="profile-timestamp">Member since <%= @user.created_at.strftime("%B, %Y") %></div>
 	<% end %>
 </div>
+
+<% if false %>
+	<%= form_for([@user, @user.comments.build]) do |f| %>
+		<p> <%= f.text_field :title, placeholder: "Title" %> </p>
+		<p> <%= f.text_area :comments, cols: 26, placeholder: "add your comment..." %> </p>
+		<%= f.submit "Post", class: "btn btn-primary" %>
+	<% end %>
+
+	<% current_user.comments.each do |comment| %>
+	    <%= comment.title %>
+	    <%= comment.comments %>
+	<% end %>
+<% end %>
