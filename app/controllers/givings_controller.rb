@@ -140,9 +140,6 @@ class GivingsController < ApplicationController
   def add_bookmark
     @giving = Giving.find_by_id(params[:id])
     @giving.vote_by :voter => current_user, :vote_scope => 'bookmark'
-
-    @transfer = Transfer.find_by_id(25)
-    UserMailer.send_lastday_reminder(current_user, @giving, @transfer).deliver_now
     redirect_to :back
   end
 

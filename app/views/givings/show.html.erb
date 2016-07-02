@@ -25,10 +25,10 @@
 	<% @giving.transfers.each do |transfer| %>
 		<br> <i class="fa fa-arrow-down" aria-hidden="true" style="margin-left: 18px;color:#e46633;"></i>
 		<div class="round-image-50">
-			<a href="/profiles/<%= transfer.to%>"><%= image_tag(User.find_by_id(transfer.to).avatar.url(:thumb)) %></a>
+			<a href="/profiles/<%= transfer.to_id%>"><%= image_tag(User.find_by_id(transfer.to_id).avatar.url(:thumb)) %></a>
 		</div>
-		<%= User.find_by_id(transfer.to).name %>
-		<% @location = User.find_by_id(transfer.to).zip %>
+		<%= User.find_by_id(transfer.to_id).name %>
+		<% @location = User.find_by_id(transfer.to_id).zip %>
 		<% if !@location.nil? %>
 			<br><span class="user-location"><%= @location.to_s.to_region %></span>
 		<% end %>
@@ -74,8 +74,8 @@
 <% elsif !@giving.status.nil? && @giving.status == 11 %> <!-- confirmed giving -->
 	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
 		<% if !@giving.transfers.nil? %>
-			<% @getter = @giving.transfers.last.to %>
-			<% @giver = User.find_by_id(@giving.transfers.last.from).first_name %>
+			<% @getter = @giving.transfers.last.to_id %>
+			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
 		<% end %>
 		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
 	<% else %>
@@ -97,14 +97,14 @@
 <% elsif !@giving.status.nil? && @giving.status == 1 %> <!-- agreed to give -->
 	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
 		<% if !@giving.transfers.nil? %>
-			<% @getter = @giving.transfers.last.to %>
-			<% @giver = User.find_by_id(@giving.transfers.last.from).first_name %>
+			<% @getter = @giving.transfers.last.to_id %>
+			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
 		<% end %>
 		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
 	<% elsif !current_user.nil? && @giving.user_id == current_user.id %>
 		<% if !@giving.transfers.nil? %>
-			<% @getter = @giving.transfers.last.to %>
-			<% @getter_name = User.find_by_id(@giving.transfers.last.to).first_name %>
+			<% @getter = @giving.transfers.last.to_id %>
+			<% @getter_name = User.find_by_id(@giving.transfers.last.to_id).first_name %>
 		<% end %>
 		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
 	<% else %>

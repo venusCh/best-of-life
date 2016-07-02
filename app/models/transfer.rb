@@ -39,7 +39,7 @@ class Transfer < ActiveRecord::Base
 			due_date = transfer.due_date.to_date
 
 			object = Giving.find_by_id(transfer.giving_id)
-			user = User.find_by_id(transfer.to)
+			user = User.find_by_id(transfer.to_id)
 
 			puts "\nSending the email to user...\n"
 			if (today == due_date)

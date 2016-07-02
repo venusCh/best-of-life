@@ -13,7 +13,7 @@
 			<div class="givings-header left"> <h3> Givings </h3>
 			</div>
 		</div>
-		<div class="floating-box give">
+		<div class="floating-box givings">
 			<% @user_givings.each do |giving| %>
 				<div class="giving-preview"> 
 					<div class="giving-preview-image">
@@ -33,16 +33,40 @@
 	<% end %>
 </div>
 
-<h3><b>Testimonials</b></h3>
-<div style="margin-left: 15px">
-	<% @user.comments.each do |comment| %>
-		<%= comment.commenter %>
-	    <%= comment.body %> <br>
-	<% end %>
+<h3><b>User Reviews</b></h3>
+<div style="margin-left: 15px;">
+	<div style="margin-bottom: 15px;">
+		<% @user.comments.each do |comment| %>
+			<div class="comment-card">
+				<div class="comment-card user">
+					<div class="round-image-50">
+						<a href="/profiles/<%= comment.commenter%>"><%= image_tag(User.find_by_id(comment.commenter).avatar.url(:thumb)) %></a>
+					</div>
+					<%= User.find_by_id(comment.commenter).name %>
+				</div>
+				<div class="comment-card body">
+		    		<%= comment.body %>
+		    	</div>
+	    	</div>
+		<% end %>
+	</div>
 
 	<% if @canComment %>
 		<div style="margin-bottom: 10px;">Rate your recent experience dealing with <%= @user.first_name %>
 		</div>
+
+		<div class="bookmark-section">
+			<% if !@bookmarked %> <!-- favorite for wishlist -->
+				<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
+					<i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist
+				<% end %>
+			<% else %>
+				<span style="color:#337ab7"><i class="fa fa-heart" aria-hidden="true"></i> In Wishlist</span>
+				<%= link_to "(remove)", remove_bookmark_giving_path(@giving), method: :put, style: "color: #949494;" %>
+			<% end %>
+		</div>
+
+
 		<%= form_for([@user, @user.comments.build]) do |f| %>
 			<p> <%= f.text_area :body, cols: 35, rows: 4, placeholder: "Add testimonial...", required: true %> </p>
 			<%= f.submit "Add", class: "btn btn-primary" %>

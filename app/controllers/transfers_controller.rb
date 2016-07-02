@@ -10,8 +10,8 @@ class TransfersController < ApplicationController
 																params[:transfer][:conversation])
 
 		if @check.nil? then
-			@transfer.from = current_user.id
-			@transfer.to = params[:transfer][:recipient]
+			@transfer.from_id = current_user.id
+			@transfer.to_id = params[:transfer][:recipient]
 			@transfer.conversation = params[:transfer][:conversation]
 
 			@transfer.is_active = true
@@ -20,11 +20,11 @@ class TransfersController < ApplicationController
 			@transfer.save
 
 			@giving.previous_holder = @giving.current_holder
-			@giving.current_holder = @transfer.to
+			@giving.current_holder = @transfer.to_id
 			@giving.status = 1 # Agreed to give
 			@giving.save
 
-			@recipient = User.find_by_id(@transfer.to)
+			@recipient = User.find_by_id(@transfer.to_id)
 		    UserMailer.send_accept_notification(@recipient, current_user, @giving).deliver_now
 
 			redirect_to :back

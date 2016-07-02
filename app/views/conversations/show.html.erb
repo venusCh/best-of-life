@@ -64,7 +64,7 @@
 
       <% @giving.transfers.each do |transfer| %>
         <% if transfer.conversation == @conversation.id %>
-          <% @recipient = transfer.to %>
+          <% @recipient = transfer.to_id %>
         <% end %>
       <% end %>
 

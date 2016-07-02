@@ -194,6 +194,9 @@ a:hover {
 .floating-box.give {
 	background-color: 		#white;
 }
+.floating-box.givings {
+	min-height:  			150px;
+}
 .givings-header {
 	background-color: 		#656565;
 	border-radius: 			3px;
@@ -410,6 +413,20 @@ h2, h3 {
 }
 .bookmark-section {
 	margin-left: 			15px;
+}
+
+.comment-card {
+}
+.comment-card.user {
+	display: 				inline-block;
+    font-weight: 			bold;
+    font-size: 				1em;
+    color: 					#2A9096;
+}
+.comment-card.body {
+	display: 				inline-block;
+    width: 					70%;
+    vertical-align: 		top;
 }
 
 /**
