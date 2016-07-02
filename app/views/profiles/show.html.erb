@@ -33,15 +33,19 @@
 	<% end %>
 </div>
 
-<% if false %>
-	<%= form_for([@user, @user.comments.build]) do |f| %>
-		<p> <%= f.text_field :title, placeholder: "Title" %> </p>
-		<p> <%= f.text_area :comments, cols: 26, placeholder: "add your comment..." %> </p>
-		<%= f.submit "Post", class: "btn btn-primary" %>
+<h3><b>Testimonials</b></h3>
+<div style="margin-left: 15px">
+	<% @user.comments.each do |comment| %>
+		<%= comment.commenter %>
+	    <%= comment.body %> <br>
 	<% end %>
 
-	<% current_user.comments.each do |comment| %>
-	    <%= comment.title %>
-	    <%= comment.comments %>
+	<% if @canComment %>
+		<div style="margin-bottom: 10px;">Rate your recent experience dealing with <%= @user.first_name %>
+		</div>
+		<%= form_for([@user, @user.comments.build]) do |f| %>
+			<p> <%= f.text_area :body, cols: 35, rows: 4, placeholder: "Add testimonial...", required: true %> </p>
+			<%= f.submit "Add", class: "btn btn-primary" %>
+		<% end %>
 	<% end %>
-<% end %>
+</div>

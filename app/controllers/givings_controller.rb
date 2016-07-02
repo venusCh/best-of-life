@@ -78,7 +78,7 @@ class GivingsController < ApplicationController
 
   def confirm_giving
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_and_to_and_conversation(current_user.id, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_conversation(current_user.id, 
                                                               params[:recipient],
                                                               params[:id])
     if (@giving.status >= 1)
@@ -91,7 +91,7 @@ class GivingsController < ApplicationController
 
   def confirm_getting
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_and_to_and_conversation(current_user.id, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_conversation(current_user.id, 
                                                               params[:recipient],
                                                               params[:id])
     if (@giving.status >= 1)

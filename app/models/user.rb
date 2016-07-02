@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable, :omniauthable,
     		:recoverable, :rememberable, :trackable, :validatable
 	has_many :givings
+	has_many :comments
 	acts_as_messageable
 	acts_as_voter
 	validates :zip, :numericality => {:only_integer => true}, :allow_nil => true

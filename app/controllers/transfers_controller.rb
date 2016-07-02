@@ -5,7 +5,7 @@ class TransfersController < ApplicationController
 		@giving = Giving.find_by_id(params[:giving_id])
 		@transfer = @giving.transfers.create(transfer_params)
 
-		@check = Transfer.find_by_from_and_to_and_conversation(current_user.id, 
+		@check = Transfer.find_by_from_id_and_to_id_and_conversation(current_user.id, 
 																params[:transfer][:recipient],
 																params[:transfer][:conversation])
 

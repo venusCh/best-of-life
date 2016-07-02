@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702175606) do
+ActiveRecord::Schema.define(version: 20160702212157) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20160702175606) do
   end
 
   add_index "asks", ["giving_id"], name: "index_asks_on_giving_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "commenter"
+    t.text     "body"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "givings", force: :cascade do |t|
     t.string   "name"
@@ -99,8 +109,8 @@ ActiveRecord::Schema.define(version: 20160702175606) do
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
   create_table "transfers", force: :cascade do |t|
-    t.integer  "from"
-    t.integer  "to"
+    t.integer  "from_id"
+    t.integer  "to_id"
     t.integer  "giving_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
