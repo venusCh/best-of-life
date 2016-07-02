@@ -8,7 +8,7 @@ when 'production'
 		puts "\n\ncalling Transfer.send_reminders...\n"
 		command 'cd /var/app/current && rails runner -e production "Transfer.send_reminders"'
 	end		
-	every "0 24 * * *" do 
+	every "0 23 * * *" do 
 		puts "\n\ncalling Transfer.send_wishlist_reminders...\n"
 		command 'cd /var/app/current && rails runner -e production "Transfer.send_wishlist_reminders"'
 	end		
