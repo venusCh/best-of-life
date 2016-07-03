@@ -20,5 +20,25 @@ class ProfilesController < ApplicationController
 		if (!@existingComment.nil?)
 			@canComment = false
 		end
+
+		@ratedPositive = false
+		@ratedNegative = false
+		if (!current_user.nil?)
+      		@ratedPositive = current_user.voted_up_on? @user, vote_scope: 'user_rating'
+      		@ratedNegative = current_user.voted_down_on? @user, vote_scope: 'user_rating'
+    	end
 	end
+
+  def rate_positive
+    @user = User.find_by_id(params[:id])
+    @user.vote_by :voter => current_user, :vote_scope => 'user_rating'
+    redirect_to :back
+  end
+
+  def rate_negative
+    @user = User.find_by_id(params[:id])
+    @user.downvote_from current_user, :vote_scope => 'user_rating'
+    redirect_to :back
+  end
+
 end

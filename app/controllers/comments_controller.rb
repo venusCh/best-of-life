@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 	    @comment.commenter = current_user.id
 	    @comment.save
 
-	    redirect_to :back, notice: "Thanks for adding your testimonial"
+	    redirect_to :back, notice: "Thanks for adding your comments"
 	end
  
   	private

@@ -45,6 +45,12 @@
 					<%= User.find_by_id(comment.commenter).name %>
 				</div>
 				<div class="comment-card body">
+					<!-- Todo: move to backend -->
+					<% if User.find_by_id(comment.commenter).voted_up_on? @user, vote_scope: 'user_rating' %>
+						<span style="color:#337ab7">Rated positive <i class="fa fa-smile-o" aria-hidden="true"></i></span>
+					<% elsif User.find_by_id(comment.commenter).voted_down_on? @user, vote_scope: 'user_rating' %>
+						<span style="color:#ab1911">Rated negative <i class="fa fa-frown-o" aria-hidden="true"></i></span>
+					<% end %><br>
 		    		<%= comment.body %>
 		    	</div>
 	    	</div>
@@ -52,24 +58,28 @@
 	</div>
 
 	<% if @canComment %>
-		<div style="margin-bottom: 10px;">Rate your recent experience dealing with <%= @user.first_name %>
-		</div>
-
-		<div class="bookmark-section">
-			<% if !@bookmarked %> <!-- favorite for wishlist -->
-				<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
-					<i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist
-				<% end %>
+		<div class="bookmark-section" style="margin-bottom: 10px;">
+			<% if @ratedPositive %>
+				<span style="color:#337ab7"><i class="fa fa-smile-o" aria-hidden="true"></i> You rated positive</span>
+			<% elsif @ratedNegative %>
+				<span style="color:#ab1911"><i class="fa fa-frown-o" aria-hidden="true"></i> You rated negative</span>
 			<% else %>
-				<span style="color:#337ab7"><i class="fa fa-heart" aria-hidden="true"></i> In Wishlist</span>
-				<%= link_to "(remove)", remove_bookmark_giving_path(@giving), method: :put, style: "color: #949494;" %>
+				<div>Rate your recent experience dealing with <%= @user.first_name %>
+				</div>
+				<%= link_to rate_user_positive_path(@user), method: :put do %>
+					<i class="fa fa-smile-o" aria-hidden="true"></i> Positive
+				<% end %> | 
+				<%= link_to rate_user_negative_path(@user), method: :put do %>
+					<i class="fa fa-frown-o" aria-hidden="true"></i> Negative
+				<% end %>
 			<% end %>
 		</div>
 
-
-		<%= form_for([@user, @user.comments.build]) do |f| %>
-			<p> <%= f.text_area :body, cols: 35, rows: 4, placeholder: "Add testimonial...", required: true %> </p>
-			<%= f.submit "Add", class: "btn btn-primary" %>
-		<% end %>
+		<div class="bookmark-section">
+			<%= form_for([@user, @user.comments.build]) do |f| %>
+				<p> <%= f.text_area :body, cols: 35, rows: 4, placeholder: "Add comments...", required: true %> </p>
+				<%= f.submit "Add", class: "btn btn-primary" %>
+			<% end %>
+		</div>
 	<% end %>
 </div>

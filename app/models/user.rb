@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 	has_many :givings
 	has_many :comments
 	acts_as_messageable
+	acts_as_votable
 	acts_as_voter
 	validates :zip, :numericality => {:only_integer => true}, :allow_nil => true
 

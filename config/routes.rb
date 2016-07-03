@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  put 'profiles/:id/rate_positive' => 'profiles#rate_positive', :as => 'rate_user_positive'
+  put 'profiles/:id/rate_negative' => 'profiles#rate_negative', :as => 'rate_user_negative'
+
   resources :givings do
     member do
       get :regive
