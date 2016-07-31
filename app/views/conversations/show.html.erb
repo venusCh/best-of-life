@@ -70,8 +70,8 @@
 
       <%= form_for :message, url: reply_conversation_path, :html => {:id => "form_reply"} do |f| %>
       <div class="input-group">
-          <%= f.text_area 'body', rows: "3", class: 'form-control custom-control', style: "resize:none", required: true, placeholder: "Your reply...", autofocus: true, id: "reply_message" %>
-          <span onclick="submitOnClick('form_reply')" class="input-group-addon btn btn-default" %>Send
+          <%= f.text_area 'body', rows: "3", class: 'input-reply-message', style: "resize:none", required: true, placeholder: "Your reply...", autofocus: true, id: "reply_message" %>
+          <span onclick="submitOnClick('form_reply')" class="btn-reply" %>Send
           </span>
       </div>
       <% end %>
@@ -81,7 +81,7 @@
           <%= form_for([@giving, @giving.transfers.build]) do |f| %>
             <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
             <%= f.hidden_field :conversation, :value => @conversation.id %>
-            <%= f.submit "Accept", class: "btn btn-primary" %>
+            <%= f.submit "Accept", class: "btn-primary" %>
           <% end %><br/>
         </div>
       <% else %>

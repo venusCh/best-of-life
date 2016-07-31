@@ -221,6 +221,104 @@ a:hover {
 	text-decoration: 		none;
 }
 
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.btn-default {
+    color: #555555;
+    background-color: #eeeeee;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+}
+.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.input-group {
+	display: table;
+	position: relative;
+	border-collapse: separate;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+.input-reply-message {
+    padding: 6px;
+    height: auto;
+    font-family: inherit;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+	border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    display: table-cell;
+    margin-bottom: 0px;
+    float: left;
+    width: 100%;
+}
+.btn-reply {
+    color: #555555;
+    background-color: #eeeeee;
+    border: 1px solid #ccc;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    padding-left: 22px;
+    padding-right: 8px;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    border-left: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    display: table-cell;
+    width: 1%;
+}
+.btn-reply:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
 .badge-message {
 	background-color:  		red;
 	padding: 				0px 4px;
@@ -231,7 +329,12 @@ a:hover {
 	color:  				white;
 }
 .badge-givings {
-	background-color:  		#8C68D6;
+	background-color:  		#ec2a35;
+	padding: 				0px 4px;
+	border-radius: 			4px;
+	vertical-align:  		top;
+	display:  				inline-block;
+	color:  				white;
 	font-size:  			1.0em;
 }
 /**

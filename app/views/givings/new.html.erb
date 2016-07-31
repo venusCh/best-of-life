@@ -22,7 +22,7 @@ $(function() {
   <%= form_for :giving, url: givings_path do |f| %>
   	<p> <%= f.text_field :name, placeholder: "Name", size: 35, style:"padding: 5px", :required => true, autofocus: true %> </p>
   	<p> <div id="image-target"> </div>
-  	<span class="btn btn-default btn-file">
+  	<span class="btn-default btn-file">
   	<span id="upload-image-text">Add image</span> <%= f.file_field :image, accept: "image/*;capture=camera" %> 
   	</span></p>
   	<%= f.text_area :desc, cols: "38", rows: "3", placeholder: "Few words on this Giving...", style: "padding: 5px"%> </p>
@@ -32,7 +32,7 @@ $(function() {
   	   <%= f.select :wish, options_for_select([["a month", 10], ["3 months", 20], ["6 months", 30]]) %> 
        </p>
     <p>
-  	 <%= f.submit "Give", class:"btn btn-primary" %>
+  	 <%= f.submit "Give", class:"btn-primary" %>
     </p>
   <% end %>
 </div>

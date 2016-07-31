@@ -49,7 +49,7 @@
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 			You currently hold this item. We will send a reminder email when it's time to re-give!
 		</div>
-		<%= link_to "Re-Give", regive_giving_path(@giving.id), class: "btn btn-primary" %><br>
+		<%= link_to "Re-Give", regive_giving_path(@giving.id), class: "btn-primary" %><br>
 	<% elsif !current_user.nil? && @giving.previous_holder == current_user.id %>
 		<div class="condition-info">
 			<i class="fa fa-exchange" aria-hidden="true"></i> &nbsp;
@@ -77,7 +77,7 @@
 			<% @getter = @giving.transfers.last.to_id %>
 			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
 		<% end %>
-		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
+		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn-primary" %><br>
 	<% else %>
 		<div class="condition-toast">
 			<i class="fa fa-bicycle" aria-hidden="true" style="color:#8a5120"></i>
@@ -100,13 +100,13 @@
 			<% @getter = @giving.transfers.last.to_id %>
 			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
 		<% end %>
-		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
+		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn-primary" %><br>
 	<% elsif !current_user.nil? && @giving.user_id == current_user.id %>
 		<% if !@giving.transfers.nil? %>
 			<% @getter = @giving.transfers.last.to_id %>
 			<% @getter_name = User.find_by_id(@giving.transfers.last.to_id).first_name %>
 		<% end %>
-		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn btn-primary" %><br>
+		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn-primary" %><br>
 	<% else %>
 		<div class="condition-toast">
 			<i class="fa fa-bicycle" aria-hidden="true" style="color:#8a5120"></i>
@@ -131,7 +131,7 @@
 	<% if current_user.nil? || current_user.id != @giving.current_holder %>
 		<% if !@already_asked %>
 			<div>
-				<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.current_holder), class: "btn btn-primary"%></p>
+				<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.current_holder), class: "btn-primary"%></p>
 			</div>
 		<% else %>
 			<div style="color:#44362A">
