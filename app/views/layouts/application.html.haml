@@ -46,37 +46,38 @@
 
 %body
 	.full-content
-		%nav.navbar.navbar-default
-			.container
+		%nav
+			.navbar-center
 				.navbar-brand
 					= image_tag "Gicycle.jpg"
 					= link_to "reGive", givings_path
 
 				- if user_signed_in?
-					%ul.nav.navbar-nav.navbar-right
-						%li.desktop= link_to "Give", new_giving_path
-						%li.mobile
-							.float-to-right
-								.side-by-side= link_to "Messages", conversations_path
-								.side-by-side.mobile
-									= link_to conversations_path(@user) do
-										%i.fa.fa-envelope-o{"aria-hidden" => "true"}
-								- if current_user.unread_inbox_count > 0
-									.badge.message #{current_user.unread_inbox_count}
+					%ul.navbar-menu-account
+						%li
+							.desktop= link_to "Give", new_giving_path
+						%li
+							.desktop= link_to "Messages", conversations_path
+							.mobile
+								= link_to conversations_path(@user) do
+									%i.fa.fa-envelope-o{"aria-hidden" => "true"}
+							- if current_user.unread_inbox_count > 100
+								.badge.message #{current_user.unread_inbox_count}
 
 						%li.mobile
 							#user-pic.round-image-50= link_to image_tag(current_user.avatar.url(:thumb)), "#"
 				- else
-					%ul.nav.navbar-nav.navbar-right
-						%li.desktop= link_to "Sign up", new_user_registration_path
-						%li.float-to-right= link_to "Sign In", new_user_session_path
+					%ul.navbar-menu-signup
+						%li
+							.desktop= link_to "Sign up", new_user_registration_path
+						%li= link_to "Sign In", new_user_session_path
 	
 		#options-dropdown
-			%li.mobile.editprofile=link_to "Edit Profile", edit_user_registration_path
-			%li.mobile=link_to "My Givings", givings_path(:givings => true)
-			%li.mobile=link_to "My Holdings", givings_path(:holdings => true)
-			%li.mobile=link_to "My Wishlist", givings_path(:favorites => true)
-			%li.mobile.signout= link_to "Sign Out", destroy_user_session_path, method: :delete
+			%li.editprofile=link_to "Edit Profile", edit_user_registration_path
+			%li=link_to "My Givings", givings_path(:givings => true)
+			%li=link_to "My Holdings", givings_path(:holdings => true)
+			%li=link_to "My Wishlist", givings_path(:favorites => true)
+			%li.signout= link_to "Sign Out", destroy_user_session_path, method: :delete
 
 		.main-content
 			- flash.each do |name, msg|
