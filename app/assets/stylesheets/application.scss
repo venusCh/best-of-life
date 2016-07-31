@@ -41,6 +41,7 @@ nav {
 	height:  				52px;
 	border-radius:   		4px;
 	margin: 				1px;
+	min-width:  			320px;
 }
 .navbar-center {
 	background-color: 		#252525;
@@ -131,6 +132,7 @@ nav {
     padding-top:  			20px;
     text-align: 			center;
     border-radius:  		1px;
+    min-width:  			320px;
 }
 .main-content {
 	width:  				70%;
@@ -219,14 +221,16 @@ a:hover {
 	text-decoration: 		none;
 }
 
-.badge.message {
+.badge-message {
 	background-color:  		red;
-	padding: 				2px 4px;
+	padding: 				0px 4px;
 	border-radius: 			3px;
 	vertical-align:  		top;
-	margin-top: 			12px;
+	margin-top: 			-8px;
+	display:  				inline-block;
+	color:  				white;
 }
-.badge.givings {
+.badge-givings {
 	background-color:  		#8C68D6;
 	font-size:  			1.0em;
 }
@@ -234,9 +238,9 @@ a:hover {
  * Landing page boxes
  */
 
-.floating-box {
+.floating-box-old {
 	display: 				block;
-	min-width: 				250px;
+	min-width: 				310px;
 	width: 					100%;
 	min-height: 			300px;
 	vertical-align: 		top;
@@ -245,32 +249,35 @@ a:hover {
 	border-color: 			#500000;
 	padding: 				10px;
 }
-.floating-box.give {
-	background-color: 		#white;
+.floating-box-give {
+	min-height:  			260px;
+	min-width:  			290px;
+	vertical-align: 		top;
 }
-.floating-box.givings {
+.floating-box-givings {
+	min-width: 				290px;
 	min-height:  			150px;
 }
 .givings-header {
 	background-color: 		#656565;
 	border-radius: 			3px;
-	height: 				38px;
+	height: 				31px;
 	padding: 				3px;
 	color:  				#f0f0f0;
+	min-width:  			285px;
 }
-.givings-header.left {
+.givings-header-left {
 	float: 					left;
-	height: 				32px;
+	height: 				28px;
 }
-.givings-header.right {
+.givings-header-right {
 	float: 					right;
-	height:  				32px;
+	height:  				25px;
 	color: 					#606060;
+	margin-top: 			3px;
 }
-.givings-header-search {
-}
-.givings-header > h3 {
-	margin: 				2px;
+.givings-header-left > h3 {
+	margin: 				3px;
 	font-size:  			1.25em;
 }
 .giving-preview {
@@ -481,15 +488,18 @@ h2, h3 {
 .mobile {
 	display:  				none;
 }
+.desktop {
+	display:  				inline-block;
+}
 /**
  * Styling for mobile devices (iPhone)
  */
 @media only screen and (max-device-width: 480px) { 
 	body {
-		font-size: 			1.8em;
+		font-size: 			1.6em;
 	}
 	.mobile {
-		display:  			inherit;
+		display:  			inline-block;
 	}
 	.quote {
 		width: 				100%;
@@ -538,8 +548,7 @@ h2, h3 {
 
 	nav {
 		height:  				80px;
-		border-radius:   		4px;
-		min-width:  			310px;
+		border-radius:   		0px;
 	}
 	.navbar-cener {
 		margin: 				5px;
@@ -556,7 +565,7 @@ h2, h3 {
 	}
 	.navbar-menu-account {
 		padding-left: 	 		0px;
-		margin: 				2px;
+		margin: 				8px;
 		font-size:  			0.8em;
 	}
 	.navbar-menu-signup {
@@ -567,11 +576,11 @@ h2, h3 {
 	}
 
 	.givings-header {
-		height: 			64px;
-		padding: 			6px;
+		height: 			50px;
+		padding: 			2px;
 	}
-	.givings-header.right {
-		padding: 			6px;
+	.givings-header-right {
+		padding: 			3px;
 	}
 
 	.full-content {
@@ -586,12 +595,13 @@ h2, h3 {
 	}
 
 	.giving-preview {
-		min-height:			200px;
+		min-height:			160px;
 		height:  			auto;
-		width: 				130px;
-		padding: 			8px;
-		box-shadow:  		10px 10px 15px #999999;
+		width: 				120px;
+		padding: 			4px;
+		box-shadow:  		8px 8px 12px #999999;
 		margin: 			4px;
+		font-size:  		0.8em;
 	}
 	.main-content {
 		width: 				90%;
@@ -612,27 +622,23 @@ h2, h3 {
 		min-width:			36px;
 	}
 	.round-image-50 {
-	    background-color: 	white;
 	    border: 			1px solid #d9d9d9;
-	    border-radius: 		40px;
-	    -moz-border-radius: 40px;
-	    -webkit-border-radius: 40px;
-	    height: 			75px;
-	    width: 				75px;
-	    overflow: 			hidden;
-	    text-align: 		center;
-	    img 				{ width: 100% }
+	    border-radius: 		30px;
+	    -moz-border-radius: 30px;
+	    -webkit-border-radius: 30px;
+	    height: 			60px;
+	    width: 				60px;
 	}
 	.form-control {
 		font-size: 			0.9em;
 	}
-	.badge.message {
+	.badge-message {
 		font-size: 			1em;
-		margin-right:  		5px;
-		margin-top:  		-5px;
+		margin-right:  		-5px;
+		margin-top:  		-12px;
 	}
 	#give-section {
-		line-height:   		150px;
+		line-height:   		260px;
 		min-height:  		185px;
 	}
 	.topic-box-image {

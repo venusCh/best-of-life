@@ -63,7 +63,7 @@
 						<div>
 						<% if @unread_count > 0 %>
 							<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
-								<span class="badge givings"><%= @unread_count %></span> new <%= "request".pluralize(@unread_count) %>
+								<span class="badge-givings"><%= @unread_count %></span> new <%= "request".pluralize(@unread_count) %>
 							<% end %>
 						<% else %>
 							<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>

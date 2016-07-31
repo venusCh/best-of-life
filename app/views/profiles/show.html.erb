@@ -8,12 +8,12 @@
    		<% end %>
    	</div>
 	<% if @user.givings.count > 0 %>
-		<div class="profile-timestamp"><span class="badge givings"><%= @user.givings.count %> </span> Givings since <%= @user.created_at.strftime("%B, %Y") %> </div>
+		<div class="profile-timestamp"><span class="badge-givings"><%= @user.givings.count %> </span> Givings since <%= @user.created_at.strftime("%B, %Y") %> </div>
 		<div class="givings-header">
 			<div class="givings-header left"> <h3> Givings </h3>
 			</div>
 		</div>
-		<div class="floating-box givings">
+		<div class="floating-box-givings">
 			<% @user_givings.each do |giving| %>
 				<div class="giving-preview"> 
 					<div class="giving-preview-image">
