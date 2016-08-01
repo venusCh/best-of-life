@@ -1,36 +1,45 @@
 <% page_header "Your Conversations" %>
 
-<div style="margin-bottom: 10px">
-	<div style="display: inline-block; font-size: 1.3em;">
+<div>
+	<div class="conversations-heading">
 		<% if @show_sentbox %>
-			<%= link_to "Inbox", conversations_path(:group => @group_by_givings) %> 
-			| <b><%= link_to "Sent", conversations_path(:sent => "true", :group => @group_by_givings) %></b>
+			<div class="conversations-section-left inactive">
+				<%= link_to "Inbox", conversations_path(:group => @group_by_givings) %>
+			</div>
+			<div class="conversations-section-right active">
+				<%= link_to "Sent", conversations_path(:sent => "true", :group => @group_by_givings) %>
+			</div>
 		<% else %>
-			<b><%= link_to "Inbox", conversations_path(:group => @group_by_givings) %> </b>
-			| <%= link_to "Sent", conversations_path(:sent => "true", :group => @group_by_givings) %>
+			<div class="conversations-section-left active">
+				<%= link_to "Inbox", conversations_path(:group => @group_by_givings) %>
+			</div>
+			<div class="conversations-section-right inactive"><%= link_to "Sent", conversations_path(:sent => "true", :group => @group_by_givings) %>
+			</div>
 		<% end %>
 	</div>
-	<div style="display: inline-block; float:right">
-		<i class="fa fa-list-ul" aria-hidden="true"></i> 
-		<% if @show_aggregate %>
-			<%= link_to "Time", conversations_path(:sent => @show_sentbox) %> | <b>Giving</b>
-		<% else %>
-			<b>Time</b> | <%= link_to "Giving", conversations_path(:group => "true", :sent => @show_sentbox) %>
-		<% end %>
-	</div>
+	<% if true %> 
+		<div class="conversations-heading-sorting">
+			<i class="fa fa-list-ul" aria-hidden="true"></i> 
+			<% if @show_aggregate %>
+				<%= link_to "Time", conversations_path(:sent => @show_sentbox) %> | <b>Giving</b>
+			<% else %>
+				<b>Time</b> | <%= link_to "Giving", conversations_path(:group => "true", :sent => @show_sentbox) %>
+			<% end %>
+		</div>
+	<% end %>
 </div>
 
 <% if !@topic_convos.nil? %>
 	<% if @topic_convos.count > 0 %>
-		<h3><%= Giving.find_by_id(@topic_convos[0].subject).name %></h3>
+		<h3 class="conversation-title"><%= Giving.find_by_id(@topic_convos[0].subject).name %></h3>
 	<% end %>
-	<ul class="list-group">
+	<ul class="conversations-group">
 	  <%= render partial: 'conversations/conversation', collection: @topic_convos %>
 	</ul>
 <% else %>
 	<% if @show_aggregate == false %>
 		<% if @conversations.count > 0 %>
-			<ul class="list-group">
+			<ul class="conversations-group">
 			  <%= render partial: 'conversations/conversation', collection: @conversations %>
 			</ul>
 		<% else %>

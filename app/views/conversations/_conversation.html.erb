@@ -3,9 +3,9 @@
 
 <% if !@giving.nil? %>
 	<% if conversation.is_unread?(current_user) %>
-		<div class="list-group-item clearfix">
+		<div class="topic-box unread">
 	<% else %>
-		<div class="list-group-item disabled">
+		<div class="topic-box read">
 	<% end %>
 			<% @user = User.find_by_id(conversation.originator) %>
 	  		<%= link_to User.find_by_id(conversation.originator).name, conversation_path(conversation) %>

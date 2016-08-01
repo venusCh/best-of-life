@@ -276,13 +276,13 @@ a:hover {
 	display: table;
 	position: relative;
 	border-collapse: separate;
-    font-size: 14px;
-    line-height: 1.42857143;
 }
 .input-reply-message {
-    padding: 6px;
+    padding: 8px;
     height: auto;
     font-family: inherit;
+    font-size: 14px;
+    line-height: 1.42857143;
     border: 1px solid #ccc;
     border-radius: 4px;
 	border-bottom-right-radius: 0;
@@ -298,13 +298,15 @@ a:hover {
     border: 1px solid #ccc;
     margin-bottom: 0;
     text-align: center;
+    font-size: 14px;
+    line-height: 1.42857143;
     vertical-align: middle;
     touch-action: manipulation;
     cursor: pointer;
     background-image: none;
     white-space: nowrap;
-    padding-left: 22px;
-    padding-right: 8px;
+    padding-left: 26px;
+    padding-right: 10px;
     border-radius: 4px;
     -webkit-user-select: none;
     border-left: 0;
@@ -337,6 +339,108 @@ a:hover {
 	color:  				white;
 	font-size:  			1.0em;
 }
+
+.panel-heading {
+	margin-top: 20px;
+	margin-bottom: 0px;
+	background-color: #eaeaea;
+	padding: 8px;
+	border-radius: 4px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border: 1px solid #d9d9d9;
+	border-bottom: 1px solid transparent;
+}
+.panel-body {
+	margin-top: 0px;
+	margin-bottom: 10px;
+	border-radius: 4px;
+	border-top: 0;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border: 1px solid #d9d9d9;
+	padding: 0px 10px;
+}
+
+.conversations-heading {
+	font-size: 1.3em;
+	margin-top: 12px;
+	display: table;
+	width: 100%;
+	text-align: center;
+}
+.conversations-section-left {
+	display: table-cell;
+	padding: 2px 6px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	width: 50%;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+.conversations-section-right {
+	display: table-cell;
+	padding: 2px 6px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	width: 50%;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-left: 0;
+}
+
+.conversations-section-left.active, 
+.conversations-section-right.active {
+	font-weight: bold;
+	background-color: #fff;
+}
+.conversations-section-left.inactive,
+.conversations-section-right.inactive {
+	font-weight: normal;
+	font-size: 0.8em;
+	background-color: #ccc;
+}
+
+.conversations-heading-sorting {
+	display: inline-block; 
+	font-size: 0.9em;
+	width: 100%;
+	text-align: right;
+	padding: 5px;
+	box-sizing: border-box;
+}
+.conversations-group {
+	margin: 0px;
+	padding: 0px;
+}
+.conversation-title {
+	margin: 4px 0px 8px 0px;
+}
+/**
+  * may be better to use "topic-box" instead of conversation-items 
+  */
+.conversation-item-unread {
+	border: 1px solid #ddd;
+	background-color: #fff;
+	border-bottom: 1px solid transparent;
+	padding: 8px;
+}
+.conversation-item-read {
+	border: 1px solid #ddd;
+	background-color: #eaeaea;
+	border-bottom: 1px solid transparent;
+	padding: 8px;
+}
+.conversation-item-read:last-child, 
+.conversation-item-unread:last-child {
+	border-bottom: 1px solid #ddd;
+	border-radius: 4px;
+}
+.conversation-item-read:first-child, 
+.conversation-item-unread:first-child {
+	border-radius: 4px;
+}
+
 /**
  * Landing page boxes
  */

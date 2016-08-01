@@ -14,13 +14,16 @@
 <% else %>
   <% @subject = @subject.name %>
 <% end %>
-<div style="float: right; padding: 10px 2px;">
-  <% if !current_user.nil? %>
-    <%= link_to "Delete", { action: :destroy }, 
-    method: :delete, 
-    data: { confirm: "Are you sure?" } %> <br>
-  <% end %>
-</div> 
+
+<% if false %> <!-- release this based on feedback -->
+  <div style="float: right; padding: 10px 2px;">
+    <% if !current_user.nil? %>
+      <%= link_to "Delete", { action: :destroy }, 
+      method: :delete, 
+      data: { confirm: "Are you sure?" } %> <br>
+    <% end %>
+  </div> 
+<% end %>
 
 <% user_deleted = false %>
 
@@ -81,7 +84,7 @@
           <%= form_for([@giving, @giving.transfers.build]) do |f| %>
             <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
             <%= f.hidden_field :conversation, :value => @conversation.id %>
-            <%= f.submit "Accept", class: "btn-primary" %>
+            <%= f.submit "Accept Request", class: "btn-primary" %>
           <% end %><br/>
         </div>
       <% else %>
