@@ -150,6 +150,7 @@ nav {
     overflow: 				hidden;
     text-align: 			center;
     padding: 				0px;
+    display:  				inline-block;
     img { width: 100% }
 }
 .messages {
@@ -161,6 +162,22 @@ nav {
 .message_timestamp {
 	font-size: 	 			0.8em;
 	font-style: 			italic;
+}
+.message-preview {
+	display:  				table-cell;
+	vertical-align:  		top;
+}
+.message-body {
+	overflow:  				hidden;
+	text-overflow:  		ellipsis;
+	max-height:  			40px;
+}
+.message-timestamp-column {
+	min-width: 				50px;
+	max-width:  			80px;
+	display:  				table-cell;
+	vertical-align:  		top;
+	float: 					right;
 }
 .user_profile {
 	font-weight: 			bold;
@@ -620,7 +637,9 @@ h2, h3 {
 .topic-box {
 	margin-bottom: 			4px;
 	border: 				1px solid #e9e9e9;
-	border-radius:  		3px;
+	border-radius:  		20px;
+	display:  				table-row;
+	max-height: 			40px;
 }
 .topic-box.unread {
 	background-color: 		#FFF;
@@ -642,6 +661,19 @@ h2, h3 {
 }
 .topic-box-image img {
 	height:  				inherit;
+}
+.user-badge {
+	min-width:  			150px;
+	display: 				table-cell;
+	text-overflow:  		ellipsis;
+}
+.user-credits {
+	vertical-align: 	 	top;
+	display: 				inline-block;
+}
+.user-giving-score {
+	font-weight:  			bold;
+	color: 					#333;
 }
 
 #options-dropdown {

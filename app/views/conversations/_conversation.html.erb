@@ -8,14 +8,31 @@
 		<div class="topic-box read">
 	<% end %>
 			<% @user = User.find_by_id(conversation.originator) %>
-	  		<%= link_to User.find_by_id(conversation.originator).name, conversation_path(conversation) %>
-	  		| <%= @user.givings.count %>
-	  		| <%= conversation.subject %>
-			| <%= conversation.last_message.body %> |
-			<% if @today == conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
-				<%= conversation.last_message.updated_at.strftime("%I:%M%p") %>
-			<% else %>
-				<%= conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
-			<% end %>
+			<div class="user-badge">
+				<div class="round-image-50">
+					<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(@user.avatar.url(:thumb)) %></a>
+				</div>
+				<div class="user-credits">
+					<div class="user_profile"><%= User.find_by_id(conversation.originator).name %></div>
+					<div class="user-giving-history"><%= @user.givings.count %></div>
+				</div>
+			</div>
+			<div class="message-preview">
+				<div>
+			  		<%= Giving.find_by_id(conversation.subject).name %>
+			  	</div>
+			  	<div class="message-body">
+			  		<%= link_to conversation.last_message.body, conversation_path(conversation) %>
+			  	</div>
+			</div>
+			<div class="message-timestamp-column">
+				<span class="message_timestamp">
+					<% if @today == conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
+						<%= conversation.last_message.updated_at.strftime("%I:%M%p") %>
+					<% else %>
+						<%= conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
+					<% end %>
+				</span>
+			</div>
 		</div>
 <% end %>
