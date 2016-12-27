@@ -119,6 +119,9 @@ ActiveRecord::Schema.define(version: 20160702212157) do
     t.datetime "due_date"
   end
 
+  # Todo: create a index on from_id 
+  # so we can quickly look up all the transfers done by a given user
+
   add_index "transfers", ["giving_id"], name: "index_transfers_on_giving_id"
 
   create_table "users", force: :cascade do |t|

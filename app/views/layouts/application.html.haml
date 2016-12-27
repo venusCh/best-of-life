@@ -8,10 +8,10 @@
 	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
 	:javascript
 		$(window).resize(function() {
-			adjustOptionsDropdown();
+			adjustOptionsDropdown(false);
 		});
 		$(function() {
-			adjustOptionsDropdown();
+			adjustOptionsDropdown(false);
 
 			$("#user-pic").click(function() {
 				if ($("#options-dropdown").is(":visible"))
@@ -24,9 +24,10 @@
 				$("#options-dropdown").hide();
 			});
 		});
-		function adjustOptionsDropdown() {
+		function adjustOptionsDropdown(execute) {
 			$("#options-dropdown").hide();
-			
+			if (!execute)
+				return;
 			if ($("#user-pic")[0] !== undefined) {
 				var posn = $("#user-pic").offset();
 				

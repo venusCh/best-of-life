@@ -10,13 +10,16 @@ class GivingsController < ApplicationController
     if (!params[:query].nil? && params[:query] != "") then
       @searchResults = Giving.where("name LIKE ?", "%#{params[:query]}%")
       @searchTerm = params[:query]
-      puts "\n\nhello ***** \n"
-      puts @searchResults
+
       if @searchResults.count === 0 then
         redirect_to :back, notice: "We found no results for #{@searchTerm}!"
       end
     elsif (params[:givings] === "true") then
-      @myGivings = Giving.where(:user_id => current_user.id)
+      # 1. Original givins plus those I wish to regive that I currently hold
+      # 2. Add any previous transfers that I made
+      @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
+      @myGivings |= Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
+
       if @myGivings.count === 0 then
         redirect_to :back, notice: "You haven't given anything yet. Click on Give below to get started!"
       end
@@ -95,6 +98,8 @@ class GivingsController < ApplicationController
                                                               params[:recipient],
                                                               params[:id])
     if (@giving.status >= 1)
+      @giving.previous_holder = @giving.current_holder
+      @giving.current_holder = current_user.id
       @giving.status += 100
     end
     @giving.save

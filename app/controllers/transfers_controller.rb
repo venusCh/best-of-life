@@ -19,8 +19,6 @@ class TransfersController < ApplicationController
 
 			@transfer.save
 
-			@giving.previous_holder = @giving.current_holder
-			@giving.current_holder = @transfer.to_id
 			@giving.status = 1 # Agreed to give
 			@giving.save
 

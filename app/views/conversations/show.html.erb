@@ -15,7 +15,7 @@
   <% @subject = @subject.name %>
 <% end %>
 
-<% if false %> <!-- release this based on feedback -->
+<% if true %> <!-- release this based on feedback -->
   <div style="float: right; padding: 10px 2px;">
     <% if !current_user.nil? %>
       <%= link_to "Delete", { action: :destroy }, 
@@ -61,7 +61,8 @@
       <% @given = false %>
       <% @recipient = -1 %>
 
-      <% if !@giving.status.nil? && @giving.status == 1 %>
+      <!-- Todo: need to reflect giving statuses -->
+      <% if !@giving.status.nil? && @giving.status >= 1 %>
         <% @given = true %>
       <% end %>
 
@@ -98,6 +99,14 @@
         </div>
       <% end %>
 
+    <% end %>
+  <% else %>
+    <%= form_for :message, url: reply_conversation_path, :html => {:id => "form_reply"} do |f| %>
+      <div class="input-group">
+          <%= f.text_area 'body', rows: "3", class: 'input-reply-message', style: "resize:none", required: true, placeholder: "Your reply...", autofocus: true, id: "reply_message" %>
+          <span onclick="submitOnClick('form_reply')" class="btn-reply" %>Send
+          </span>
+      </div>
     <% end %>
   <% end %>
 <% end %>

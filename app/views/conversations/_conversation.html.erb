@@ -1,5 +1,5 @@
 <% @giving = Giving.find_by_id(conversation.subject) %>
-<% @today = Time.new().strftime("%m/%d/%Y") %>
+<% @today = Time.new() %>
 
 <% if !@giving.nil? %>
 	<% if conversation.is_unread?(current_user) %>
@@ -27,8 +27,10 @@
 			</div>
 			<div class="message-timestamp-column">
 				<span class="message_timestamp">
-					<% if @today == conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
+					<% if @today.strftime("%m/%d/%Y") == conversation.last_message.updated_at.strftime("%m/%d/%Y") %>
 						<%= conversation.last_message.updated_at.strftime("%I:%M%p") %>
+					<% elsif @today.strftime("%Y") == conversation.last_message.updated_at.strftime("%Y") %>
+						<%= conversation.last_message.updated_at.strftime("%-d %B") %>
 					<% else %>
 						<%= conversation.last_message.updated_at.strftime("%-d %B, %Y") %>
 					<% end %>

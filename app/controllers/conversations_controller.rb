@@ -8,38 +8,40 @@ class ConversationsController < ApplicationController
 		@new_messages = current_user.unread_inbox_count
  		@all_conversations = @mailbox.inbox
 
-		@MESSAGE_LIMIT = 7
-		@GROUP_LIMIT = 2
-
  		if params[:sent] == "true" then
  			@new_messages = 0
  			@all_conversations = @mailbox.sentbox
- 			@MESSAGE_LIMIT = 1
- 			@GROUP_LIMIT = 1
  		end
+
+ 		# 1. get list of objects that give/regive
+ 		# 2. filter grouped_convos by these giving names
+ 	    @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
+    	@myGivings |= Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
 
 		@grouped_convos = @all_conversations.group_by(&:subject)
+		@hashGivings = Hash[@myGivings.collect { |g| [g.id, @grouped_convos["#{g.id}"]] }]
+
+		print "\n\n================"
+		print @grouped_convos
+		print "\n\n================"
+		print @hashGivings
+		print "------\n"
+
+		@grouped_convos = @hashGivings
 		@show_aggregate = false
 
-		if params[:group] == "true" ||
-			(@new_messages >= @MESSAGE_LIMIT &&
- 			@grouped_convos.count >= @GROUP_LIMIT) then
- 			@show_aggregate = true
- 		else
+		if params[:sent] == "true" then
  			@conversations = @all_conversations.paginate(page: params[:page], per_page: 20)
+ 		else
+ 			@show_aggregate = true
  		end
 
+ 		# Conversations page on an object
  		if !params[:topic_id].nil? then
 	    	@topic_convos = @grouped_convos[params[:topic_id]]
     	end
 
-    	# pass the parameters back to view
-    	if params[:group] == "true" then
-    		@group_by_givings = true
-    	else
-    		@group_by_givings = false
-    	end
-
+    	# TODO: Do I need this?
     	if params[:sent] == "true" then
     		@show_sentbox = true
     	else

@@ -1,23 +1,24 @@
 <% page_header "Your Conversations" %>
+<% @today = Time.new() %>
 
 <div>
 	<div class="conversations-heading">
 		<% if @show_sentbox %>
 			<div class="conversations-section-left inactive">
-				<%= link_to "Inbox", conversations_path(:group => @group_by_givings) %>
+				<%= link_to "My Givings", conversations_path(:group => @group_by_givings) %>
 			</div>
 			<div class="conversations-section-right active">
-				<%= link_to "Sent", conversations_path(:sent => "true", :group => @group_by_givings) %>
+				<%= link_to "My Requests", conversations_path(:sent => "true", :group => @group_by_givings) %>
 			</div>
 		<% else %>
 			<div class="conversations-section-left active">
-				<%= link_to "Inbox", conversations_path(:group => @group_by_givings) %>
+				<%= link_to "My Givings", conversations_path(:group => @group_by_givings) %>
 			</div>
-			<div class="conversations-section-right inactive"><%= link_to "Sent", conversations_path(:sent => "true", :group => @group_by_givings) %>
+			<div class="conversations-section-right inactive"><%= link_to "My Requests", conversations_path(:sent => "true", :group => @group_by_givings) %>
 			</div>
 		<% end %>
 	</div>
-	<% if true %> 
+	<% if false %> 
 		<div class="conversations-heading-sorting">
 			<i class="fa fa-list-ul" aria-hidden="true"></i> 
 			<% if @show_aggregate %>
@@ -29,6 +30,8 @@
 	<% end %>
 </div>
 
+<br>
+<!-- show Conversations page for a given giving -->
 <% if !@topic_convos.nil? %>
 	<% if @topic_convos.count > 0 %>
 		<h3 class="conversation-title"><%= Giving.find_by_id(@topic_convos[0].subject).name %></h3>
@@ -37,6 +40,7 @@
 	  <%= render partial: 'conversations/conversation', collection: @topic_convos %>
 	</ul>
 <% else %>
+	<!-- show individual conversations messages -->
 	<% if @show_aggregate == false %>
 		<% if @conversations.count > 0 %>
 			<ul class="conversations-group">
@@ -49,40 +53,63 @@
 		<% end %>
 		<%= will_paginate %>
 	<% else %>
+		<!-- show aggregate conversations here -->
 		<% @grouped_convos.each_pair do |subject, convos| %>
 			<% @giving = Giving.find_by_id(subject) %>
 			<% if !@giving.nil? %> 
 				<% @unread_count = 0 %>
-				<% convos.each do |convo| %>
-					<% if convo.is_unread?(current_user) %>
-						<% @unread_count += 1 %>
-					<% end %>
-				<% end %>
-
-				<% if @unread_count > 0 %>
-					<div class="topic-box unread">
-				<% else %>
-					<div class="topic-box read">
-				<% end %>
-					<div class="topic-box-image">
-						<%= image_tag @giving.image.url(:thumb) %>
-					</div>
-					<div style="display:inline-block;">
-						<div><%= @giving.name %></div>
-						<div>
-						<% if @unread_count > 0 %>
-							<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
-								<span class="badge-givings"><%= @unread_count %></span> new <%= "request".pluralize(@unread_count) %>
-							<% end %>
-						<% else %>
-							<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
-								<%= convos.count %> <%= "request".pluralize(convos.count)%>
-							<% end %>
+				<% if !convos.nil? %>
+					<% convos.each do |convo| %>
+						<% if convo.is_unread?(current_user) %>
+							<% @unread_count += 1 %>
 						<% end %>
+					<% end %>
+
+					<% if @unread_count > 0 %>
+						<div class="topic-box unread">
+					<% else %>
+						<div class="topic-box read">
+					<% end %>
+						<div class="topic-box-image">
+							<%= image_tag @giving.image.url(:thumb) %>
+						</div>
+						<div style="display:inline-block;">
+							<div><%= @giving.name %></div>
+							<div>
+							<% if @unread_count > 0 %>
+								<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
+									<span class="badge-givings"><%= @unread_count %></span> new <%= "message".pluralize(@unread_count) %>
+								<% end %>
+							<% else %>
+								<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
+									<%= convos.count %> <%= "message".pluralize(convos.count)%>
+								<% end %>
+							<% end %>
+							</div>
 						</div>
 					</div>
-				</div>
+				<% else %>
+					<!-- no conversations on this giving -->
+					<div class="topic-box read">
+						<div class="topic-box-image">
+							<%= image_tag @giving.image.url(:thumb) %>
+						</div>
+						<div style="display:inline-block;">
+							<div><%= @giving.name %></div>
+							<div style="font-style: italic;">
+								<% if @today.strftime("%m/%d/%Y") == @giving.updated_at.strftime("%m/%d/%Y") %>
+									<%= @giving.updated_at.strftime("%I:%M%p") %>
+								<% elsif @today.strftime("%Y") == @giving.updated_at.strftime("%Y") %>
+									<%= @giving.updated_at.strftime("%-d %B") %>
+								<% else %>
+									<%= @giving.updated_at.strftime("%-d %B, %Y") %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				<% end %>
 			<% end %>
+
 		<% end %>
 	<% end %>
 <% end %>
