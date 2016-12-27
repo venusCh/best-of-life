@@ -18,18 +18,15 @@ class ConversationsController < ApplicationController
  	    @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
     	@myGivings |= Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
 
+    	# group conversations by giving
 		@grouped_convos = @all_conversations.group_by(&:subject)
-		@hashGivings = Hash[@myGivings.collect { |g| [g.id, @grouped_convos["#{g.id}"]] }]
+		@standbyGivings = @myGivings.select { |g| @grouped_convos["#{g.id}"] == nil }
+		@standbyGivings = Hash[@standbyGivings.collect { |g| ["#{g.id}", nil] }]
 
-		print "\n\n================"
-		print @grouped_convos
-		print "\n\n================"
-		print @hashGivings
-		print "------\n"
+		# append givings with no current interests at the end of givings with conversations
+		@grouped_convos = @grouped_convos.merge(@standbyGivings)
 
-		@grouped_convos = @hashGivings
 		@show_aggregate = false
-
 		if params[:sent] == "true" then
  			@conversations = @all_conversations.paginate(page: params[:page], per_page: 20)
  		else
