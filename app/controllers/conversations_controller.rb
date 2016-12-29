@@ -7,42 +7,35 @@ class ConversationsController < ApplicationController
 
 		@new_messages = current_user.unread_inbox_count
  		@all_conversations = @mailbox.inbox
+    	@show_sentbox = false
+		@show_aggregate = true
+
 
  		if params[:sent] == "true" then
  			@new_messages = 0
  			@all_conversations = @mailbox.sentbox
- 		end
+    		@show_sentbox = true
 
- 		# 1. get list of objects that give/regive
- 		# 2. filter grouped_convos by these giving names
- 	    @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
-    	@myGivings |= Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
-
-    	# group conversations by giving
-		@grouped_convos = @all_conversations.group_by(&:subject)
-		@standbyGivings = @myGivings.select { |g| @grouped_convos["#{g.id}"] == nil }
-		@standbyGivings = Hash[@standbyGivings.collect { |g| ["#{g.id}", nil] }]
-
-		# append givings with no current interests at the end of givings with conversations
-		@grouped_convos = @grouped_convos.merge(@standbyGivings)
-
-		@show_aggregate = false
-		if params[:sent] == "true" then
- 			@conversations = @all_conversations.paginate(page: params[:page], per_page: 20)
+    		# get list of objects on which you initiated the conversation
+    		@originatedConversations = @all_conversations.select { |c| c.originator == current_user }
+ 			@grouped_convos = @originatedConversations.group_by(&:subject)
  		else
- 			@show_aggregate = true
- 		end
+	 		# get list of objects that user can give/regive
+	 	    @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
+	    	@myGivings |= Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
+
+	    	# group conversations by giving
+			@grouped_convos = @all_conversations.group_by(&:subject)
+			@standbyGivings = @myGivings.select { |g| @grouped_convos["#{g.id}"] == nil }
+			@standbyGivings = Hash[@standbyGivings.collect { |g| ["#{g.id}", nil] }]
+
+			# append givings with no current interests at the end of givings with conversations
+			@grouped_convos = @grouped_convos.merge(@standbyGivings)
+	 	end
 
  		# Conversations page on an object
  		if !params[:topic_id].nil? then
 	    	@topic_convos = @grouped_convos[params[:topic_id]]
-    	end
-
-    	# TODO: Do I need this?
-    	if params[:sent] == "true" then
-    		@show_sentbox = true
-    	else
-    		@show_sentbox = false
     	end
  	end
 
