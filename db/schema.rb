@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702212157) do
+ActiveRecord::Schema.define(version: 20161230022536) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160702212157) do
     t.integer  "zip"
     t.string   "country"
     t.integer  "previous_holder"
+    t.integer  "prospective_user"
   end
 
   add_index "givings", ["user_id"], name: "index_givings_on_user_id"
@@ -118,9 +119,6 @@ ActiveRecord::Schema.define(version: 20160702212157) do
     t.boolean  "is_active"
     t.datetime "due_date"
   end
-
-  # Todo: create a index on from_id 
-  # so we can quickly look up all the transfers done by a given user
 
   add_index "transfers", ["giving_id"], name: "index_transfers_on_giving_id"
 

@@ -82,16 +82,31 @@
 									<%= link_to conversation_path(convos, :sent => true) do %>
 										<span class="badge-givings"><%= @unread_count %></span> new <%= "message".pluralize(@unread_count) %>
 									<% end %>
+									<!-- show the status of your request -->
+									<% if @giving.prospective_user == current_user.id %>
+										<br> Your request is accepted!
+									<% end %>
+									<% if @giving.current_holder == current_user.id %>
+										<br> You received this on...
+									<% end %>
 								<% else %>
 									<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
 										<span class="badge-givings"><%= @unread_count %></span> new <%= "message".pluralize(@unread_count) %>
 									<% end %>
 								<% end %>
-							<% else %>
+							<% else %> <!-- no new messages -->
 								<% if @show_sentbox == true %>
 									<!-- show the conversation directly for request messages -->
 									<%= link_to conversation_path(convos, :sent => true) do %>
 										<%= convos.count %> <%= "message".pluralize(convos.count)%>
+									<% end %>
+									<!-- show the status of your request -->
+									<% if @giving.prospective_user == current_user.id %>
+										<br> Your request is accepted!
+									<% elsif @giving.current_holder == current_user.id %>
+										<br> You received this on...
+									<% else %>
+										<br>request sent on...
 									<% end %>
 								<% else %>
 									<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>

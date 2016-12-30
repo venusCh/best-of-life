@@ -72,7 +72,7 @@
 		</div>
 	<% end %>
 <% elsif !@giving.status.nil? && @giving.status == 11 %> <!-- confirmed giving -->
-	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
+	<% if !current_user.nil? && @giving.prospective_user == current_user.id %>
 		<% if !@giving.transfers.nil? %>
 			<% @getter = @giving.transfers.last.to_id %>
 			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
@@ -81,7 +81,11 @@
 	<% else %>
 		<div class="condition-toast">
 			<i class="fa fa-bicycle" aria-hidden="true" style="color:#8a5120"></i>
-			In the process of being transferred to <%= User.find_by_id(@giving.current_holder).name %>
+			In the process of being transferred to 
+			<% if !@giving.prospective_user.nil? %>
+				<%= User.find_by_id(@giving.prospective_user).name %>
+			<% end %>
+			</div>
 		</div>
 		<div class="bookmark-section">
 			<% if !@bookmarked %> <!-- favorite for wishlist -->
@@ -95,7 +99,7 @@
 		</div>
 	<% end %>
 <% elsif !@giving.status.nil? && @giving.status == 1 %> <!-- agreed to give -->
-	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
+	<% if !current_user.nil? && @giving.prospective_user == current_user.id %>
 		<% if !@giving.transfers.nil? %>
 			<% @getter = @giving.transfers.last.to_id %>
 			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
@@ -110,7 +114,10 @@
 	<% else %>
 		<div class="condition-toast">
 			<i class="fa fa-bicycle" aria-hidden="true" style="color:#8a5120"></i>
-			In the process of being transferred to <%= User.find_by_id(@giving.current_holder).name %>
+			In the process of being transferred to 
+			<% if !@giving.prospective_user.nil? %> 
+				<%= User.find_by_id(@giving.prospective_user).name %>
+			<% end %>
 		</div>
 		<div class="bookmark-section">
 			<% if !@bookmarked %> <!-- favorite for wishlist -->

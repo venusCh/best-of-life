@@ -19,6 +19,7 @@ class TransfersController < ApplicationController
 
 			@transfer.save
 
+			@giving.prospective_user = @transfer.to_id
 			@giving.status = 1 # Agreed to give
 			@giving.save
 

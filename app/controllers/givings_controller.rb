@@ -101,6 +101,7 @@ class GivingsController < ApplicationController
       @giving.previous_holder = @giving.current_holder
       @giving.current_holder = current_user.id
       @giving.status += 100
+      @giving.prospective_user = nil
     end
     @giving.save
 
