@@ -54,6 +54,7 @@
   </div>
 </div>
 
+
 <% if user_deleted == false %>
   <% if current_user != @conversation.originator %>
     <% @giving = Giving.find_by_id(@conversation.subject) %>
@@ -90,13 +91,15 @@
         </div>
       <% else %>
       <br>
-        <div class="condition-toast">
-          <% if @recipient == @conversation.originator.id %>
-            You accepted this request! Please arrange for an exchage of this giving.
-          <% else %>
-            You already gave this book to another user.
-          <% end %>
-        </div>
+        <% if @giving.status < 101 %>
+          <div class="condition-toast">
+            <% if @recipient == @conversation.originator.id %>
+                You accepted this request! Please arrange for an exchage of this giving.
+            <% else %>
+              You already gave this book to another user.
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
 
     <% end %>
@@ -106,6 +109,19 @@
           <%= f.text_area 'body', rows: "3", class: 'input-reply-message', style: "resize:none", required: true, placeholder: "Your reply...", autofocus: true, id: "reply_message" %>
           <span onclick="submitOnClick('form_reply')" class="btn-reply" %>Send
           </span>
+      </div>
+    <% end %>
+
+    <% @giving = Giving.find_by_id(@conversation.subject) %>
+    <!-- Todo: need to reflect giving statuses -->
+    <% if !@giving.status.nil? && @giving.status >= 1 %>
+      <% @given = true %>
+    <% end %>
+
+    <!-- prospective recipient -->
+    <% if @given && @giving.prospective_user == current_user.id %>
+      <div style="margin-top: 20px;">
+        <%= link_to "Confirm Receiving", confirm_getting_giving_path(@giving.id, :recipient => current_user.id), class: "btn-primary" %><br/><br/>
       </div>
     <% end %>
   <% end %>

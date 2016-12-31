@@ -47,9 +47,9 @@ $(function() {
       <% @wish = Giving.find_by_id(params[:subject]).wish %>
       <% if Giving.find_by_id(params[:subject]).wish == 10 %>
         <b> a month </b> 
-      <% elsif wish == 20 %>
+      <% elsif @wish == 20 %>
         <b> 3 months </b> 
-      <% elsif wish == 30 %>
+      <% elsif @wish == 30 %>
         <b> 6 months </b> 
       <% end %>
     as per your wishes! </label></p>

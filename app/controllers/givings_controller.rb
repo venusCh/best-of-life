@@ -62,7 +62,7 @@ class GivingsController < ApplicationController
     @giving.status = 0
     @giving.save
 
-    @transfer = Transfer.find_by_giving_id_and_to_and_is_active(params[:id], current_user.id, true)
+    @transfer = Transfer.find_by_giving_id_and_to_id_and_is_active(params[:id], current_user.id, true)
     @transfer.is_active = false;
     @transfer.save
 
@@ -81,7 +81,7 @@ class GivingsController < ApplicationController
 
   def confirm_giving
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_id_and_to_id_and_conversation(current_user.id, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id(current_user.id, 
                                                               params[:recipient],
                                                               params[:id])
     if (@giving.status >= 1)
@@ -94,16 +94,19 @@ class GivingsController < ApplicationController
 
   def confirm_getting
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_id_and_to_id_and_conversation(current_user.id, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id(@giving.current_holder, 
                                                               params[:recipient],
                                                               params[:id])
     if (@giving.status >= 1)
+      @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
+      current_user.reply_to_conversation(@conversation, "Confirmed receiving!")
+
       @giving.previous_holder = @giving.current_holder
       @giving.current_holder = current_user.id
       @giving.status += 100
       @giving.prospective_user = nil
+      @giving.save
     end
-    @giving.save
 
     redirect_to :back, notice: "Thanks for confirming your receiving!"
   end

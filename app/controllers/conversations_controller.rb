@@ -22,10 +22,14 @@ class ConversationsController < ApplicationController
  		else
 	 		# get list of objects that user can give/regive
 	 	    @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
-	    	@myGivings |= Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
+	    	@mySecondaryGivings = Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
+	    	@myGivings |= @mySecondaryGivings
+
+	 	    # get list of conversations which others sent to you
+	    	@receivedConversations = @all_conversations.select { |c| c.originator != current_user }
 
 	    	# group conversations by giving
-			@grouped_convos = @all_conversations.group_by(&:subject)
+			@grouped_convos = @receivedConversations.group_by(&:subject)
 			@standbyGivings = @myGivings.select { |g| @grouped_convos["#{g.id}"] == nil }
 			@standbyGivings = Hash[@standbyGivings.collect { |g| ["#{g.id}", nil] }]
 

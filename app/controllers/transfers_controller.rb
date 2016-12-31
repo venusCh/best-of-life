@@ -26,6 +26,10 @@ class TransfersController < ApplicationController
 			@recipient = User.find_by_id(@transfer.to_id)
 		    UserMailer.send_accept_notification(@recipient, current_user, @giving).deliver_now
 
+		    # also auto-generate a reply to conversation
+		    @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
+		    current_user.reply_to_conversation(@conversation, "Request accepted!")
+
 			redirect_to :back
 		else
 			redirect_to :back, notice: "This request is already accepted."
