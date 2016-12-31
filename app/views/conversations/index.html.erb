@@ -70,24 +70,26 @@
 					<% else %>
 						<div class="topic-box read">
 					<% end %>
-						<div class="topic-box-image">
-							<%= image_tag @giving.image.url(:thumb) %>
+						<div style="margin-left: auto;margin-right: auto;display: inline-block; width: 20%;">
+							<div class="topic-box-image"><%= image_tag @giving.image.url(:thumb) %></div>
+							<div style="text-align: center;overflow: auto;"><%= @giving.name %></div>
 						</div>
-						<div style="display:inline-block;">
-							<div><%= @giving.name %></div>
+						<div style="display:inline-block;vertical-align: top;">
 							<div>
 							<% if @unread_count > 0 %>
 								<% if @show_sentbox == true %>
+									<!-- show the status of your request -->
+									<% if @giving.prospective_user == current_user.id %>
+										<div style="color: green;font-weight: bold;font-size: 1.2em;"> Accepted </div>
+									<% elsif @giving.current_holder == current_user.id %>
+										<div style="color: rgb(23, 153, 205);font-weight: bold;font-size: 1.2em;"> Confirmed </div>
+									<% else %>
+										<div style="color: gray;font-weight: bold;font-size: 1.2em;">Request sent</div>
+									<% end %>
+
 									<!-- show the conversation directly for request messages -->
 									<%= link_to conversation_path(convos, :sent => true) do %>
 										<span class="badge-givings"><%= @unread_count %></span> new <%= "message".pluralize(@unread_count) %>
-									<% end %>
-									<!-- show the status of your request -->
-									<% if @giving.prospective_user == current_user.id %>
-										<br> Your request is accepted!
-									<% end %>
-									<% if @giving.current_holder == current_user.id %>
-										<br> You received this on...
 									<% end %>
 								<% else %>
 									<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
@@ -96,17 +98,18 @@
 								<% end %>
 							<% else %> <!-- no new messages -->
 								<% if @show_sentbox == true %>
+									<!-- show the status of your request -->
+									<% if @giving.prospective_user == current_user.id %>
+										<div style="color: green;font-weight: bold;font-size: 1.2em;"> Accepted </div>
+									<% elsif @giving.current_holder == current_user.id %>
+										<div style="color: rgb(23, 153, 205);font-weight: bold;font-size: 1.2em;"> Confirmed </div>
+									<% else %>
+										<div style="color: gray;font-weight: bold;font-size: 1.2em;">Request sent</div>
+									<% end %>
+
 									<!-- show the conversation directly for request messages -->
 									<%= link_to conversation_path(convos, :sent => true) do %>
 										<%= convos.count %> <%= "message".pluralize(convos.count)%>
-									<% end %>
-									<!-- show the status of your request -->
-									<% if @giving.prospective_user == current_user.id %>
-										<br> Your request is accepted!
-									<% elsif @giving.current_holder == current_user.id %>
-										<br> You received this on...
-									<% else %>
-										<br>request sent on...
 									<% end %>
 								<% else %>
 									<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
