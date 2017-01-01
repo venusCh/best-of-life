@@ -70,12 +70,12 @@
 					<% else %>
 						<div class="topic-box read">
 					<% end %>
-						<div style="margin-left: auto;margin-right: auto;display: inline-block; width: 20%;">
-							<div class="topic-box-image"><%= image_tag @giving.image.url(:thumb) %></div>
-							<div style="text-align: center;overflow: auto;"><%= @giving.name %></div>
+						<div style="display: inline-block;width: 100px;height: 70px;">
+							<div class="topic-box-image" style="text-align: center;"><%= image_tag @giving.image.url(:thumb) %></div>
 						</div>
 						<div style="display:inline-block;vertical-align: top;">
-							<div>
+							<div style="margin-top: 3px;">
+							<div style="height: 20px;"><%= @giving.name %></div>
 							<% if @unread_count > 0 %>
 								<% if @show_sentbox == true %>
 									<!-- show the status of your request -->

@@ -507,7 +507,7 @@ a:hover {
 	height:  				150px;
  	width: 					120px;
 	display:  				inline-block;
-	padding: 				5px;
+	padding: 				6px;
 	margin: 				5px;
 	background-color: 		#f0f0f0;
 	border: 				1px solid #e5e5e5;
@@ -521,6 +521,16 @@ a:hover {
 }
 .giving-preview-title {
 	padding-top: 			3px;
+}
+.giving-preview-image {
+	height:  				110px;
+	overflow:  				hidden;
+}
+.giving-preview-image img {
+	border-radius:  		3px;
+	width:  				80px;
+	height: 				110px;
+	object-fit:  			cover;
 }
 #box-blocks {
 	text-align:				center
@@ -636,7 +646,7 @@ h2, h3 {
 .topic-box {
 	margin-bottom: 			4px;
 	border: 				1px solid #e9e9e9;
-	max-height: 			75px;
+	max-height: 			70px;
 	width: 					98%;
 	margin-left: 			auto;
 	margin-right: 			auto;
@@ -650,17 +660,18 @@ h2, h3 {
 
 .topic-box-image {
 	display:				inline-block; 
-	width: 					90px;
-	height:  				45px;
+	width: 					100px;
+	height:  				65px;
 	text-align:  			center;
 	vertical-align: 		top;
 	margin:	 				2px;
 	position:  				relative;
-    border-radius:			5%;
     overflow:				hidden;
 }
 .topic-box-image img {
-	height:  				inherit;
+	width: 					60px;
+	border-radius: 			4px;
+
 }
 .user-badge {
 	min-width:  			150px;
