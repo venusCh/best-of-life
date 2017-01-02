@@ -152,6 +152,19 @@ nav {
     display:  				inline-block;
     img { width: 100% }
 }
+.round-image-120 {
+	border: 1px solid #d9d9d9;
+	object-fit: cover;
+	width:120px;
+    height:160px;
+    border-radius:4%;
+    -moz-border-radius: 4%;
+    -webkit-border-radius: 4%;
+}
+.shrink-image {
+	height: 				60%;
+	width: 					60%;
+}
 .messages {
   max-height: 				400px;
   overflow-y: 				auto;
@@ -488,19 +501,20 @@ a:hover {
 	padding: 				3px;
 	color:  				#f0f0f0;
 	min-width:  			285px;
+	margin-bottom: 			5px;
 }
-.givings-header-left {
+.givings-header.left {
 	float: 					left;
 	height: 				28px;
 }
-.givings-header-right {
+.givings-header.right {
 	float: 					right;
 	height:  				25px;
 	color: 					#606060;
 	margin-top: 			3px;
 }
-.givings-header-left > h3 {
-	margin: 				3px;
+.givings-header.left > h3 {
+	margin: 				2px;
 	font-size:  			1.25em;
 }
 .giving-preview {
@@ -630,6 +644,7 @@ h2, h3 {
 	color:  				#3C3E82;
 	margin-bottom:  		12px;
 	margin-top:  			8px;
+	margin-left: 			5px;
 }
 .user-location {
 	font-weight:  			normal;
@@ -878,6 +893,14 @@ h2, h3 {
 	    -webkit-border-radius: 30px;
 	    height: 			60px;
 	    width: 				60px;
+	}
+	.round-image-120 {
+	    border: 			1px solid #d9d9d9;
+	    border-radius: 		60px;
+	    -moz-border-radius: 60px;
+	    -webkit-border-radius: 60px;
+	    height: 			120px;
+	    width: 				120px;
 	}
 	.form-control {
 		font-size: 			0.9em;
