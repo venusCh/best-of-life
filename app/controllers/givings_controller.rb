@@ -104,6 +104,11 @@ class GivingsController < ApplicationController
       @giving.previous_holder = @giving.current_holder
       @giving.current_holder = current_user.id
       @giving.status += 100
+      if @giving.regive_count.nil? then
+        @giving.regive_count = 1
+      else
+        @giving.regive_count += 1
+      end
       @giving.prospective_user = nil
       @giving.save
     end
@@ -115,6 +120,7 @@ class GivingsController < ApplicationController
     @giving = current_user.givings.build(giving_params)
     @giving.current_holder = current_user.id
     @giving.status = 0 # Available
+    @giving.regive_count = 0
     @giving.save
 
     redirect_to @giving, notice: "Successfully posted your giving!"

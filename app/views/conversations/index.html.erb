@@ -65,26 +65,30 @@
 						<% end %>
 					<% end %>
 
+					<% @is_unread = false %>
 					<% if @unread_count > 0 %>
 						<div class="topic-box unread">
+						<% @is_unread = true %>
 					<% else %>
 						<div class="topic-box read">
 					<% end %>
 						<div style="display: inline-block;width: 100px;height: 70px;">
-							<div class="topic-box-image" style="text-align: center;"><%= image_tag @giving.image.url(:thumb) %></div>
+							<div class="topic-box-image" style="text-align: center;"><%= link_to(image_tag(@giving.image.url(:thumb)), @giving) %>
+							</div>
 						</div>
 						<div style="display:inline-block;vertical-align: top;">
 							<div style="margin-top: 3px;">
 							<div style="height: 20px;"><%= @giving.name %></div>
+
 							<% if @unread_count > 0 %>
 								<% if @show_sentbox == true %>
 									<!-- show the status of your request -->
 									<% if @giving.prospective_user == current_user.id %>
-										<div style="color: green;font-weight: bold;font-size: 1.2em;"> Accepted </div>
+										<div class="status accepted"> Accepted </div>
 									<% elsif @giving.current_holder == current_user.id %>
-										<div style="color: rgb(23, 153, 205);font-weight: bold;font-size: 1.2em;"> Confirmed </div>
+										<div class="status confirmed"> Confirmed </div>
 									<% else %>
-										<div style="color: gray;font-weight: bold;font-size: 1.2em;">Request sent</div>
+										<div class="status sent">Request sent</div>
 									<% end %>
 
 									<!-- show the conversation directly for request messages -->
@@ -92,28 +96,58 @@
 										<span class="badge-givings"><%= @unread_count %></span> new <%= "message".pluralize(@unread_count) %>
 									<% end %>
 								<% else %>
+									<!-- giving status -->
+									<% if @giving.current_holder != current_user.id %>
+										<% if !@giving.regive_count.nil? && @giving.regive_count > 1 %>
+											<div class="status regiven">
+												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>
+											</div>
+										<% else %>
+											<div class="status given">Given</div>
+										<% end %>
+									<% elsif @giving.status == 0 %>
+										<div class="status posted">Posted </div>
+									<% elsif @giving.status > 0 && @giving.status < 100 %>
+										<div class="status transfer">Transfer Pending</div>
+									<% end %>
+
 									<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
-										<span class="badge-givings"><%= @unread_count %></span> new <%= "message".pluralize(@unread_count) %>
+										<span class="badge-givings"><%= @unread_count %></span> new <%= "message".pluralize(@unread_count) %>!
 									<% end %>
 								<% end %>
 							<% else %> <!-- no new messages -->
 								<% if @show_sentbox == true %>
 									<!-- show the status of your request -->
 									<% if @giving.prospective_user == current_user.id %>
-										<div style="color: green;font-weight: bold;font-size: 1.2em;"> Accepted </div>
+										<div class="status accepted"> Accepted </div>
 									<% elsif @giving.current_holder == current_user.id %>
-										<div style="color: rgb(23, 153, 205);font-weight: bold;font-size: 1.2em;"> Confirmed </div>
+										<div class="status confirmed"> Confirmed </div>
 									<% else %>
-										<div style="color: gray;font-weight: bold;font-size: 1.2em;">Request sent</div>
+										<div class="status sent">Request sent</div>
 									<% end %>
 
 									<!-- show the conversation directly for request messages -->
 									<%= link_to conversation_path(convos, :sent => true) do %>
-										<%= convos.count %> <%= "message".pluralize(convos.count)%>
+										<%= convos.count %> <%= "conversation".pluralize(convos.count)%>
 									<% end %>
 								<% else %>
+									<!-- giving status -->
+									<% if @giving.current_holder != current_user.id %>
+										<% if !@giving.regive_count.nil? && @giving.regive_count > 1 %>
+											<div class="status regiven">
+												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+											</div>
+										<% else %>
+											<div class="status given">Given</div>
+										<% end %>
+									<% elsif @giving.status == 0 %>
+										<div class="status posted">Posted </div>
+									<% elsif @giving.status > 0 && @giving.status < 100 %>
+										<div class="status transfer">Transfer Pending</div>
+									<% end %>
+
 									<%= link_to topic_conversations_path(:topic_id => subject, :sent => @show_sentbox) do %>
-										<%= convos.count %> <%= "message".pluralize(convos.count)%>
+										<%= convos.count %> <%= "conversation".pluralize(convos.count)%>
 									<% end %>
 								<% end %>
 							<% end %>
@@ -124,24 +158,28 @@
 					<!-- no conversations on this giving -->
 					<div class="topic-box read">
 						<div class="topic-box-image">
-							<%= image_tag @giving.image.url(:thumb) %>
+							<%= link_to(image_tag(@giving.image.url(:thumb)), @giving) %>
 						</div>
 						<div style="display:inline-block;">
 							<div><%= @giving.name %></div>
-							<div style="font-style: italic;">
-								<% if @today.strftime("%m/%d/%Y") == @giving.updated_at.strftime("%m/%d/%Y") %>
-									<%= @giving.updated_at.strftime("%I:%M%p") %>
-								<% elsif @today.strftime("%Y") == @giving.updated_at.strftime("%Y") %>
-									<%= @giving.updated_at.strftime("%-d %B") %>
+							<!-- giving status -->
+							<% if @giving.current_holder != current_user.id %>
+								<% if !@giving.regive_count.nil? && @giving.regive_count > 1 %>
+									<div class="status regiven">
+										ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+									</div>
 								<% else %>
-									<%= @giving.updated_at.strftime("%-d %B, %Y") %>
+									<div class="status given">Given</div>
 								<% end %>
-							</div>
+							<% elsif @giving.status == 0 %>
+								<div class="status posted">Posted </div>
+							<% elsif @giving.status > 0 && @giving.status < 100 %>
+								<div class="status transfer">Transfer Pending</div>
+							<% end %>
 						</div>
 					</div>
 				<% end %>
 			<% end %>
-
 		<% end %>
 	<% end %>
 <% end %>

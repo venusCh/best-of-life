@@ -769,6 +769,33 @@ h2, h3 {
 .desktop {
 	display:  				inline-block;
 }
+.status {
+	font-weight: 			bold;
+	font-size: 				1.2em;
+}
+.status.accepted {
+	color: 					green;
+}
+.status.confirmed {
+	color: 					rgb(23, 153, 205);
+}
+.status.sent {
+	color: 					gray;
+}
+.status.given {
+	color: 					#0685ad;
+}
+.status.regiven {
+	color: 					#578e12;
+}
+.status.transfer {
+	color: 					#ff873f;
+}
+.given-date {
+	font-style: 			italic; 
+	font-size: 				0.8em;
+}
+
 /**
  * Styling for mobile devices (iPhone)
  */

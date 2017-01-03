@@ -22,6 +22,7 @@ class ConversationsController < ApplicationController
  		else
 	 		# get list of objects that user can give/regive
 	 	    @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
+	 	    @myGivings = @myGivings.sort_by(&:updated_at).reverse
 	    	@mySecondaryGivings = Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
 	    	@myGivings |= @mySecondaryGivings
 
