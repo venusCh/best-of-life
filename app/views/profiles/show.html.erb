@@ -2,7 +2,7 @@
 	<div style="display: inline-block;">
 		<div style="margin-top: 12px 0px;"><%= image_tag(@user.avatar.url(:medium), class: "round-image-120") %></div>
 	</div>
-	<div style="display: inline-block;vertical-align: top; margin: 8px;">
+	<div class="user-details">
 		<div class="profile-name"><%= @user.name %> </div>
 		<% @giver_location = @user.zip %>
    		<div class="user-location">
@@ -34,11 +34,11 @@
 			<% end %>
 		</div>
    		<div style="margin: 12px 5px 5px 3px;text-align: center;float:left;">
-   			<div style="display: inline-block;width: 70px;height: 70px;vertical-align: top;">
+   			<div class="user-stats">
    				<div><%= image_tag(image_url('gift-icon.jpg'), class: "shrink-image") %></div>
    				<div><%=@user.givings.count%> Givings</div>
    			</div>
-   			<div style="display: inline-block;width: 70px;height: 70px;vertical-align: top;">
+   			<div class="user-stats">
    				<div><%= image_tag(image_url('regive-icon.jpg'), class: "shrink-image") %></div>
    				<div>3 out of 3</div>
    			</div>
@@ -74,7 +74,10 @@
 	<% end %>
 </div>
 
-<h3 style="margin: 3px 0px;"><b>User Reviews</b></h3>
+<div class="givings-header">
+	<div class="givings-header left"> <h3>User Reviews</h3>
+	</div>
+</div>
 <div style="margin-left: 15px;">
 	<div style="margin-bottom: 15px;">
 		<% if @user.comments.count == 0 %>

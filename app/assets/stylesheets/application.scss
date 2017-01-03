@@ -651,6 +651,19 @@ h2, h3 {
 	color: 					#808080;
 	font-style: 			italic;
 }
+.user-details {
+	display: 				inline-block;
+	vertical-align: 		top; 
+	margin: 				8px;
+	height:		 			160px;
+	margin-bottom: 			10px;
+}
+.user-stats {
+	display: 				inline-block;
+	width: 					70px;
+	height: 				70px;
+	vertical-align: 		top;
+}
 .user-zip {
 	padding-left: 			0px;
 }
@@ -841,10 +854,14 @@ h2, h3 {
 	}
 
 	.givings-header {
-		height: 			50px;
+		height: 			46px;
 		padding: 			2px;
+		min-width:  		280px;
 	}
-	.givings-header-right {
+	.givings-header.left {
+		padding: 			3px;
+	}
+	.givings-header.right {
 		padding: 			3px;
 	}
 
@@ -919,5 +936,15 @@ h2, h3 {
 	}
 	#options-dropdown {
 		width: 				180px;
+	}
+	.profile-name {
+		font-size:  			1.3em;
+	}
+	.user-details {
+		height:		 			235px;
+	}
+	.user-stats {
+		width: 					120px;
+		height: 				120px;
 	}
 }
