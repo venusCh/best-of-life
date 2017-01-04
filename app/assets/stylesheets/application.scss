@@ -169,7 +169,7 @@ nav {
   max-height: 				400px;
   overflow-y: 				auto;
   margin-bottom: 			1em;
-  margin-top: 				1em;
+  margin-top: 				0.6em;
 }
 .message_timestamp {
 	font-size: 	 			0.8em;
@@ -794,6 +794,25 @@ h2, h3 {
 .given-date {
 	font-style: 			italic; 
 	font-size: 				0.8em;
+}
+.message-bubble {
+	width: 					85%;
+	margin-top:				6px;
+	margin-left:			2px;
+	margin-right: 			2px;
+	border-radius: 			4px;
+	padding: 				4px 7px;
+}
+.message-bubble.squeeze {
+	margin-top: 			3px;
+}
+.message-bubble.right {
+	background-color:  		#ccd9de;
+	float: 					right;
+}
+.message-bubble.left {
+	background-color:  		#F0F0F0;
+	float: 					left;
 }
 
 /**

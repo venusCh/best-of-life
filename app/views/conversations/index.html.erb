@@ -98,9 +98,15 @@
 								<% else %>
 									<!-- giving status -->
 									<% if @giving.current_holder != current_user.id %>
-										<% if !@giving.regive_count.nil? && @giving.regive_count > 1 %>
+										<% if !@giving.regive_count.nil? %> 
 											<div class="status regiven">
-												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>
+											<% if @giving.regive_count == 2 %>
+												ReGiven once!
+											<% elsif @giving.regive_count == 3 %>
+												ReGiven once!
+											<% elsif @giving.regive_count > 3 %>
+												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+											<% end %>
 											</div>
 										<% else %>
 											<div class="status given">Given</div>
@@ -133,9 +139,15 @@
 								<% else %>
 									<!-- giving status -->
 									<% if @giving.current_holder != current_user.id %>
-										<% if !@giving.regive_count.nil? && @giving.regive_count > 1 %>
+										<% if !@giving.regive_count.nil? %> 
 											<div class="status regiven">
+											<% if @giving.regive_count == 2 %>
+												ReGiven once!
+											<% elsif @giving.regive_count == 3 %>
+												ReGiven twice!
+											<% elsif @giving.regive_count > 3 %>
 												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+											<% end %>
 											</div>
 										<% else %>
 											<div class="status given">Given</div>
@@ -164,9 +176,15 @@
 							<div><%= @giving.name %></div>
 							<!-- giving status -->
 							<% if @giving.current_holder != current_user.id %>
-								<% if !@giving.regive_count.nil? && @giving.regive_count > 1 %>
+								<% if !@giving.regive_count.nil? %> 
 									<div class="status regiven">
+									<% if @giving.regive_count == 2 %>
+										ReGiven once!
+									<% elsif @giving.regive_count == 3 %>
+										ReGiven twice!
+									<% elsif @giving.regive_count > 3 %>
 										ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+									<% end %>
 									</div>
 								<% else %>
 									<div class="status given">Given</div>
