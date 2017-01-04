@@ -814,6 +814,16 @@ h2, h3 {
 	background-color:  		#F0F0F0;
 	float: 					left;
 }
+.message-bubble.accepted {
+	width:  				78%;
+	color:  				#2f9e03;
+	margin:					6px 2px;
+}
+.message-bubble.confirmed {
+	width:  				78%;
+	color:  				#0087ff;
+	margin:					8px 2px;
+}
 
 /**
  * Styling for mobile devices (iPhone)

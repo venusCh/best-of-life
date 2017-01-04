@@ -99,7 +99,7 @@ class GivingsController < ApplicationController
                                                               params[:id])
     if (@giving.status >= 1)
       @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
-      current_user.reply_to_conversation(@conversation, "Confirmed receiving!")
+      current_user.reply_to_conversation(@conversation, "<ConfirmedReceivingToken>")
 
       @giving.previous_holder = @giving.current_holder
       @giving.current_holder = current_user.id

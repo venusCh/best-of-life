@@ -55,13 +55,23 @@
           <% @squeeze = "" %>
         <% end %>
 
+        <% @msg_status = "" %>
+        <% if message.body == "Confirmed receiving!" %>
+          <% @msg_status= "confirmed" %>
+        <% elsif message.body == "Request accepted!" %>
+          <% @msg_status= "accepted" %>
+        <% end %>
+
+        <!-- <ConfirmedReceivingToken> -->
+        <!-- <RequestAcceptedToken>  -->
+
         <% if message.sender.nil? %>
           <% user_deleted = true %>
           <div>*** USER DELETED ***</div>
         <% elsif message.sender.id == current_user.id %>
-          <div class="message-bubble right <%=@squeeze%>">
+          <div class="message-bubble right <%=@squeeze%> <%=@msg_status%>">
         <% else %>
-          <div class="message-bubble left <%=@squeeze%>">
+          <div class="message-bubble left <%=@squeeze%> <%=@msg_status%>">
         <% end %>
 
           <div>

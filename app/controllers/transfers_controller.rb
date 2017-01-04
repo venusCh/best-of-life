@@ -28,7 +28,7 @@ class TransfersController < ApplicationController
 
 		    # also auto-generate a reply to conversation
 		    @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
-		    current_user.reply_to_conversation(@conversation, "Request accepted!")
+		    current_user.reply_to_conversation(@conversation, "<RequestAcceptedToken>")
 
 			redirect_to :back
 		else
