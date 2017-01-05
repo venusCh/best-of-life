@@ -165,6 +165,10 @@ nav {
 	height: 				60%;
 	width: 					60%;
 }
+.mini-image {
+	height: 				25px;
+	width: 					25px;
+}
 .messages {
   max-height: 				400px;
   overflow-y: 				auto;
@@ -371,9 +375,9 @@ a:hover {
 
 .panel-heading {
 	margin-top: 20px;
-	margin-bottom: 0px;
+	margin-bottom: 15px;
 	background-color: #eaeaea;
-	padding: 8px;
+	padding: 2px;
 	border-radius: 4px;
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
@@ -381,7 +385,7 @@ a:hover {
 	border-bottom: 1px solid transparent;
 }
 .panel-body {
-	margin-top: 0px;
+	margin-top: 4px;
 	margin-bottom: 10px;
 	border-radius: 4px;
 	border-top: 0;
@@ -443,7 +447,21 @@ a:hover {
 	padding: 0px;
 }
 .conversation-title {
-	margin: 4px 0px 8px 0px;
+	margin: 6px 3px;
+	font-size: 1.3em;
+	font-weight: bold;
+	display: inline-block;
+	height: 20px;
+}
+.conversation-image {
+	display: inline-block;
+}
+.conversation-status {
+	margin: 0px 2px;
+	height: 36px;
+}
+.conversation {
+	display: inline-block;
 }
 /**
   * may be better to use "topic-box" instead of conversation-items 
@@ -647,6 +665,8 @@ h2, h3 {
 	margin-left: 			5px;
 }
 .user-location {
+	font-size:  			0.9em;
+	margin-left:  			1px;
 	font-weight:  			normal;
 	color: 					#808080;
 	font-style: 			italic;
@@ -658,17 +678,33 @@ h2, h3 {
 	height:		 			160px;
 	margin-bottom: 			10px;
 }
+.user-details-mini {
+	display: 				inline-block;
+	margin-left: 			4px;
+	vertical-align: 	 	top;
+	min-width: 				110px;
+}
 .user-stats {
 	display: 				inline-block;
 	width: 					70px;
 	height: 				70px;
 	vertical-align: 		top;
 }
+.user-stats-mini {
+	width: 					45px;
+	height: 				45px;
+	vertical-align: 		top;
+	display: 				flex;
+	align-items: 			center;
+}
 .user-zip {
 	padding-left: 			0px;
 }
 .user-country {
 	padding-left: 			0px;
+}
+.user-reviews {
+	font-size: 				0.9em;
 }
 
 .topic-box {
@@ -689,7 +725,7 @@ h2, h3 {
 .topic-box-image {
 	display:				inline-block; 
 	width: 					100px;
-	height:  				65px;
+	height:  				60px;
 	text-align:  			center;
 	vertical-align: 		top;
 	margin:	 				2px;

@@ -103,7 +103,7 @@
 											<% if @giving.regive_count == 2 %>
 												ReGiven once!
 											<% elsif @giving.regive_count == 3 %>
-												ReGiven once!
+												ReGiven twice!
 											<% elsif @giving.regive_count > 3 %>
 												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
 											<% end %>

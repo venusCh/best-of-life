@@ -26,10 +26,10 @@
 				<span style="color: #808080">None</span>
 			<% else %>
 				<% if @upvote > 0 %>
-					<span style="color: #2cb70a;"><b><%= @upvote %> Positive</b></span> &nbsp; 
+					<span style="color: #2cb70a;"><b><%= @upvote %> <i class="fa fa-smile-o" aria-hidden="true"></i></b></span> &nbsp; 
 				<% end %>
 				<% if @downvote > 0 %>
-					<span style="color: #bf6a48;"><b><%= @downvote %> Negative</b></span> &nbsp; 
+					<span style="color: #bf6a48;"><b><%= @downvote %> <i class="fa fa-frown-o" aria-hidden="true"></i></b></span> &nbsp; 
 				<% end %>
 			<% end %>
 		</div>
@@ -74,7 +74,7 @@
 	<% end %>
 </div>
 
-<div class="givings-header">
+<div class="givings-header" style="margin-top: 10px;">
 	<div class="givings-header left"> <h3>User Reviews</h3>
 	</div>
 </div>
