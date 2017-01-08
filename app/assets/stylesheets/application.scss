@@ -518,22 +518,25 @@ a:hover {
 	height: 				31px;
 	padding: 				3px;
 	color:  				#f0f0f0;
-	min-width:  			285px;
 	margin-bottom: 			5px;
 }
 .givings-header.left {
+	display:  				inline-block;
 	float: 					left;
 	height: 				28px;
 }
 .givings-header.right {
+	display:  				inline-block;
 	float: 					right;
 	height:  				25px;
 	color: 					#606060;
+	min-width:  			100px;
 	margin-top: 			3px;
 }
 .givings-header.left > h3 {
 	margin: 				2px;
 	font-size:  			1.25em;
+	text-align: 			left;
 }
 .giving-preview {
 	height:  				150px;
@@ -642,6 +645,17 @@ textarea {
     border: 				1px solid #bce8f1;
     border-radius: 			4px;
 }
+.alert {
+    background-color: 		#F7ECD9;
+    border-color: 			#F1BCBC;
+    color: 					#E65D0A;
+    padding: 				15px;
+    margin-bottom: 			20px;
+    margin-top: 			12px;
+    border: 				1px solid #F1BCBC;
+    border-radius: 			4px;
+}
+
 
 h2, h3 {
 	font-size:  			1.4em;
@@ -946,15 +960,19 @@ h2, h3 {
 	}
 
 	.givings-header {
-		height: 			46px;
-		padding: 			2px;
-		min-width:  		280px;
+		height: 			38px;
+		padding: 			3px;
 	}
 	.givings-header.left {
-		padding: 			3px;
+		padding: 			0px 3px 3px 3px;
+		display:   			inline-block;
 	}
 	.givings-header.right {
-		padding: 			3px;
+		padding: 			0px 3px 3px 3px;
+		display:   			inline-block;
+	}
+	.givings-header.left h3 {
+		font-size: 	 		1.1em;
 	}
 
 	.full-content {
