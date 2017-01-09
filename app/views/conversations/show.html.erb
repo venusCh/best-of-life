@@ -109,7 +109,10 @@
       <div style="display: inline-block;width: 54px;">
         <div class="user-stats-mini">
           <div><%= image_tag(image_url('regive-icon.jpg'), class: "mini-image") %></div>
-          <div>&nbsp;3/3</div>
+          <!-- TODO: move to backend -->
+          <% @regivenCount = Transfer.where(["to_id = ? and is_active = 'f'", user.id]).count %>
+          <% @overdueCount = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", user.id, @today]).count %>
+          <div>&nbsp;<%= @regivenCount %>/<%= @regivenCount + @overdueCount %></div>
         </div>
       </div>
     </div>

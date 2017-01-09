@@ -81,9 +81,10 @@ class GivingsController < ApplicationController
 
   def confirm_giving
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id(current_user.id, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id_and_is_active(current_user.id, 
                                                               params[:recipient],
-                                                              params[:id])
+                                                              params[:id],
+                                                              true)
     if (@giving.status >= 1)
       @giving.status += 10
     end
@@ -94,9 +95,10 @@ class GivingsController < ApplicationController
 
   def confirm_getting
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id(@giving.current_holder, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id_and_is_active(@giving.current_holder, 
                                                               params[:recipient],
-                                                              params[:id])
+                                                              params[:id],
+                                                              true)
     if (@giving.status >= 1)
       @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
       current_user.reply_to_conversation(@conversation, "<ConfirmedReceivingToken>")
@@ -104,6 +106,7 @@ class GivingsController < ApplicationController
       @giving.previous_holder = @giving.current_holder
       @giving.current_holder = current_user.id
       @giving.status += 100
+
       if @giving.regive_count.nil? then
         @giving.regive_count = 1
       else
@@ -111,6 +114,9 @@ class GivingsController < ApplicationController
       end
       @giving.prospective_user = nil
       @giving.save
+
+      # set the transfer due date on this date
+      @transfer.due_date = Date.today + get_months(@giving)
     end
 
     redirect_to :back, notice: "Thanks for confirming your receiving!"

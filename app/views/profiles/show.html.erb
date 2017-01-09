@@ -40,7 +40,7 @@
    			</div>
    			<div class="user-stats">
    				<div><%= image_tag(image_url('regive-icon.jpg'), class: "shrink-image") %></div>
-   				<div>3 out of 3</div>
+   				<div><%= @regivenCount %> out of <%= @regivenCount + @overdueCount %></div>
    			</div>
    		</div>
    		<% if false %> <!-- TODO: review -->

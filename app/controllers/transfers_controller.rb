@@ -15,8 +15,6 @@ class TransfersController < ApplicationController
 			@transfer.conversation = params[:transfer][:conversation]
 
 			@transfer.is_active = true
-			@transfer.due_date = Date.today + get_months(@giving)
-
 			@transfer.save
 
 			@giving.prospective_user = @transfer.to_id
