@@ -24,10 +24,12 @@
 				$("#options-dropdown").hide();
 			});
 		});
+
 		function adjustOptionsDropdown(execute) {
 			$("#options-dropdown").hide();
 			if (!execute)
 				return;
+
 			if ($("#user-pic")[0] !== undefined) {
 				var posn = $("#user-pic").offset();
 				
@@ -51,7 +53,7 @@
 			.navbar-center
 				.navbar-brand
 					= image_tag "Gicycle.jpg"
-					= link_to "reGive", givings_path
+					= link_to "Givers", givings_path
 
 				- if user_signed_in?
 					%ul.navbar-menu-account
