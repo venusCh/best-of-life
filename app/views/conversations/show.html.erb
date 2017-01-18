@@ -35,15 +35,15 @@
       <div class="conversation-title"><%= @giving.name %></div>
       <div class="conversation-status">
         <% if !@giving.regive_count.nil? && @giving.regive_count > 0%>
-          <span style="color: #578e12;">
+          <span style="color: #578e12;font-style: italic;">
           <% if @giving.regive_count == 1 %>
             Given to you!
           <% elsif @giving.regive_count == 2 %>
-            ReGiven once!
+            Re-given once!
           <% elsif @giving.regive_count == 3 %>
-            ReGiven twice!
+            Re-given twice!
           <% elsif @giving.regive_count > 3 %>
-            ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+            Re-given <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
           <% end %>
           </span>
         <% else %>
@@ -205,10 +205,9 @@
             <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
             <%= f.hidden_field :conversation, :value => @conversation.id %>
             <%= f.submit "Accept Request", class: "btn-primary" %>
-          <% end %><br/>
+          <% end %>
         </div>
       <% else %>
-      <br>
         <% if @giving.status < 101 %>
           <div class="condition-toast">
             <% if @recipient == @conversation.originator.id %>
@@ -238,13 +237,13 @@
     <!-- prospective recipient -->
     <% if @given && @giving.prospective_user == current_user.id %>
       <div style="margin-top: 20px;">
-        <%= link_to "Confirm Receiving", confirm_getting_giving_path(@giving.id, :recipient => current_user.id), class: "btn-primary" %><br/><br/>
+        <%= link_to "Confirm Receiving", confirm_getting_giving_path(@giving.id, :recipient => current_user.id), class: "btn-primary" %>
       </div>
     <% end %>
   <% end %>
 <% end %>
 
 <span style="color: #3E89C1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
-<%= link_to "Back", conversations_path %><br><br>
+<%= link_to "Back", conversations_path(:sent => @show_sentbox)  %><br><br>
 
 <% @conversation.mark_as_read(current_user) %>

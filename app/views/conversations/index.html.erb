@@ -72,13 +72,13 @@
 					<% else %>
 						<div class="topic-box read">
 					<% end %>
-						<div style="display: inline-block;width: 100px;height: 70px;">
+						<div class="topic-box-image-wrapper">
 							<div class="topic-box-image" style="text-align: center;"><%= link_to(image_tag(@giving.image.url(:thumb)), @giving) %>
 							</div>
 						</div>
-						<div style="display:inline-block;vertical-align: top;">
+						<div class="topic-box-message">
 							<div style="margin-top: 3px;">
-							<div style="height: 20px;"><%= @giving.name %></div>
+							<div class="topic-box-title"><%= @giving.name %></div>
 
 							<% if @unread_count > 0 %>
 								<% if @show_sentbox == true %>
@@ -101,11 +101,11 @@
 										<% if !@giving.regive_count.nil? %> 
 											<div class="status regiven">
 											<% if @giving.regive_count == 2 %>
-												ReGiven once!
+												Re-given once!
 											<% elsif @giving.regive_count == 3 %>
-												ReGiven twice!
+												Re-given twice!
 											<% elsif @giving.regive_count > 3 %>
-												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+												Re-given <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
 											<% end %>
 											</div>
 										<% else %>
@@ -142,11 +142,11 @@
 										<% if !@giving.regive_count.nil? %> 
 											<div class="status regiven">
 											<% if @giving.regive_count == 2 %>
-												ReGiven once!
+												Re-given once!
 											<% elsif @giving.regive_count == 3 %>
-												ReGiven twice!
+												Re-given twice!
 											<% elsif @giving.regive_count > 3 %>
-												ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+												Re-given <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
 											<% end %>
 											</div>
 										<% else %>
@@ -173,17 +173,17 @@
 							<%= link_to(image_tag(@giving.image.url(:thumb)), @giving) %>
 						</div>
 						<div style="display:inline-block;">
-							<div><%= @giving.name %></div>
+							<div class="topic-box-title"><%= @giving.name %></div>
 							<!-- giving status -->
 							<% if @giving.current_holder != current_user.id %>
 								<% if !@giving.regive_count.nil? %> 
 									<div class="status regiven">
 									<% if @giving.regive_count == 2 %>
-										ReGiven once!
+										Re-given once!
 									<% elsif @giving.regive_count == 3 %>
-										ReGiven twice!
+										Re-given twice!
 									<% elsif @giving.regive_count > 3 %>
-										ReGiven <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+										Re-given <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
 									<% end %>
 									</div>
 								<% else %>

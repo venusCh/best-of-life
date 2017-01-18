@@ -10,7 +10,6 @@ class ConversationsController < ApplicationController
     	@show_sentbox = false
 		@show_aggregate = true
 
-
  		if params[:sent] == "true" then
  			@new_messages = 0
  			@all_conversations = @mailbox.sentbox
@@ -45,6 +44,10 @@ class ConversationsController < ApplicationController
  	end
 
 	def show
+		@show_sentbox = false
+ 		if params[:sent] == "true" then
+ 			@show_sentbox = true
+ 		end
 	end
 
 	def reply

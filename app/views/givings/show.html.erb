@@ -41,6 +41,10 @@
 	<% @giving_period = "3 months" %>
 <% elsif @giving.wish == 30 %>
 	<% @giving_period = "6 months" %>
+<% elsif @giving.wish == 40 %>
+	<% @giving_period = "1 year" %>
+<% elsif @giving.wish == 50 %>
+	<% @giving_period = "2 years" %>
 <% end %>
 
 <% if !@giving.status.nil? && @giving.status >= 101 %> <!-- getter or both confirmed -->
