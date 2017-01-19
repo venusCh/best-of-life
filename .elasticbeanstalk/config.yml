@@ -1,0 +1,13 @@
+branch-defaults:
+  development:
+    environment: GiversApp
+  master:
+    environment: GiversApp-dev
+    group_suffix: null
+global:
+  application_name: GiversApp
+  default_ec2_keyname: key-for-eb-ssh
+  default_platform: Ruby 2.3 (Puma)
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git

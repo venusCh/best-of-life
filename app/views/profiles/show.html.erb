@@ -1,0 +1,132 @@
+<div style="margin-top: 10px;">
+	<div style="display: inline-block;">
+		<div style="margin-top: 12px 0px;"><%= image_tag(@user.avatar.url(:medium), class: "round-image-120") %></div>
+	</div>
+	<div class="user-details">
+		<div class="profile-name"><%= @user.name %> </div>
+		<% @giver_location = @user.zip %>
+   		<div class="user-location">
+	   		<% if !@giver_location.nil? && @giver_location > 0 %>
+   				<%= @giver_location.to_s.to_region %>
+   			<% end %>
+   		</div>
+		<div style="margin-top: 1px;"> 
+			<!-- TODO: move to backend -->
+			<% @upvote = 0 %>
+			<% @downvote = 0 %>
+			<% @user.comments.each do |comment| %>
+				<% if User.find_by_id(comment.commenter).voted_up_on? @user, vote_scope: 'user_rating' %>
+					<% @upvote += 1 %>
+				<% elsif User.find_by_id(comment.commenter).voted_down_on? @user, vote_scope: 'user_rating' %>
+					<% @downvote += 1 %>
+				<% end %>
+			<% end %>
+			<%= link_to "Reviews:", '#' %>
+			<% if @upvote + @downvote == 0 %>
+				<span style="color: #808080">None</span>
+			<% else %>
+				<% if @upvote > 0 %>
+					<span style="color: #2cb70a;"><b><%= @upvote %> <i class="fa fa-smile-o" aria-hidden="true"></i></b></span> &nbsp; 
+				<% end %>
+				<% if @downvote > 0 %>
+					<span style="color: #bf6a48;"><b><%= @downvote %> <i class="fa fa-frown-o" aria-hidden="true"></i></b></span> &nbsp; 
+				<% end %>
+			<% end %>
+		</div>
+   		<div style="margin: 12px 5px 5px 3px;text-align: center;float:left;">
+   			<div class="user-stats">
+   				<div><%= image_tag(image_url('gift-icon.jpg'), class: "shrink-image") %></div>
+   				<div><%=@user.givings.count%> Givings</div>
+   			</div>
+   			<div class="user-stats">
+   				<div><%= image_tag(image_url('regive-icon.jpg'), class: "shrink-image") %></div>
+   				<div><%= @regivenCount %> out of <%= @regivenCount + @overdueCount %></div>
+   			</div>
+   		</div>
+   		<% if false %> <!-- TODO: review -->
+	   		<% if @user.givings.count > 0 %>
+		   		<div class="profile-timestamp">Giving since <%= @user.created_at.strftime("%b, %Y") %> </div>
+			<% else %>
+				<div class="profile-timestamp">Member since <%= @user.created_at.strftime("%b, %Y") %></div>
+			<% end %>
+		<% end %>
+   	</div>
+	<% if @user.givings.count > 0 %>
+		<div class="givings-header">
+			<div class="givings-header left"> <h3> Givings </h3>
+			</div>
+		</div>
+		<div class="floating-box-givings">
+			<% @user_givings.each do |giving| %>
+				<div class="giving-preview"> 
+					<div class="giving-preview-image">
+						<%= link_to(image_tag(giving.image.url(:thumb)), giving) %>
+					</div>
+					<div class="giving-preview-title">
+						<%= link_to giving.name, giving %> 
+					</div>
+				</div>
+			<% end %>
+			<div>
+				<%= will_paginate @user_givings %>
+			</div>
+		</div>
+	<% end %>
+</div>
+
+<div class="givings-header" style="margin-top: 10px;">
+	<div class="givings-header left"> <h3>User Reviews</h3>
+	</div>
+</div>
+<div style="margin-left: 15px;">
+	<div style="margin-bottom: 15px;">
+		<% if @user.comments.count == 0 %>
+			No reviews.
+		<% end %>
+		<% @user.comments.each do |comment| %>
+			<div class="comment-card">
+				<div class="comment-card user">
+					<div class="round-image-50">
+						<a href="/profiles/<%= comment.commenter%>"><%= image_tag(User.find_by_id(comment.commenter).avatar.url(:thumb)) %></a>
+					</div>
+					<%= User.find_by_id(comment.commenter).name %>
+				</div>
+				<div class="comment-card body">
+					<!-- Todo: move to backend -->
+					<% if User.find_by_id(comment.commenter).voted_up_on? @user, vote_scope: 'user_rating' %>
+						<span style="color:#337ab7">Rated positive <i class="fa fa-smile-o" aria-hidden="true"></i></span>
+					<% elsif User.find_by_id(comment.commenter).voted_down_on? @user, vote_scope: 'user_rating' %>
+						<span style="color:#ab1911">Rated negative <i class="fa fa-frown-o" aria-hidden="true"></i></span>
+					<% end %><br>
+		    		<%= comment.body %>
+		    	</div>
+	    	</div>
+		<% end %>
+	</div>
+
+	<% if @canComment %>
+		<div class="bookmark-section" style="margin-bottom: 10px;">
+			<% if @ratedPositive %>
+				<span style="color:#337ab7"><i class="fa fa-smile-o" aria-hidden="true"></i> You rated positive</span>
+			<% elsif @ratedNegative %>
+				<span style="color:#ab1911"><i class="fa fa-frown-o" aria-hidden="true"></i> You rated negative</span>
+			<% else %>
+				<div>Rate your recent experience dealing with <%= @user.first_name %>
+				</div>
+				<%= link_to rate_user_positive_path(@user), method: :put do %>
+					<i class="fa fa-smile-o" aria-hidden="true"></i> Positive
+				<% end %> | 
+				<%= link_to rate_user_negative_path(@user), method: :put do %>
+					<i class="fa fa-frown-o" aria-hidden="true"></i> Negative
+				<% end %>
+			<% end %>
+		</div>
+
+		<div class="bookmark-section">
+			<%= form_for([@user, @user.comments.build]) do |f| %>
+				<p> <%= f.text_area :body, cols: 35, rows: 4, placeholder: "Add comments...", required: true %> </p>
+				<%= f.submit "Add", class: "btn-primary" %>
+			<% end %>
+		</div>
+	<% end %>
+</div>

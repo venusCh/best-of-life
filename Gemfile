@@ -1,23 +1,30 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
-
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-script-source', '1.8.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'paperclip'
-gem 'bootstrap-sass', '~> 3.3.5'
 gem 'devise'
+gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'font-awesome-sass'
-gem 'puma'
+gem 'haml'
+gem 'mailboxer'
+gem 'bootstrap-will_paginate'
+gem 'will_paginate'
+gem 'aws-sdk-v1'
+gem 'omniauth-facebook'
+gem 'area'
+gem 'whenever', require: false
+gem 'acts_as_votable', '~> 0.10.0'
 
 group :development, :test do
-  gem 'pg'
+  gem 'sqlite3'  
   gem 'byebug'
 end
 

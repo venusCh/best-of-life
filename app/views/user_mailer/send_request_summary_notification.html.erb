@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Hi <%= @user.first_name %>,
+    <p>
+    <% count = 0 %>
+    <% objectString = "" %>
+    <% @object_names.each do |obj| %>
+      <% objectString += obj %>
+      <% count += 1 %>
+      <% if count == @object_names.count - 1 %>
+        <% objectString += " and " %>
+      <% elsif count < @object_names.count - 1 %>
+        <% objectString += ", " %>
+      <% else %>
+        <% objectString += "." %>
+      <% end %>
+    <% end %>
+
+    <% @countString = "" %>
+    <% if @request_count == 1 %>
+      <% @countString = "a new" %>
+    <% else %>
+      <% @countString = "#{@request_count} new" %>
+    <% end %>
+
+      You have received <%= @countString %> <%= "request".pluralize(@request_count) %> in the past 24 hours for <b><%= objectString %></b>
+        <br>
+      Please go to your <%= link_to 'inbox', @url + "/conversations" %> to accept pending requests.
+    </p><br><br>
+    <p style="color:#636363;">Thanks for using GiversApp and have a great day!</p>
+  </body>
+</html>

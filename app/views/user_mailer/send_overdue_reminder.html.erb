@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Hi <%= @user.first_name %>,
+    <p>
+      We hope you enjoyed <b><%= @object.name %></b>.<br>
+      Click below to reGive so others can benefit from this giving! 
+      <a href=<%= @url + "/givings/" + @transfer.giving_id.to_s + "/regive"%> style="display:block;text-decoration:none;color:#fff;">
+        <div style="background-color:#337ab7;border-color:#2e6da4;border-radius:4px;padding:6px 12px;margin:4px 20px;display:inline-block;">
+          ReGive
+        </div>
+      </a>
+    </p><br><br>
+    <p style="color:#636363;">Thanks for using GiversApp and have a great day!</p>
+  </body>
+</html>

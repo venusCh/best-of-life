@@ -1,61 +1,164 @@
 
-<h2> <%= @giving.name %> </h2>
-<!-- <%= image_tag("gift.jpg", :alt => "Giving") %> -->
+<h2><b> <%= @giving.name %></b> </h2>
 <%= image_tag @giving.image.url(:medium) %>
-<p> <%= @giving.desc %> <br><br>
-Giver wishes this to be re-given in 
-<% if @giving.wish == 10 %>
-	<b> a month. </b> 
-<% elsif @giving.wish == 20 %>
-	<b> 3 months. </b> 
-<% elsif @giving.wish == 30 %>
-	<b> 6 months. </b> 
-<% end %>
-	<br>
+<p> <%= @giving.desc %> <br>
+
 <% if !current_user.nil? %>
-	<% if current_user.id == @giving.user_id %>
+	<% if current_user.id == @giving.user_id &&
+		@giving.transfers.count == 0 %>
 		<%= link_to "Delete", { action: :destroy }, 
 		method: :delete, 
 		data: { confirm: "Are you sure?" } %> <br>
 	<% end %>
 <% end %>
 
-<% if !current_user.nil? %>
-	<% if current_user.id != @giving.user_id %>
-		Posted by <b> <%= User.find(@giving.user_id).email %> </b>
-	<% end %>
-<% end %>
 </p>
+<span class="user_profile"> 
+	<div class="round-image-50">
+		<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(User.find_by_id(@giving.user_id).avatar.url(:thumb)) %></a>
+	</div>
+	<%= User.find_by_id(@giving.user_id).name %>
+	<% @giver_location = User.find_by_id(@giving.user_id).zip %>
+	<% if !@giver_location.nil? && @giver_location != "" %>
+		<br><span class="user-location"><%= @giver_location.to_s.to_region %></span>
+	<% end %>
+	<% @giving.transfers.each do |transfer| %>
+		<br> <i class="fa fa-arrow-down" aria-hidden="true" style="margin-left: 18px;color:#e46633;"></i>
+		<div class="round-image-50">
+			<a href="/profiles/<%= transfer.to_id%>"><%= image_tag(User.find_by_id(transfer.to_id).avatar.url(:thumb)) %></a>
+		</div>
+		<%= User.find_by_id(transfer.to_id).name %>
+		<% @location = User.find_by_id(transfer.to_id).zip %>
+		<% if !@location.nil? %>
+			<br><span class="user-location"><%= @location.to_s.to_region %></span>
+		<% end %>
+	<% end %>
+</span>
+</p>  
+<!-- TODO: get the date and also fix the emailing code -->
+<% @giving_period = "a month" %>
+<% if @giving.wish == 20 %>
+	<% @giving_period = "3 months" %>
+<% elsif @giving.wish == 30 %>
+	<% @giving_period = "6 months" %>
+<% elsif @giving.wish == 40 %>
+	<% @giving_period = "1 year" %>
+<% elsif @giving.wish == 50 %>
+	<% @giving_period = "2 years" %>
+<% end %>
 
-<% if !current_user.nil? %>
-	<% if current_user.id == @giving.user_id %>
-		<p>
-			<% if !@giving.asks.nil? && @giving.asks.count > 0 %>
-				<span class="step"><%= @giving.asks.count %></span><i>re-givers asked for this. </i>
-			<% end %>
-		</p>
-		<div class="indent">
-			<% @giving.asks.each do |ask| %>
-				<b><%= User.find(ask.user_id).email %> </b><br>
-				<%= ask.comment %> <br>
-				<%= link_to "Accept", @giving %>
-			<% end %>
+<% if !@giving.status.nil? && @giving.status >= 101 %> <!-- getter or both confirmed -->
+	<% if !current_user.nil? && @giving.current_holder == current_user.id %>
+		<div class="condition-toast">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			You currently hold this item. We will send a reminder email when it's time to re-give!
+		</div>
+		<%= link_to "Re-Give", regive_giving_path(@giving.id), class: "btn-primary" %><br>
+	<% elsif !current_user.nil? && @giving.previous_holder == current_user.id %>
+		<div class="condition-info">
+			<i class="fa fa-exchange" aria-hidden="true"></i> &nbsp;
+			<%= User.find_by_id(@giving.current_holder).name %> confirms your transfer. Thanks for giving!
 		</div>
 	<% else %>
-		<div class="indent">
-			<% if !@already_asked %>
-				<%= form_for([@giving, @giving.asks.build]) do |f| %>
-					<p> <input type="checkbox"> I agree to re-give this as per Givers wishes! </p>
-					<p> <%= f.text_area :comment, cols: 26, placeholder: "Few words to the Giver..." %> </p>
-					<%= f.submit "Ask", class: "btn btn-primary" %>
+		<div class="condition-toast">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			Currently with <%= User.find_by_id(@giving.current_holder).name %> for <%= @giving_period %>
+		</div>
+		<div class="bookmark-section">		
+			<% if !@bookmarked %> <!-- favorite for wishlist -->
+				<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
+					<i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist
 				<% end %>
 			<% else %>
-				<i>Your request sent on <%= @timestamp.to_s(:short) %> </i>
+				<span style="color:#337ab7"><i class="fa fa-heart" aria-hidden="true"></i> In Wishlist</span>
+				<%= link_to "(remove)", remove_bookmark_giving_path(@giving), method: :put, style: "color: #949494;" %>
 			<% end %>
 		</div>
-
+	<% end %>
+<% elsif !@giving.status.nil? && @giving.status == 11 %> <!-- confirmed giving -->
+	<% if !current_user.nil? && @giving.prospective_user == current_user.id %>
+		<% if !@giving.transfers.nil? %>
+			<% @getter = @giving.transfers.last.to_id %>
+			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
+		<% end %>
+		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn-primary" %><br>
+	<% else %>
+		<div class="condition-toast">
+			<i class="fa fa-bicycle" aria-hidden="true" style="color:#8a5120"></i>
+			In the process of being transferred to 
+			<% if !@giving.prospective_user.nil? %>
+				<%= User.find_by_id(@giving.prospective_user).name %>
+			<% end %>
+			</div>
+		</div>
+		<div class="bookmark-section">
+			<% if !@bookmarked %> <!-- favorite for wishlist -->
+				<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
+					<i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist
+				<% end %>
+			<% else %>
+				<span style="color:#337ab7"><i class="fa fa-heart" aria-hidden="true"></i> In Wishlist</span>
+				<%= link_to "(remove)", remove_bookmark_giving_path(@giving), method: :put, style: "color: #949494;" %>
+			<% end %>
+		</div>
+	<% end %>
+<% elsif !@giving.status.nil? && @giving.status == 1 %> <!-- agreed to give -->
+	<% if !current_user.nil? && @giving.prospective_user == current_user.id %>
+		<% if !@giving.transfers.nil? %>
+			<% @getter = @giving.transfers.last.to_id %>
+			<% @giver = User.find_by_id(@giving.transfers.last.from_id).first_name %>
+		<% end %>
+		<%= link_to "Confirm receiving from #{@giver}", confirm_getting_giving_path(@giving.id, :recipient => @getter), class: "btn-primary" %><br>
+	<% elsif !current_user.nil? && @giving.user_id == current_user.id %>
+		<% if !@giving.transfers.nil? %>
+			<% @getter = @giving.transfers.last.to_id %>
+			<% @getter_name = User.find_by_id(@giving.transfers.last.to_id).first_name %>
+		<% end %>
+		<%= link_to "Confirm transfer to #{@getter_name}", confirm_giving_giving_path(@giving.id, :recipient => @getter), class: "btn-primary" %><br>
+	<% else %>
+		<div class="condition-toast">
+			<i class="fa fa-bicycle" aria-hidden="true" style="color:#8a5120"></i>
+			In the process of being transferred to 
+			<% if !@giving.prospective_user.nil? %> 
+				<%= User.find_by_id(@giving.prospective_user).name %>
+			<% end %>
+		</div>
+		<div class="bookmark-section">
+			<% if !@bookmarked %> <!-- favorite for wishlist -->
+				<%= link_to add_bookmark_giving_path(@giving), method: :put do %>
+					<i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist
+				<% end %>
+			<% else %>
+				<span style="color:#337ab7"><i class="fa fa-heart" aria-hidden="true"></i> In Wishlist</span>
+				<%= link_to "(remove)", remove_bookmark_giving_path(@giving), method: :put, style: "color: #949494;" %>
+			<% end %>
+		</div>
+	<% end %>
+<% else %>
+	<div class="condition-toast">
+		<%= User.find_by_id(@giving.current_holder).name %> wishes this to be re-given in 
+		<b> <%= @giving_period %>. </b> 
+	</div>
+	<% if current_user.nil? || current_user.id != @giving.current_holder %>
+		<% if !@already_asked %>
+			<div>
+				<%= link_to "Request", new_message_path(subject: @giving.id, recipient: @giving.current_holder), class: "btn-primary"%></p>
+			</div>
+		<% else %>
+			<div style="color:#44362A">
+				<i class="fa fa-paper-plane" aria-hidden="true"></i>
+				<% @today = Time.new().strftime("%m/%d/%Y") %>
+				Your request is already sent on
+				<% if @today == @already_asked_at.strftime("%m/%d/%Y") %>
+	   				<%= @already_asked_at.strftime("%I:%M%p") %>
+	   			<% else %>
+	   				<%= @already_asked_at.strftime("%-d %b, %Y") %>
+	   			<% end %>
+   			</div>
+		<% end %>
 	<% end %>
 <% end %>
 
 <br>
+<span style="color: #3E89C1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
 <%= link_to "Back", givings_path %>

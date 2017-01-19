@@ -1,39 +1,100 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<script>
+$(function() {
+  $('#user_avatar').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      img.width = 100;
+      $('#image-target').html(img);
+      $('#upload-image-text').text('Change image');
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+</script>
+
+  <div class="givings-header" style="margin-top: 15px; margin-bottom: 20px;">
+      <div class="givings-header left"><h3>Edit Profile </h3></div>
+  </div>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<div style="max-width: 210px;">
+  <div class="form-group">
+    <div id="image-target"><%= image_tag(current_user.avatar.url(:thumb)) %></div>
+    <span class="btn-default btn-file">
+    <span id="upload-image-text">Upload image</span> <%= f.file_field :avatar, accept: "image/*;capture=camera" %> 
+    </span>
   </div>
+
+  <div class="form-group" style="margin-top: 12px;">
+    <%= f.text_field :first_name, class: "giving-name-input", placeholder: "First Name", autofocus: true %>
+  </div>
+  <% if false %>
+    <div class="form-group">
+      <%= f.text_field :last_name, class: "giving-name-input", placeholder: "Last Name" %>
+    </div>
+  <% end %>
+
+  <div class="user-zip">
+    <div class="form-group">
+      <%= f.text_field :zip, class: "giving-name-input", placeholder: "Zip Code", required: true %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.email_field :email, class: "giving-name-input", placeholder: "Email" %>
+  </div>
+
+<% if false %> <!-- disabling country for now -->
+  <div class="user-country">
+    <div class="form-group">
+      <%= f.text_field :country, list: 'country-list', placeholder: "United States" %>
+    </div>
+      <datalist id="country-list">
+        <select>
+          <option value="United States"></option>
+          <option value="United Kingdom"></option>
+          <option value="India"></option>
+        </select>
+      </datalist>
+  </div>
+<% end %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
+<% if false %> <!-- disabling password re-entry for now -->
+  <div class="form-group">
+    <%= f.password_field :password, placeholder: "New Password", autocomplete: "off" %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+  <% if f.object.password_required? %>
+    <div class="form-group">
+      <%= f.password_field :password_confirmation, placeholder: "Confirm Password", autocomplete: "off" %>
+    </div>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+    <div class="form-group">
+      <%= f.password_field :current_password, placeholder: "Current Password", autocomplete: "off" %>
+    </div>
+  <% end %>
+</div>
+  <div class="form-group" style="margin-top: 12px;margin-bottom: 20px">
+    <%= f.submit "Update", class:"btn-primary" %>
+  </div>
+<% end %>
 
+<% if false %> <!-- disabling account cancellation for now -->
+  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<% end %>
+
+<span style="color: #3E89C1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
 <%= link_to "Back", :back %>

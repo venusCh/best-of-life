@@ -1,0 +1,53 @@
+<% @giving = Giving.find_by_id(conversation.subject) %>
+<% @today = Time.new() %>
+
+<% if !@giving.nil? %>
+	<% if conversation.is_unread?(current_user) %>
+		<div class="topic-box unread">
+	<% else %>
+		<div class="topic-box read">
+	<% end %>
+			<%if @show_sentbox %>
+				<% @user = User.find_by_id(conversation.recipients[0]) %>
+			<% else %>
+				<% @user = User.find_by_id(conversation.originator) %>
+			<% end %>
+
+		    <div>
+		      <div class="round-image-50">
+		        <a href="/profiles/<%=@user.id%>">
+		          <%= image_tag(User.find_by_id(@user.id).avatar.url(:thumb)) %>
+		        </a>
+		      </div>
+		      <div class="user-details-mini">
+		        <div class="user_profile" style="margin-bottom: 7px;"><%=@user.name%>
+		        <!-- TODO: move to backend -->
+		        <% @regivenCount = Transfer.where(["to_id = ? and is_active = 'f'", @user.id]).count %>
+		        <% @overdueCount = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", @user.id, @today]).count %>
+
+		        <% @givingScore = @user.givings.count + @regivenCount * ((@regivenCount * 1.0)/(@regivenCount + @overdueCount)) %>
+		        <span style="color: #af63c1;"><i class="fa fa-certificate" aria-hidden="true"></i><span style="color: #444;font-style: italic;"><%= "%g" % @givingScore %></span>
+		        </span>
+			  </div>
+  			    <div class="user-giving-score-message">
+			    	<div>
+				  		<%= link_to conversation.last_message.body, conversation_path(conversation) %>
+				  	</div>
+				  	<div style="margin-top: 0px;">
+						<span class="message_timestamp">
+							<% if @today.strftime("%m/%d/%Y") == conversation.last_message.updated_at.strftime("%m/%d/%Y") %>
+								<%= conversation.last_message.updated_at.strftime("%I:%M%p") %>
+							<% elsif @today.strftime("%Y") == conversation.last_message.updated_at.strftime("%Y") %>
+								<%= conversation.last_message.updated_at.strftime("%-d %b") %>
+							<% else %>
+								<%= conversation.last_message.updated_at.strftime("%b, %Y") %>
+							<% end %>
+						</span>
+					</div>	
+				</div>		  	
+
+		      </div>
+		    </div>
+
+		</div>
+<% end %>

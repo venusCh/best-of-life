@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Hi <%= @user.first_name %>,
+    <p>
+      <b><%= @object.name %></b> in your Wishlist is now available! <br>
+      Click <%= link_to 'here', @url + "/givings/" + @object.id.to_s %> to view this item and send your request. 
+    </p><br><br>
+    <p style="color:#636363;">Thanks for using GiversApp and have a great day!</p>
+  </body>
+</html>

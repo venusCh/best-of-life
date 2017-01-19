@@ -3,13 +3,11 @@
 one:
   name: MyString
   desc: MyText
-  user_id: 1
   wish: 1
   status: 1
 
 two:
   name: MyString
   desc: MyText
-  user_id: 1
   wish: 1
   status: 1

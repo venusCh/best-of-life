@@ -1,13 +1,68 @@
 <section id="box-blocks">
-	<div class="floating-box">
-		<p id="give-section"> <%= link_to "Give", new_giving_path, class: "give-action" %> </p>
-	</div>
-	<div class="verticalLine"> </div>
-	<div class="floating-box">
-		<h3>All The Givings</h3><br>
 
-		<% @givings.each do |giving| %>
-			<h4> <%= link_to giving.name, giving %> </h4>
-		<% end %>
-	</div>
+<% @givingList = nil %>
+<% @givingListName = "" %>
+
+<% if !@myGivings.nil? %>
+	<% @givingList = @myGivings %>
+	<% @givingListName = "My Givings" %>
+<% elsif !@myHoldings.nil? %>
+	<% @givingList = @myHoldings %>
+	<% @givingListName = "My Holdings" %>
+<% elsif !@myFavorites.nil? %>
+	<% @givingList = @myFavorites %>
+	<% @givingListName = "My Wishlist" %>
+<% elsif !@searchResults.nil? %>
+	<% @givingList = @searchResults %>
+	<% @givingListName = "Results for \""+ @searchTerm + "\"" %>
+<% end %>
+	
+<% if !@givingList.nil? %>
+	<h3> <%= @givingListName %> </h3>
+	<% @givingList.each do |giving| %>
+		<div class="giving-preview"> 
+			<div class="giving-preview-image">
+				<%= link_to(image_tag(giving.image.url(:thumb)), giving) %>
+			</div>
+			<div class="giving-preview-title">
+				<%= link_to giving.name, giving %> 
+			</div>
+		</div>
+	<% end %>
+	<br>
+	<br>
+	<span style="color: #3E89C1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
+	<%= link_to "Back", givings_path %><br>
+<% else %>
+		<div class="floating-box-give">
+			<p id="give-section"> <%= link_to "Give", new_giving_path, class: "give-action" %> </p>
+		</div>
+		<div class="givings-header"> 
+			<div class="givings-header left"><h3>Givings</h3> </div>
+			<div class="givings-header right">
+				<form action="<%= givings_path %>" method="get">
+					<input type="text" name="query" id="query" size="12" required="required">
+	  				<button type="submit">
+				    	<i class="fa fa-search" aria-hidden="true"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="floating-box-givings">
+			<% @givings.each do |giving| %>
+				<div class="giving-preview"> 
+					<div class="giving-preview-image">
+						<%= link_to(image_tag(giving.image.url(:thumb)), giving) %>
+					</div>
+					<div class="giving-preview-title">
+						<%= link_to giving.name, giving %> 
+					</div>
+				</div>
+			<% end %>
+			<div>
+				<%= will_paginate @givings %>
+			</div>
+		</div>
+<% end %>
+
 </section>

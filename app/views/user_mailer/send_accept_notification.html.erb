@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Hi <%= @user.first_name %>,
+    <p>
+      <b><%= @giver.name %></b> accpeted your request for <%= @object.name %>! <br>
+      Please go to <%= @url + "/conversations" %> to arrange for the exchange.
+    </p><br><br>
+    <p style="color:#636363;">Thanks for using GiversApp and have a great day!</p>
+  </body>
+</html>

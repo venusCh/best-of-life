@@ -1,0 +1,25 @@
+Hi <%= @user.first_name %>,
+
+<% @countString = "" %>
+<% if @request_count == 1 %>
+<% @countString = "a new" %>
+<% else %>
+<% @countString = "#{@request_count} new" %>
+<% end %>
+
+You have received <%= @countString %> <%= "request".pluralize(@request_count) %> in the past 24 hours for 
+<% count = 0 %>
+<% @object_names.each do |obj| %> 
+  <%= obj %> 
+  <% count += 1 %>
+  <% if count == @object_names.count - 1 %>
+    and 
+  <% elsif count < @object_names.count - 1 %>
+    ,
+  <% else %>
+    .
+  <% end %>
+<% end %>
+Please go to <%= @url + "/conversations" %> to accept pending requests.
+
+Thanks for using GiversApp and have a great day!
