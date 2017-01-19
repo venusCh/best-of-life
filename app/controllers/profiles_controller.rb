@@ -29,8 +29,8 @@ class ProfilesController < ApplicationController
     	end
 
     	@today = Time.now.to_date
-    	@regivenCount = Transfer.where(["to_id = ? and is_active = 'f'", current_user.id]).count
-    	@overdueCount = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", current_user.id, @today]).count
+    	@regivenCount = Transfer.where(["to_id = ? and is_active = 'f'", @user.id]).count
+    	@overdueCount = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", @user.id, @today]).count
 	end
 
   def rate_positive

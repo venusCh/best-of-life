@@ -51,7 +51,7 @@
           <% if @today == @giving.created_at.strftime("%m/%d/%Y") %>
             <%= @giving.created_at.strftime("%I:%M%p") %>
           <% else %>
-            <%= @giving.created_at.strftime("%-d %B, %Y") %>
+            <%= @giving.created_at.strftime("%-d %b, %Y") %>
           <% end %>
         <% end %>
       </div>
@@ -154,7 +154,7 @@
             <% if @today == message.created_at.strftime("%m/%d/%Y") %>
               <%= message.created_at.strftime("%I:%M%p") %>
             <% else %>
-              <%= message.created_at.strftime("%-d %B, %Y") %>
+              <%= message.created_at.strftime("%-d %b, %Y") %>
             <% end %>
             </span>
           </div>

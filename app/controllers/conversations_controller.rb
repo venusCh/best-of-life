@@ -39,7 +39,22 @@ class ConversationsController < ApplicationController
 
  		# Conversations page on an object
  		if !params[:topic_id].nil? then
-	    	@topic_convos = @grouped_convos[params[:topic_id]]
+	    	@temp_convos = @grouped_convos[params[:topic_id]]
+	    	@today = Time.now.to_date
+
+	    	@topic_convos = @temp_convos.sort { |a, b| 
+				@regivenCountA = Transfer.where(["to_id = ? and is_active = 'f'", a.originator.id]).count
+		        @overdueCountA = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", a.originator.id, @today]).count
+
+				@regivenCountB = Transfer.where(["to_id = ? and is_active = 'f'", b.originator.id]).count
+		        @overdueCountB = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", b.originator.id, @today]).count
+
+		        if @regivenCountA < @regivenCountB then
+		        	-1
+		        else
+		        	1
+		        end
+	    	}
     	end
  	end
 

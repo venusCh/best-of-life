@@ -18,11 +18,14 @@ $(function() {
 });
 </script>
 
-<h2>Edit Profile</h2>
+  <div class="givings-header" style="margin-top: 15px; margin-bottom: 20px;">
+      <div class="givings-header left"><h3>Edit Profile </h3></div>
+  </div>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
+<div style="max-width: 210px;">
   <div class="form-group">
     <div id="image-target"><%= image_tag(current_user.avatar.url(:thumb)) %></div>
     <span class="btn-default btn-file">
@@ -30,21 +33,23 @@ $(function() {
     </span>
   </div>
 
-  <div class="form-group">
-    <%= f.text_field :first_name, placeholder: "First Name", autofocus: true %>
+  <div class="form-group" style="margin-top: 12px;">
+    <%= f.text_field :first_name, class: "giving-name-input", placeholder: "First Name", autofocus: true %>
   </div>
-  <div class="form-group">
-    <%= f.text_field :last_name, placeholder: "Last Name" %>
-  </div>
+  <% if false %>
+    <div class="form-group">
+      <%= f.text_field :last_name, class: "giving-name-input", placeholder: "Last Name" %>
+    </div>
+  <% end %>
 
   <div class="user-zip">
     <div class="form-group">
-      <%= f.text_field :zip, placeholder: "Zip Code", required: true %>
+      <%= f.text_field :zip, class: "giving-name-input", placeholder: "Zip Code", required: true %>
     </div>
   </div>
   
   <div class="form-group">
-    <%= f.email_field :email, placeholder: "Email" %>
+    <%= f.email_field :email, class: "giving-name-input", placeholder: "Email" %>
   </div>
 
 <% if false %> <!-- disabling country for now -->
@@ -61,8 +66,6 @@ $(function() {
       </datalist>
   </div>
 <% end %>
-
-  <br>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -83,9 +86,9 @@ $(function() {
       <%= f.password_field :current_password, placeholder: "Current Password", autocomplete: "off" %>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= f.submit "Update" %>
+</div>
+  <div class="form-group" style="margin-top: 12px;margin-bottom: 20px">
+    <%= f.submit "Update", class:"btn-primary" %>
   </div>
 <% end %>
 

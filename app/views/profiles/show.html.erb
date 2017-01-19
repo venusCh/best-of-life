@@ -45,9 +45,9 @@
    		</div>
    		<% if false %> <!-- TODO: review -->
 	   		<% if @user.givings.count > 0 %>
-		   		<div class="profile-timestamp">Giving since <%= @user.created_at.strftime("%B, %Y") %> </div>
+		   		<div class="profile-timestamp">Giving since <%= @user.created_at.strftime("%b, %Y") %> </div>
 			<% else %>
-				<div class="profile-timestamp">Member since <%= @user.created_at.strftime("%B, %Y") %></div>
+				<div class="profile-timestamp">Member since <%= @user.created_at.strftime("%b, %Y") %></div>
 			<% end %>
 		<% end %>
    	</div>

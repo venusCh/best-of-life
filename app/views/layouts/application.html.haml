@@ -77,9 +77,9 @@
 	
 		#options-dropdown
 			%li.editprofile=link_to "Edit Profile", edit_user_registration_path
-			%li=link_to "My Givings", givings_path(:givings => true)
-			%li=link_to "My Holdings", givings_path(:holdings => true)
-			%li=link_to "My Wishlist", givings_path(:favorites => true)
+			%li.leftindent=link_to "My Givings", conversations_path(:group => @group_by_givings)
+			%li.leftindent=link_to "My Requests", conversations_path(:sent => "true", :group => @group_by_givings)
+			%li.leftindent=link_to "My Wishlist", givings_path(:favorites => true)
 			%li.signout= link_to "Sign Out", destroy_user_session_path, method: :delete
 
 		.main-content

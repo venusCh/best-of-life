@@ -1055,6 +1055,12 @@ h2, h3 {
     border-radius: 4px;
 }
 
+.user-giving-score-message {
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+}
+
 /**
  * Styling for mobile devices (iPhone)
  */
@@ -1103,6 +1109,15 @@ h2, h3 {
 	}
 	p {
 		margin: 			0 0 20px 0;
+	}
+	.leftindent a {
+		margin-left: -15px;
+	}
+	.signout a {
+		margin-left: -15px;
+	}
+	.editprofile a {
+		margin-left: -15px;
 	}
 	.indent {
 		font-size: 			1em;
@@ -1224,7 +1239,7 @@ h2, h3 {
 		min-height:  		185px;
 	}
 	.conversations-heading {
-		font-size: 			1em;
+		font-size: 			0.85em;
 	}
 	.conversation-title {
 		font-size: 1em;
@@ -1236,6 +1251,10 @@ h2, h3 {
 	}
 	.conversation-status {
 		font-size: 0.9em;
+    	max-width: 200px;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;		
 	}
 	.topic-box {
 		height: 			92px;
@@ -1278,5 +1297,8 @@ h2, h3 {
 	}
 	.giving-name-input {
 		font-size: 0.75em;
+	}
+	.user-giving-score-message {
+		max-width: 220px;
 	}
 }

@@ -152,7 +152,7 @@
 				<% if @today == @already_asked_at.strftime("%m/%d/%Y") %>
 	   				<%= @already_asked_at.strftime("%I:%M%p") %>
 	   			<% else %>
-	   				<%= @already_asked_at.strftime("%-d %B, %Y") %>
+	   				<%= @already_asked_at.strftime("%-d %b, %Y") %>
 	   			<% end %>
    			</div>
 		<% end %>
