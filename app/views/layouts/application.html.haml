@@ -8,10 +8,10 @@
 	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
 	:javascript
 		$(window).resize(function() {
-			adjustOptionsDropdown();
+			adjustOptionsDropdown(false);
 		});
 		$(function() {
-			adjustOptionsDropdown();
+			adjustOptionsDropdown(false);
 
 			$("#user-pic").click(function() {
 				if ($("#options-dropdown").is(":visible"))
@@ -24,9 +24,12 @@
 				$("#options-dropdown").hide();
 			});
 		});
-		function adjustOptionsDropdown() {
+
+		function adjustOptionsDropdown(execute) {
 			$("#options-dropdown").hide();
-			
+			if (!execute)
+				return;
+
 			if ($("#user-pic")[0] !== undefined) {
 				var posn = $("#user-pic").offset();
 				
@@ -50,7 +53,7 @@
 			.navbar-center
 				.navbar-brand
 					= image_tag "Gicycle.jpg"
-					= link_to "reGive", givings_path
+					= link_to "Givers", givings_path
 
 				- if user_signed_in?
 					%ul.navbar-menu-account
@@ -74,9 +77,9 @@
 	
 		#options-dropdown
 			%li.editprofile=link_to "Edit Profile", edit_user_registration_path
-			%li=link_to "My Givings", givings_path(:givings => true)
-			%li=link_to "My Holdings", givings_path(:holdings => true)
-			%li=link_to "My Wishlist", givings_path(:favorites => true)
+			%li.leftindent=link_to "My Givings", conversations_path(:group => @group_by_givings)
+			%li.leftindent=link_to "My Requests", conversations_path(:sent => "true", :group => @group_by_givings)
+			%li.leftindent=link_to "My Wishlist", givings_path(:favorites => true)
 			%li.signout= link_to "Sign Out", destroy_user_session_path, method: :delete
 
 		.main-content

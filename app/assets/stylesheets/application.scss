@@ -10,7 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require font-awesome
  *= require_tree .
  *= require_self
  */
@@ -32,7 +31,8 @@ a {
 	text-decoration: 		none;
 }
 a:hover {
-	color: 					#23527c;;
+	color: 					#2f72ab;
+	text-decoration: 		none;
 }
 
 nav {
@@ -153,11 +153,28 @@ nav {
     display:  				inline-block;
     img { width: 100% }
 }
+.round-image-120 {
+	border: 1px solid #d9d9d9;
+	object-fit: cover;
+	width:120px;
+    height:160px;
+    border-radius:4%;
+    -moz-border-radius: 4%;
+    -webkit-border-radius: 4%;
+}
+.shrink-image {
+	height: 				60%;
+	width: 					60%;
+}
+.mini-image {
+	height: 				25px;
+	width: 					25px;
+}
 .messages {
   max-height: 				400px;
   overflow-y: 				auto;
   margin-bottom: 			1em;
-  margin-top: 				1em;
+  margin-top: 				0.6em;
 }
 .message_timestamp {
 	font-size: 	 			0.8em;
@@ -234,9 +251,7 @@ nav {
 .indent {
 	margin-left: 			40px;
 }
-a:hover {
-	text-decoration: 		none;
-}
+
 
 .btn-primary {
     color: #fff;
@@ -293,6 +308,7 @@ a:hover {
 	display: table;
 	position: relative;
 	border-collapse: separate;
+	margin-bottom: 18px;
 }
 .input-reply-message {
     padding: 8px;
@@ -359,9 +375,9 @@ a:hover {
 
 .panel-heading {
 	margin-top: 20px;
-	margin-bottom: 0px;
+	margin-bottom: 15px;
 	background-color: #eaeaea;
-	padding: 8px;
+	padding: 2px;
 	border-radius: 4px;
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
@@ -369,7 +385,7 @@ a:hover {
 	border-bottom: 1px solid transparent;
 }
 .panel-body {
-	margin-top: 0px;
+	margin-top: 4px;
 	margin-bottom: 10px;
 	border-radius: 4px;
 	border-top: 0;
@@ -381,7 +397,7 @@ a:hover {
 
 .conversations-heading {
 	font-size: 1.3em;
-	margin-top: 12px;
+	margin-top: 18px;
 	display: table;
 	width: 100%;
 	text-align: center;
@@ -431,7 +447,21 @@ a:hover {
 	padding: 0px;
 }
 .conversation-title {
-	margin: 4px 0px 8px 0px;
+	margin: 6px 3px;
+	font-size: 1.3em;
+	font-weight: bold;
+	display: inline-block;
+	height: 20px;
+}
+.conversation-image {
+	display: inline-block;
+}
+.conversation-status {
+	margin: 0px 2px;
+	height: 36px;
+}
+.conversation {
+	display: inline-block;
 }
 /**
   * may be better to use "topic-box" instead of conversation-items 
@@ -485,30 +515,34 @@ a:hover {
 .givings-header {
 	background-color: 		#656565;
 	border-radius: 			3px;
-	height: 				31px;
+	height: 				32px;
 	padding: 				3px;
 	color:  				#f0f0f0;
-	min-width:  			285px;
+	margin-bottom: 			5px;
 }
-.givings-header-left {
+.givings-header.left {
+	display:  				inline-block;
 	float: 					left;
 	height: 				28px;
 }
-.givings-header-right {
+.givings-header.right {
+	display:  				inline-block;
 	float: 					right;
 	height:  				25px;
 	color: 					#606060;
+	min-width:  			100px;
 	margin-top: 			3px;
 }
-.givings-header-left > h3 {
-	margin: 				3px;
+.givings-header.left > h3 {
+	margin: 				2px;
 	font-size:  			1.25em;
+	text-align: 			left;
 }
 .giving-preview {
 	height:  				150px;
  	width: 					120px;
 	display:  				inline-block;
-	padding: 				5px;
+	padding: 				6px;
 	margin: 				5px;
 	background-color: 		#f0f0f0;
 	border: 				1px solid #e5e5e5;
@@ -522,40 +556,182 @@ a:hover {
 }
 .giving-preview-title {
 	padding-top: 			3px;
+	max-height:  			45px;
+	overflow: 	 			hidden;
+	text-overflow: 			ellipsis;
+	display:  				-webkit-box;
+	-webkit-line-clamp: 	2;
+	-webkit-box-orient: 	vertical;
+}
+.giving-preview-image {
+	height:  				110px;
+	overflow:  				hidden;
+}
+.giving-preview-image img {
+	border-radius:  		3px;
+	width:  				80px;
+	height: 				110px;
+	object-fit:  			cover;
 }
 #box-blocks {
 	text-align:				center
 }
 #give-section {
-	line-height: 			260px;
+	height:  				290px;
 }
+
 .give-action {
 	font-size: 				4em;
+	position:  				relative;
+	top: 					92px;
 	font-weight: 			800;
+	line-height: 			1em;
+	height:  				60px;
+	display: 				inline-block;
 	vertical-align: 		middle;
+	background-color: 		#f1f3f9;
+    border-radius: 			5px;
+    padding: 				12px;
+    border:					1px solid #e4ebff;
+    transition:  			background-color 0.5s;
+
+    -webkit-transform: translateZ(0);
+  	transform: translateZ(0);
+  	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+  	backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+
 }
+.give-action:hover, .give-action:focus, .give-action:active {
+  -webkit-animation-name: give-action;
+  animation-name: give-action;
+  -webkit-animation-duration: .65s;
+  animation-duration: 0.65s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  background-color: #e5eaf7;
+  color: #337ab7;
+}
+
+
+/* Buzz Out */
+@-webkit-keyframes give-action {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  80% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+
+@keyframes give-action {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  80% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+
+
 .condition {
 	color: 					#337AB7;
-	margin: 				12px 1px;
-	padding: 				0px;
-	display: 				inline;
+	display: 				inline-block;
+	font-size:  			1em;
+	width: 	 				85%;
+	padding: 				1px;
 }
 #image-target {
 	margin-bottom: 			6px;
-}
-#giving_name {
-	color: 					#353535;
-	font-size: 				0.9em;
-}
-
-select {
-	color: 					#454545;
-   	margin: 				0 auto;
-  	width: 					90px;       
-}
-textarea {
-	color: 					#252525;
-	font-size: 				0.9em;
 }
 
 .field_with_errors {
@@ -601,6 +777,17 @@ textarea {
     border: 				1px solid #bce8f1;
     border-radius: 			4px;
 }
+.alert {
+    background-color: 		#F7ECD9;
+    border-color: 			#F1BCBC;
+    color: 					#E65D0A;
+    padding: 				15px;
+    margin-bottom: 			20px;
+    margin-top: 			12px;
+    border: 				1px solid #F1BCBC;
+    border-radius: 			4px;
+}
+
 
 h2, h3 {
 	font-size:  			1.4em;
@@ -621,11 +808,40 @@ h2, h3 {
 	color:  				#3C3E82;
 	margin-bottom:  		12px;
 	margin-top:  			8px;
+	margin-left: 			5px;
 }
 .user-location {
+	font-size:  			0.9em;
+	margin-left:  			1px;
 	font-weight:  			normal;
 	color: 					#808080;
 	font-style: 			italic;
+}
+.user-details {
+	display: 				inline-block;
+	vertical-align: 		top; 
+	margin: 				8px;
+	height:		 			160px;
+	margin-bottom: 			10px;
+}
+.user-details-mini {
+	display: 				inline-block;
+	margin-left: 			4px;
+	vertical-align: 	 	top;
+	min-width: 				110px;
+}
+.user-stats {
+	display: 				inline-block;
+	width: 					70px;
+	height: 				70px;
+	vertical-align: 		top;
+}
+.user-stats-mini {
+	width: 					45px;
+	height: 				45px;
+	vertical-align: 		top;
+	display: 				flex;
+	align-items: 			center;
 }
 .user-zip {
 	padding-left: 			0px;
@@ -633,13 +849,17 @@ h2, h3 {
 .user-country {
 	padding-left: 			0px;
 }
+.user-reviews {
+	font-size: 				0.9em;
+}
 
 .topic-box {
 	margin-bottom: 			4px;
 	border: 				1px solid #e9e9e9;
-	border-radius:  		20px;
-	display:  				table-row;
-	max-height: 			40px;
+	height: 				67px;
+	width: 					98%;
+	margin-left: 			auto;
+	margin-right: 			auto;
 }
 .topic-box.unread {
 	background-color: 		#FFF;
@@ -650,17 +870,34 @@ h2, h3 {
 
 .topic-box-image {
 	display:				inline-block; 
-	width: 					90px;
-	height:  				45px;
+	width: 					100px;
+	height:  				60px;
 	text-align:  			center;
 	vertical-align: 		top;
 	margin:	 				2px;
 	position:  				relative;
-    border-radius:			5%;
     overflow:				hidden;
 }
 .topic-box-image img {
-	height:  				inherit;
+	width: 					60px;
+	border-radius: 			4px;
+
+}
+.topic-box-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    height: 20px;
+}
+.topic-box-image-wrapper {
+	display: inline-block;
+	width: 100px;
+	height: 70px;
+}
+.topic-box-message {
+	display:inline-block;
+	vertical-align: top;
 }
 .user-badge {
 	min-width:  			150px;
@@ -682,6 +919,7 @@ h2, h3 {
 	background-color:   	#252525;
 	border-radius:  		3%;
 	width: 					120px;
+	right:  				1px;
 }
 #options-dropdown > li {
     padding-top:   			5px;
@@ -730,6 +968,99 @@ h2, h3 {
 .desktop {
 	display:  				inline-block;
 }
+.status {
+	font-weight: 			bold;
+	font-size: 				1.2em;
+}
+.status.accepted {
+	color: 					green;
+}
+.status.confirmed {
+	color: 					rgb(23, 153, 205);
+}
+.status.sent {
+	color: 					gray;
+}
+.status.given {
+	color: 					#0685ad;
+}
+.status.regiven {
+	color: 					#578e12;
+}
+.status.transfer {
+	color: 					#ff873f;
+}
+.given-date {
+	font-style: 			italic; 
+	font-size: 				0.8em;
+}
+.message-bubble {
+	width: 					85%;
+	margin-top:				6px;
+	margin-left:			2px;
+	margin-right: 			2px;
+	border-radius: 			4px;
+	padding: 				4px 7px;
+}
+.message-bubble.squeeze {
+	margin-top: 			3px;
+}
+.message-bubble.right {
+	background-color:  		#ccd9de;
+	float: 					right;
+}
+.message-bubble.left {
+	background-color:  		#F0F0F0;
+	float: 					left;
+}
+.message-bubble.accepted {
+	width:  				78%;
+	color:  				#2f9e03;
+	margin:					6px 2px;
+}
+.message-bubble.confirmed {
+	width:  				78%;
+	color:  				#0087ff;
+	margin:					8px 2px;
+}
+
+.giving-name-input {
+	padding: 5px;
+    font-family: inherit;
+    line-height: 1.42857;
+    border-width: 1px;
+    width: 100%;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+    border-radius: 2px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;    
+}
+
+.giving-wish-input {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.regive-condition {
+    margin: 0px;
+    margin-bottom: 20px;
+    border: 1px dotted #ea9946;
+    padding: 8px;
+    background-color: #efe5da;
+    border-radius: 4px;
+}
+
+.user-giving-score-message {
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+}
+
 /**
  * Styling for mobile devices (iPhone)
  */
@@ -767,6 +1098,7 @@ h2, h3 {
 	}
 	.give-action {
 		font-size: 			2.6em;
+		top:				108px;
 	}
 	h2, h3 {
 		font-size: 			1.3em;
@@ -777,6 +1109,15 @@ h2, h3 {
 	}
 	p {
 		margin: 			0 0 20px 0;
+	}
+	.leftindent a {
+		margin-left: -15px;
+	}
+	.signout a {
+		margin-left: -15px;
+	}
+	.editprofile a {
+		margin-left: -15px;
 	}
 	.indent {
 		font-size: 			1em;
@@ -813,13 +1154,20 @@ h2, h3 {
 		margin-top:  			15px;
 		font-size:  			0.8em;
 	}
-
 	.givings-header {
-		height: 			50px;
-		padding: 			2px;
-	}
-	.givings-header-right {
+		height: 			39px;
 		padding: 			3px;
+	}
+	.givings-header.left {
+		padding: 			0px 3px 3px 3px;
+		display:   			inline-block;
+	}
+	.givings-header.right {
+		padding: 			0px 3px 3px 3px;
+		display:   			inline-block;
+	}
+	.givings-header.left h3 {
+		font-size: 	 		1.1em;
 	}
 
 	.full-content {
@@ -850,8 +1198,11 @@ h2, h3 {
 	    font-size: 			1.1em;
 	    border-radius: 		8px;
 	}
+	.condition {
+		font-size: 			0.9em;
+	}
 	select {
-	  	width: 				200px;       
+	  	font-size: 	 		0.9em;    
 	}
 	footer {
 		padding-top:  		5px;
@@ -868,6 +1219,14 @@ h2, h3 {
 	    height: 			60px;
 	    width: 				60px;
 	}
+	.round-image-120 {
+	    border: 			1px solid #d9d9d9;
+	    border-radius: 		60px;
+	    -moz-border-radius: 60px;
+	    -webkit-border-radius: 60px;
+	    height: 			120px;
+	    width: 				120px;
+	}
 	.form-control {
 		font-size: 			0.9em;
 	}
@@ -877,13 +1236,69 @@ h2, h3 {
 		margin-top:  		-12px;
 	}
 	#give-section {
-		line-height:   		260px;
 		min-height:  		185px;
+	}
+	.conversations-heading {
+		font-size: 			0.85em;
+	}
+	.conversation-title {
+		font-size: 1em;
+		max-width: 205px;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+    	height: 26px;
+	}
+	.conversation-status {
+		font-size: 0.9em;
+    	max-width: 200px;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;		
+	}
+	.topic-box {
+		height: 			92px;
+		font-size: 			.9em;
 	}
 	.topic-box-image {
 		height:				60px;
+		width: 	 			80px;
+	}
+	.topic-box-image-wrapper {
+		width: 80px;
+	}
+	.topic-box-message a {
+		font-size: 0.8em;
+	}
+	.topic-box-title {
+		height: 28px;
+		max-width: 190px;
+	}
+	.status {
+		font-size: 1em;
+		margin-top: 2px;
 	}
 	#options-dropdown {
-		width: 				180px;
+		width: 				175px;
+	}
+	.profile-name {
+		font-size:  			1.3em;
+	}
+	.user-details {
+		height:		 			235px;
+	}
+	.user-stats {
+		width: 					120px;
+		height: 				120px;
+	}
+	.shrink-image {
+		height: 				45%;
+		width: 					45%;
+	}
+	.giving-name-input {
+		font-size: 0.75em;
+	}
+	.user-giving-score-message {
+		max-width: 220px;
 	}
 }

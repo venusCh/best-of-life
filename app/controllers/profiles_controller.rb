@@ -27,6 +27,10 @@ class ProfilesController < ApplicationController
       		@ratedPositive = current_user.voted_up_on? @user, vote_scope: 'user_rating'
       		@ratedNegative = current_user.voted_down_on? @user, vote_scope: 'user_rating'
     	end
+
+    	@today = Time.now.to_date
+    	@regivenCount = Transfer.where(["to_id = ? and is_active = 'f'", @user.id]).count
+    	@overdueCount = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", @user.id, @today]).count
 	end
 
   def rate_positive

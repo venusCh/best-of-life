@@ -1,18 +1,19 @@
 <script>
-    function submitOnClick(formName){
-        console.log("Hello..", $('textarea#reply_message').val());
-        if ($('textarea#reply_message').val() !== "")
-          document.forms[formName].submit();
-    }
+  function submitOnClick(formName){
+      console.log("Hello..", $('textarea#reply_message').val());
+      if ($('textarea#reply_message').val() !== "")
+        document.forms[formName].submit();
+  }
 </script>
 
 <% page_header "Conversation" %>
+<% @subject = "" %>
+<% @giving = Giving.find_by_id(@conversation.subject) %>
 
-<% @subject = Giving.find_by_id(@conversation.subject) %>
-<% if @subject.nil? %>
+<% if @giving.nil? %>
   <% @subject = "** This giving has been deleted **" %>
 <% else %>
-  <% @subject = @subject.name %>
+  <% @subject = @giving.name %>
 <% end %>
 
 <% if false %> <!-- release this based on feedback -->
@@ -26,42 +27,161 @@
 <% end %>
 
 <% user_deleted = false %>
+<% @today = Time.new().strftime("%m/%d/%Y") %>
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= @subject %>
+    <div class="conversation">
+      <div class="conversation-title"><%= @giving.name %></div>
+      <div class="conversation-status">
+        <% if !@giving.regive_count.nil? && @giving.regive_count > 0%>
+          <span style="color: #578e12;font-style: italic;">
+          <% if @giving.regive_count == 1 %>
+            Given to you!
+          <% elsif @giving.regive_count == 2 %>
+            Re-given once!
+          <% elsif @giving.regive_count == 3 %>
+            Re-given twice!
+          <% elsif @giving.regive_count > 3 %>
+            Re-given <%= @giving.regive_count-1 %> <%= "time".pluralize(@giving.regive_count-1)%>!
+          <% end %>
+          </span>
+        <% else %>
+          <i>Posted on </i>
+          <% if @today == @giving.created_at.strftime("%m/%d/%Y") %>
+            <%= @giving.created_at.strftime("%I:%M%p") %>
+          <% else %>
+            <%= @giving.created_at.strftime("%-d %b, %Y") %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="topic-box-image" style="float:right;width: 65px;">
+      <%= link_to(image_tag(@giving.image.url(:thumb)), @giving) %>
+    </div>
   </div>
+  <% @conversation.participants.each do |user| %>
+    <% if user.id != current_user.id %>
+    <div style="display: inline-block;">
+      <div class="round-image-50">
+        <a href="/profiles/<%=user.id%>">
+          <%= image_tag(User.find_by_id(user.id).avatar.url(:thumb)) %>
+        </a>
+      </div>
+      <div class="user-details-mini">
+        <div class="user_profile"><%=user.name%></div>
+        <div class="user-location">
+          <% if !user.zip.nil? && user.zip > 0 %>
+            <%= user.zip.to_s.to_region %>
+          <% end %>
+        </div>
+        <div class="user-reviews">
+          <% @upvote = 0 %>
+          <% @downvote = 0 %>
+          <% user.comments.each do |comment| %>
+            <% if User.find_by_id(comment.commenter).voted_up_on? user, vote_scope: 'user_rating' %>
+              <% @upvote += 1 %>
+            <% elsif User.find_by_id(comment.commenter).voted_down_on? user, vote_scope: 'user_rating' %>
+              <% @downvote += 1 %>
+            <% end %>
+          <% end %>
+          <%= link_to "Reviews:", "/profiles/#{user.id}" %>
+          <% if @upvote + @downvote == 0 %>
+            <span style="color: #808080">None</span>
+          <% else %>
+            <% if @upvote > 0 %>
+              <span style="color: #247b0e;"><b><%= @upvote %> <i class="fa fa-smile-o" aria-hidden="true"></i></b></span> &nbsp; 
+            <% end %>
+            <% if @downvote > 0 %>
+              <span style="color: #bf6a48;">&nbsp;<b><%= @downvote %> <i class="fa fa-frown-o" aria-hidden="true"></i></b></span> &nbsp; 
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div style="display: inline-block;">
+      <div style="display: inline-block;width: 54px;">
+        <div class="user-stats-mini">
+          <div><%= image_tag(image_url('gift-icon.jpg'), class: "mini-image") %></div>
+          <div>&nbsp;<%=user.givings.count%></div>
+        </div>
+      </div>
+      <div style="display: inline-block;width: 54px;">
+        <div class="user-stats-mini">
+          <div><%= image_tag(image_url('regive-icon.jpg'), class: "mini-image") %></div>
+          <!-- TODO: move to backend -->
+          <% @regivenCount = Transfer.where(["to_id = ? and is_active = 'f'", user.id]).count %>
+          <% @overdueCount = Transfer.where(["to_id = ? and is_active = 't' and due_date > ?", user.id, @today]).count %>
+          <div>&nbsp;<%= @regivenCount %>/<%= @regivenCount + @overdueCount %></div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
   <div class="panel-body">
-    <div class="messages">
+    <div class="messages" id="message_panel">
+      <% @last_user = nil %>
       <% @conversation.receipts_for(current_user).each do |receipt| %>
         <% message = receipt.message %>
 
+        <% @squeeze = "squeeze" %>
+        <% if message.sender.id != @last_user %>
+          <% @squeeze = "" %>
+        <% end %>
+
+        <% @msg_status = "" %>
+        <% if message.body == "<ConfirmedReceivingToken>" %>
+          <% @msg_status= "confirmed" %>
+        <% elsif message.body == "<RequestAcceptedToken>" %>
+          <% @msg_status= "accepted" %>
+        <% end %>
+
         <% if message.sender.nil? %>
           <% user_deleted = true %>
-          *** USER DELETED *** <br>
+          <div>*** USER DELETED ***</div>
+        <% elsif message.sender.id == current_user.id %>
+          <div class="message-bubble right <%=@squeeze%> <%=@msg_status%>">
         <% else %>
-          <div class="round-image-50">
-            <a href="/profiles/<%= message.sender.id%>">
-              <%= image_tag(User.find_by_id(message.sender.id).avatar.url(:thumb)) %>
-            </a>
-          </div>
-          <span class="user_profile"> <%= message.sender.name %> </span> <br/>
+          <div class="message-bubble left <%=@squeeze%> <%=@msg_status%>">
         <% end %>
-        <%= message.body %> <br/>
-        <span class="message_timestamp"><%= message.created_at.strftime("%-d %B %Y, %H:%M") %></span>
+
+          <div>
+            <% if false && message.sender.id != @last_user %> <!-- TODO: wait for user feedback -->
+              <div class="user_profile"> <%= message.sender.name %> </div>
+            <% end %>
+            <div><%= message.body %> </div>
+            <span class="message_timestamp" style="color: #858585">
+            <% if @today == message.created_at.strftime("%m/%d/%Y") %>
+              <%= message.created_at.strftime("%I:%M%p") %>
+            <% else %>
+              <%= message.created_at.strftime("%-d %b, %Y") %>
+            <% end %>
+            </span>
+          </div>
+
+        </div>
+        <% @last_user = message.sender.id %>
       <% end %>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
+  (function scrollToBottom() {
+    console.log("scrolling to the bottom message");
+    var objDiv = document.getElementById("message_panel");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  })();
+</script>
+
 <% if user_deleted == false %>
   <% if current_user != @conversation.originator %>
-    <% @giving = Giving.find_by_id(@conversation.subject) %>
     <% if !@giving.nil? %>
       <% @given = false %>
       <% @recipient = -1 %>
 
-      <% if !@giving.status.nil? && @giving.status == 1 %>
+      <!-- Todo: need to reflect giving statuses -->
+      <% if !@giving.status.nil? && @giving.status >= 1 %>
         <% @given = true %>
       <% end %>
 
@@ -85,24 +205,45 @@
             <%= f.hidden_field :recipient, :value => @conversation.originator.id %>
             <%= f.hidden_field :conversation, :value => @conversation.id %>
             <%= f.submit "Accept Request", class: "btn-primary" %>
-          <% end %><br/>
-        </div>
-      <% else %>
-      <br>
-        <div class="condition-toast">
-          <% if @recipient == @conversation.originator.id %>
-            You accepted this request! Please arrange for an exchage of this giving.
-          <% else %>
-            You already gave this book to another user.
           <% end %>
         </div>
+      <% else %>
+        <% if @giving.status < 101 %>
+          <div class="condition-toast">
+            <% if @recipient == @conversation.originator.id %>
+                You accepted this request! Please arrange for an exchage of this giving.
+            <% else %>
+              You already gave this book to another user.
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
 
+    <% end %>
+  <% else %>
+    <%= form_for :message, url: reply_conversation_path, :html => {:id => "form_reply"} do |f| %>
+      <div class="input-group">
+          <%= f.text_area 'body', rows: "3", class: 'input-reply-message', style: "resize:none", required: true, placeholder: "Your reply...", autofocus: true, id: "reply_message" %>
+          <span onclick="submitOnClick('form_reply')" class="btn-reply" %>Send
+          </span>
+      </div>
+    <% end %>
+
+    <!-- Todo: need to reflect giving statuses -->
+    <% if !@giving.status.nil? && @giving.status >= 1 %>
+      <% @given = true %>
+    <% end %>
+
+    <!-- prospective recipient -->
+    <% if @given && @giving.prospective_user == current_user.id %>
+      <div style="margin-top: 20px;">
+        <%= link_to "Confirm Receiving", confirm_getting_giving_path(@giving.id, :recipient => current_user.id), class: "btn-primary" %>
+      </div>
     <% end %>
   <% end %>
 <% end %>
 
 <span style="color: #3E89C1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
-<%= link_to "Back", conversations_path %><br><br>
+<%= link_to "Back", conversations_path(:sent => @show_sentbox)  %><br><br>
 
 <% @conversation.mark_as_read(current_user) %>

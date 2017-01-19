@@ -15,17 +15,18 @@ class TransfersController < ApplicationController
 			@transfer.conversation = params[:transfer][:conversation]
 
 			@transfer.is_active = true
-			@transfer.due_date = Date.today + get_months(@giving)
-
 			@transfer.save
 
-			@giving.previous_holder = @giving.current_holder
-			@giving.current_holder = @transfer.to_id
+			@giving.prospective_user = @transfer.to_id
 			@giving.status = 1 # Agreed to give
 			@giving.save
 
 			@recipient = User.find_by_id(@transfer.to_id)
 		    UserMailer.send_accept_notification(@recipient, current_user, @giving).deliver_now
+
+		    # also auto-generate a reply to conversation
+		    @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
+		    current_user.reply_to_conversation(@conversation, "<RequestAcceptedToken>")
 
 			redirect_to :back
 		else

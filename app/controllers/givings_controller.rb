@@ -10,13 +10,16 @@ class GivingsController < ApplicationController
     if (!params[:query].nil? && params[:query] != "") then
       @searchResults = Giving.where("name LIKE ?", "%#{params[:query]}%")
       @searchTerm = params[:query]
-      puts "\n\nhello ***** \n"
-      puts @searchResults
+
       if @searchResults.count === 0 then
         redirect_to :back, notice: "We found no results for #{@searchTerm}!"
       end
     elsif (params[:givings] === "true") then
-      @myGivings = Giving.where(:user_id => current_user.id)
+      # 1. Original givins plus those I wish to regive that I currently hold
+      # 2. Add any previous transfers that I made
+      @myGivings = Giving.where('user_id = ? OR (current_holder = ? AND status = 0)', current_user.id, current_user.id)
+      @myGivings |= Giving.joins(:transfers).where('transfers.from_id = ?', current_user.id)
+
       if @myGivings.count === 0 then
         redirect_to :back, notice: "You haven't given anything yet. Click on Give below to get started!"
       end
@@ -59,7 +62,7 @@ class GivingsController < ApplicationController
     @giving.status = 0
     @giving.save
 
-    @transfer = Transfer.find_by_giving_id_and_to_and_is_active(params[:id], current_user.id, true)
+    @transfer = Transfer.find_by_giving_id_and_to_id_and_is_active(params[:id], current_user.id, true)
     @transfer.is_active = false;
     @transfer.save
 
@@ -78,9 +81,10 @@ class GivingsController < ApplicationController
 
   def confirm_giving
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_id_and_to_id_and_conversation(current_user.id, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id_and_is_active(current_user.id, 
                                                               params[:recipient],
-                                                              params[:id])
+                                                              params[:id],
+                                                              true)
     if (@giving.status >= 1)
       @giving.status += 10
     end
@@ -91,13 +95,29 @@ class GivingsController < ApplicationController
 
   def confirm_getting
     @giving = Giving.find_by_id(params[:id])
-    @transfer = Transfer.find_by_from_id_and_to_id_and_conversation(current_user.id, 
+    @transfer = Transfer.find_by_from_id_and_to_id_and_giving_id_and_is_active(@giving.current_holder, 
                                                               params[:recipient],
-                                                              params[:id])
+                                                              params[:id],
+                                                              true)
     if (@giving.status >= 1)
+      @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
+      current_user.reply_to_conversation(@conversation, "<ConfirmedReceivingToken>")
+
+      @giving.previous_holder = @giving.current_holder
+      @giving.current_holder = current_user.id
       @giving.status += 100
+
+      if @giving.regive_count.nil? then
+        @giving.regive_count = 1
+      else
+        @giving.regive_count += 1
+      end
+      @giving.prospective_user = nil
+      @giving.save
+
+      # set the transfer due date on this date
+      @transfer.due_date = Date.today + get_months(@giving)
     end
-    @giving.save
 
     redirect_to :back, notice: "Thanks for confirming your receiving!"
   end
@@ -106,6 +126,7 @@ class GivingsController < ApplicationController
     @giving = current_user.givings.build(giving_params)
     @giving.current_holder = current_user.id
     @giving.status = 0 # Available
+    @giving.regive_count = 0
     @giving.save
 
     redirect_to @giving, notice: "Successfully posted your giving!"
