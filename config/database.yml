@@ -25,6 +25,7 @@ test:
   timeout: 5000
   database: db/test.sqlite3
 
+
 production:
   <<: *default
   database: <%= ENV['RDS_DB_NAME'] %>
@@ -32,4 +33,3 @@ production:
   password: <%= ENV['RDS_PASSWORD'] %>
   host:     <%= ENV['RDS_HOSTNAME'] %>
   port:     <%= ENV['RDS_PORT'] %>
-  
