@@ -37,6 +37,7 @@
         <% if !@giving.regive_count.nil? && @giving.regive_count > 0%>
           <span style="color: #578e12;font-style: italic;">
           <% if @giving.regive_count == 1 %>
+            <!-- TODO: show this only if it's given to you -->
             Given to you!
           <% elsif @giving.regive_count == 2 %>
             Re-given once!
@@ -129,11 +130,14 @@
           <% @squeeze = "" %>
         <% end %>
 
+        <% @msg_body = message.body %>
         <% @msg_status = "" %>
-        <% if message.body == "<ConfirmedReceivingToken>" %>
+        <% if message.body == "ConfirmedReceivingToken" %>
           <% @msg_status= "confirmed" %>
-        <% elsif message.body == "<RequestAcceptedToken>" %>
+          <% @msg_body = "Confirmed Receiving." %>
+        <% elsif message.body == "RequestAcceptedToken" %>
           <% @msg_status= "accepted" %>
+          <% @msg_body = "Request Accepted." %>
         <% end %>
 
         <% if message.sender.nil? %>
@@ -149,7 +153,7 @@
             <% if false && message.sender.id != @last_user %> <!-- TODO: wait for user feedback -->
               <div class="user_profile"> <%= message.sender.name %> </div>
             <% end %>
-            <div><%= message.body %> </div>
+            <div><%= @msg_body %> </div>
             <span class="message_timestamp" style="color: #858585">
             <% if @today == message.created_at.strftime("%m/%d/%Y") %>
               <%= message.created_at.strftime("%I:%M%p") %>

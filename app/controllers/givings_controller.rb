@@ -99,12 +99,13 @@ class GivingsController < ApplicationController
                                                               params[:recipient],
                                                               params[:id],
                                                               true)
-    if (@giving.status >= 1)
+    if (@giving.status >= 1 && @giving.current_holder != current_user.id)
       @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
-      current_user.reply_to_conversation(@conversation, "<ConfirmedReceivingToken>")
+      current_user.reply_to_conversation(@conversation, "ConfirmedReceivingToken")
 
       @giving.previous_holder = @giving.current_holder
       @giving.current_holder = current_user.id
+      @giving.current_location = current_user.location
       @giving.status += 100
 
       if @giving.regive_count.nil? then
@@ -125,6 +126,7 @@ class GivingsController < ApplicationController
   def create 
     @giving = current_user.givings.build(giving_params)
     @giving.current_holder = current_user.id
+    @giving.current_location = current_user.location
     @giving.status = 0 # Available
     @giving.regive_count = 0
     @giving.save
@@ -168,6 +170,20 @@ class GivingsController < ApplicationController
     @giving = Giving.find_by_id(params[:id])
     @giving.downvote_from current_user, :vote_scope => 'bookmark'
     redirect_to :back
+  end
+
+  def get_months(giving)
+    @months = 1.month
+    if @giving.wish == 20
+      @months = 3.months
+    elsif @giving.wish == 30
+      @months = 6.months
+    elsif @giving.wish == 40
+      @months = 12.months
+    elsif @giving.wish == 50
+      @months = 24.months
+    end
+    return @months
   end
 
   private
