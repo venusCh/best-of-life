@@ -8,10 +8,10 @@
 	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
 	:javascript
 		$(window).resize(function() {
-			adjustOptionsDropdown(false);
+			adjustOptionsDropdown(true);
 		});
 		$(function() {
-			adjustOptionsDropdown(false);
+			adjustOptionsDropdown(true);
 
 			$("#user-pic").click(function() {
 				if ($("#options-dropdown").is(":visible"))
@@ -36,11 +36,11 @@
 				var width = $(window).width();
 				console.log($("#user-pic")[0], posn, width);
 				if (width > 480) {
-					$("#options-dropdown").css("top", 52);
+					$("#options-dropdown").css("top", 53);
 					$("#options-dropdown").css("right", width - posn.left - 60);
 				}
 				else {
-					$("#options-dropdown").css("top", 104);
+					$("#options-dropdown").css("top", 80);
 					$("#options-dropdown").css("right", 1);
 				}
 

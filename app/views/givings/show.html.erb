@@ -14,24 +14,32 @@
 
 </p>
 <span class="user_profile"> 
-	<div class="round-image-50">
-		<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(User.find_by_id(@giving.user_id).avatar.url(:thumb)) %></a>
-	</div>
-	<%= User.find_by_id(@giving.user_id).name %>
-	<% @giver_location = User.find_by_id(@giving.user_id).zip %>
-	<% if !@giver_location.nil? && @giver_location != "" %>
-		<br><span class="user-location"><%= @giver_location.to_s.to_region %></span>
-	<% end %>
-	<% @giving.transfers.each do |transfer| %>
-		<br> <i class="fa fa-arrow-down" aria-hidden="true" style="margin-left: 18px;color:#e46633;"></i>
+	<div>
 		<div class="round-image-50">
-			<a href="/profiles/<%= transfer.to_id%>"><%= image_tag(User.find_by_id(transfer.to_id).avatar.url(:thumb)) %></a>
+			<a href="/profiles/<%= @giving.user_id%>"><%= image_tag(User.find_by_id(@giving.user_id).avatar.url(:thumb)) %></a>
 		</div>
-		<%= User.find_by_id(transfer.to_id).name %>
-		<% @location = User.find_by_id(transfer.to_id).zip %>
-		<% if !@location.nil? %>
-			<br><span class="user-location"><%= @location.to_s.to_region %></span>
-		<% end %>
+		<div style="display: inline-block;vertical-align: top;">
+			<%= User.find_by_id(@giving.user_id).name %>
+			<% @giver_location = User.find_by_id(@giving.user_id).zip %>
+			<% if !@giver_location.nil? && @giver_location != "" %>
+				<br><span class="user-location"><%= @giver_location.to_s.to_region %></span>
+			<% end %>
+		</div>
+	</div>
+	<% @giving.transfers.each do |transfer| %>
+		<i class="fa fa-arrow-down" aria-hidden="true" style="margin-left: 2em;color:#e46633;"></i>
+		<div style="margin-left: 1.2em;">
+			<div class="round-image-50">
+				<a href="/profiles/<%= transfer.to_id%>"><%= image_tag(User.find_by_id(transfer.to_id).avatar.url(:thumb)) %></a>
+			</div>
+			<div style="display: inline-block;vertical-align: top;">
+				<%= User.find_by_id(transfer.to_id).name %>
+				<% @location = User.find_by_id(transfer.to_id).zip %>
+				<% if !@location.nil? %>
+					<br><span class="user-location"><%= @location.to_s.to_region %></span>
+				<% end %>
+			</div>
+		</div>
 	<% end %>
 </span>
 </p>  

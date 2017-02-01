@@ -242,7 +242,7 @@ nav {
 }
 .checkbox-text {
 	font-weight:  			normal;
-	color: 					#4595EA;
+	color: 					#37576f;
 }
 
 .fade {
@@ -268,7 +268,7 @@ nav {
     border: 1px solid transparent;
     white-space: nowrap;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: 1.1em;
     line-height: 1.42857143;
     border-radius: 4px;
     -webkit-user-select: none;
@@ -293,7 +293,7 @@ nav {
     background-image: none;
     white-space: nowrap;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: 1.1em;
     line-height: 1.42857143;
     border-radius: 4px;
     -webkit-user-select: none;
@@ -314,7 +314,7 @@ nav {
     padding: 8px;
     height: auto;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 1.1em;
     line-height: 1.42857143;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -324,6 +324,25 @@ nav {
     margin-bottom: 0px;
     float: left;
     width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+   	box-sizing: border-box;
+}
+.input-new-message {
+    padding: 8px;
+    height: auto;
+    font-family: inherit;
+    font-size: 1.1em;
+    line-height: 1.42857143;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: table-cell;
+    margin-bottom: 0px;
+    float: left;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+   	box-sizing: border-box;
 }
 .btn-reply {
     color: #555555;
@@ -331,15 +350,15 @@ nav {
     border: 1px solid #ccc;
     margin-bottom: 0;
     text-align: center;
-    font-size: 14px;
+    font-size: 1.1em;
     line-height: 1.42857143;
     vertical-align: middle;
     touch-action: manipulation;
     cursor: pointer;
     background-image: none;
     white-space: nowrap;
-    padding-left: 26px;
-    padding-right: 10px;
+    padding-left: 1.1em;
+    padding-right: 1.1em;
     border-radius: 4px;
     -webkit-user-select: none;
     border-left: 0;
@@ -829,6 +848,13 @@ h2, h3 {
 	margin-left: 			4px;
 	vertical-align: 	 	top;
 	min-width: 				110px;
+	width: 					80%;
+}
+.user-details-mini-conv {
+	display: 				inline-block;
+	margin-left: 			4px;
+	vertical-align: 	 	top;
+	min-width: 				110px;
 }
 .user-stats {
 	display: 				inline-block;
@@ -1014,12 +1040,10 @@ h2, h3 {
 	float: 					left;
 }
 .message-bubble.accepted {
-	width:  				78%;
 	color:  				#2f9e03;
 	margin:					6px 2px;
 }
 .message-bubble.confirmed {
-	width:  				78%;
 	color:  				#0087ff;
 	margin:					8px 2px;
 }
@@ -1208,8 +1232,9 @@ h2, h3 {
 		padding-top:  		5px;
 	}
 	.agreement {
-		min-height:			36px;
-		min-width:			36px;
+		min-height:			26px;
+		min-width:			26px;
+		vertical-align: 	bottom;
 	}
 	.round-image-50 {
 	    border: 			1px solid #d9d9d9;
@@ -1300,5 +1325,8 @@ h2, h3 {
 	}
 	.user-giving-score-message {
 		max-width: 220px;
+	}
+	.user-details-mini {
+		width: 					72%;
 	}
 }

@@ -69,7 +69,7 @@
           <%= image_tag(User.find_by_id(user.id).avatar.url(:thumb)) %>
         </a>
       </div>
-      <div class="user-details-mini">
+      <div class="user-details-mini-conv">
         <div class="user_profile"><%=user.name%></div>
         <div class="user-location">
           <% if !user.zip.nil? && user.zip > 0 %>
@@ -129,7 +129,6 @@
         <% if message.sender.id != @last_user %>
           <% @squeeze = "" %>
         <% end %>
-
         <% @msg_body = message.body %>
         <% @msg_status = "" %>
         <% if message.body == "ConfirmedReceivingToken" %>
