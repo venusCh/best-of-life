@@ -102,11 +102,12 @@ nav {
 	color:  				#dde9ef;
 	text-decoration:   		none;
 	font-size:  			1.4em;
+	vertical-align: 		bottom;
 }
-.navbar-brand > img {
-	display: 				inline-block;
+.navbar-brand-logo > img {
+	display:   				inline-block;	
+	margin-top: 			5px;
 	height:  				20px;
-	vertical-align:  		sub;
 }
 
 .full-content {
@@ -425,7 +426,7 @@ nav {
 	display: table-cell;
 	padding: 2px 6px;
 	border-radius: 5px;
-	border: 1px solid #ccc;
+	border: 1px solid #a9cad4;
 	width: 50%;
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;
@@ -434,7 +435,7 @@ nav {
 	display: table-cell;
 	padding: 2px 6px;
 	border-radius: 5px;
-	border: 1px solid #ccc;
+	border: 1px solid #a9cad4;
 	width: 50%;
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
@@ -444,13 +445,14 @@ nav {
 .conversations-section-left.active, 
 .conversations-section-right.active {
 	font-weight: bold;
-	background-color: #fff;
+	color: white;
+	background-color: #236375;
 }
 .conversations-section-left.inactive,
 .conversations-section-right.inactive {
 	font-weight: normal;
 	font-size: 0.8em;
-	background-color: #ccc;
+	background-color: #fff;
 }
 
 .conversations-heading-sorting {
@@ -939,13 +941,21 @@ h2, h3 {
 	color: 					#333;
 }
 
+.options-dropdown-center {
+	visibility: 			hidden;
+	margin: 				auto;
+	max-width:  			1116px;
+	position: 				relative;
+}
 #options-dropdown {
 	position: 				absolute;
+	visibility: 			visible;
 	z-index: 				100;
 	background-color:   	#252525;
 	border-radius:  		3%;
 	width: 					120px;
-	right:  				1px;
+	right: 					0;
+	font-size: 				1em;
 }
 #options-dropdown > li {
     padding-top:   			5px;
@@ -1047,7 +1057,9 @@ h2, h3 {
 	color:  				#0087ff;
 	margin:					8px 2px;
 }
+.clickable-div {
 
+}
 .giving-name-input {
 	padding: 5px;
     font-family: inherit;
