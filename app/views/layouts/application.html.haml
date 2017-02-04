@@ -11,10 +11,14 @@
 			$("#options-dropdown").hide();
 
 			$("#user-pic").click(function() {
-				if ($("#options-dropdown").is(":visible"))
+				if ($("#options-dropdown").is(":visible")) {
 					$("#options-dropdown").hide();
-				else 
+					$("#dark-overlay").css('display', 'none');
+				}
+				else {
 					$("#options-dropdown").show();
+					$("#dark-overlay").css('display', 'block');
+				}
 			});
 		});
 
@@ -23,6 +27,7 @@
 			if (!container.is(e.target)
 				&& container.has(e.target).length === 0) {
 				container.hide();
+				$("#dark-overlay").css('display', 'none');			
 			}
 		});
 
@@ -64,10 +69,11 @@
 				%li.signout= link_to "Sign Out", destroy_user_session_path, method: :delete
 
 		.main-content
+			#dark-overlay
 			- flash.each do |name, msg|
 				= content_tag :div, msg, class: "alert alert-info"
 			
 			= yield
 
 	%footer.site-footer
-		© 2016 GiversApp.org
+		© 2017 GiversApp.org

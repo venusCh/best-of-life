@@ -19,7 +19,7 @@ $(function() {
 </script>
 <div class="main-content">
   <div class="givings-header" style="margin-top: 15px; margin-bottom: 25px;">
-      <div class="givings-header left"><h3>Add A Giving </h3></div>
+      <div class="givings-header-left"><h3>Add A Giving </h3></div>
   </div>
   <%= form_for :giving, url: givings_path do |f| %>
   	<p> <%= f.text_field :name, placeholder: "Name", class: "giving-name-input", :required => true, autofocus: true %> </p>

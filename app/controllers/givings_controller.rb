@@ -6,6 +6,7 @@ class GivingsController < ApplicationController
     puts "\n\n **** Inside index of Givings..****\n\n"
     puts params
 
+
     # TODO: sql injection checks
     if (!params[:query].nil? && params[:query] != "") then
       @searchResults = Giving.where("name LIKE ?", "%#{params[:query]}%")
@@ -29,12 +30,19 @@ class GivingsController < ApplicationController
         redirect_to :back, notice: "You currently don't hold any givings."
       end
     elsif (params[:favorites] === "true") then
-      @myFavorites = current_user.find_up_voted_items
+      @myFav = current_user.find_up_voted_items
+      @myFavorites = @myFav.select { |item| item.class.name === "Giving" }
       if @myFavorites.count === 0 then
         redirect_to :back, notice: "You haven't marked any favorites yet."
       end
     else
-      @givings = Giving.paginate(:page => params[:page], :per_page => 20)
+      # Show givings in the user's local area
+      if (!current_user.nil?) then
+        @givings = Giving.joins(:user).within(10, 
+          :origin => [current_user.lat, current_user.lng]).paginate(:page => params[:page], :per_page => 12)
+      else 
+        @givings = Giving.paginate(:page => params[:page], :per_page => 12)
+      end
     end
   end
 

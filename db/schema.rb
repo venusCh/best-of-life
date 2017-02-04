@@ -1,4 +1,3 @@
-
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -12,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103031946) do
+ActiveRecord::Schema.define(version: 20170203235035) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
@@ -148,6 +147,8 @@ ActiveRecord::Schema.define(version: 20170103031946) do
     t.string   "location"
     t.integer  "zip"
     t.string   "country"
+    t.decimal  "lng"
+    t.decimal  "lat"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
@@ -169,4 +170,3 @@ ActiveRecord::Schema.define(version: 20170103031946) do
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
 
 end
-

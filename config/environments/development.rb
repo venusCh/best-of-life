@@ -58,4 +58,10 @@ Rails.application.configure do
     end if File.exists?(env_file)
   end
 
+  Geokit::Geocoders::ssl_verify_mode = 0
+
+  # You can also use the free API key instead of signed requests
+  # See https://developers.google.com/maps/documentation/geocoding/#api_key
+  Geokit::Geocoders::GoogleGeocoder.api_key = 'AIzaSyD1pCyBLk21XWoAFRaQILLhURAcjxjwClk'
+
 end

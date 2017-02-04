@@ -36,22 +36,20 @@ a:hover {
 }
 
 nav {
-	background-color: 		#252525;
+	background: linear-gradient(8deg, #222, #ddd);
 	border-color:  			#cacaca;
 	height:  				52px;
-	border-radius:   		4px;
+	border-radius:   		0px;
 	margin: 				1px;
 	min-width:  			320px;
 }
 .navbar-center {
-	background-color: 		#252525;
 	border-color:  			#cacaca;
 	margin: 				auto;
 	max-width:  			1116px;
 }
 
 .navbar-menu-signup {
-	background-color: 		#252525;
 	border-color:  			#cacaca;
 	float:  				right;
 	display:  				inline-block;
@@ -63,17 +61,19 @@ nav {
 	padding:   				0px;
 	margin-top: 			15px;
 }
+.navbar-menu-signup > li:last-child {
+	margin-right: 			8px;
+}
 .navbar-menu-signup > li a {
 	transition: 			all 0.3s;
-    color: 					#a0a0a0;
-    padding: 	  			15px;
+    color: 					#111;
+    padding: 	  			8px;
 }
 .navbar-menu-signup > li a:hover {
 	color: 					#fafafa;
 }
 
 .navbar-menu-account {
-	background-color: 		#252525;
 	border-color:  			#cacaca;
 	float:  				right;
 	display:  				inline-block;
@@ -83,11 +83,11 @@ nav {
 .navbar-menu-account > li {
 	display:  				inline-block;
 	vertical-align:  		middle;
-	margin-left:			15px;
+	margin-left:			8px;
 }
 .navbar-menu-account > li a {
 	transition: 			all 0.3s;
-    color: 					#a0a0a0;
+    color: 					#111;
 }
 .navbar-menu-account > li a:hover {
 	color: 					#fafafa;
@@ -132,13 +132,24 @@ nav {
     font-size:  			.9em;
     padding-top:  			20px;
     text-align: 			center;
-    border-radius:  		1px;
+    border-radius:  		0px;
     min-width:  			320px;
 }
 .main-content {
 	width:  				70%;
 	margin-left: 			auto;
 	margin-right: 			auto;
+}
+.main-content #dark-overlay {
+	display: 				none;
+	position: 				absolute;
+	width: 					100%;
+	height:  				100%;
+	right: 					0;
+	top: 					53px;
+	opacity:  				0.75;
+	z-index: 				3;
+	background-color:  		black;
 }
 .round-image-50 {
     background-color: 		white;
@@ -207,6 +218,34 @@ nav {
 	font-size: 		 		1.2em;
 }
 
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 12px 0;
+    border-radius: 0px;
+}
+.pagination>li {
+    display: inline;
+}
+.pagination > li > a, .pagination > li > span {
+	position: relative;
+    float: left;
+    padding: 4px 8px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #236375;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #d4d4d4;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #236375;
+    border-color: #236375;
+}
+
 /**
  * Quote page styling 
  */
@@ -271,7 +310,6 @@ nav {
     padding: 6px 12px;
     font-size: 1.1em;
     line-height: 1.42857143;
-    border-radius: 4px;
     -webkit-user-select: none;
 }
 .btn-primary:hover {
@@ -296,7 +334,6 @@ nav {
     padding: 6px 12px;
     font-size: 1.1em;
     line-height: 1.42857143;
-    border-radius: 4px;
     -webkit-user-select: none;
 }
 .btn-default:hover {
@@ -318,7 +355,7 @@ nav {
     font-size: 1.1em;
     line-height: 1.42857143;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 0px;
 	border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     display: table-cell;
@@ -336,7 +373,7 @@ nav {
     font-size: 1.1em;
     line-height: 1.42857143;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 0px;
     display: table-cell;
     margin-bottom: 0px;
     float: left;
@@ -358,9 +395,9 @@ nav {
     cursor: pointer;
     background-image: none;
     white-space: nowrap;
-    padding-left: 1.1em;
-    padding-right: 1.1em;
-    border-radius: 4px;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 0px;
     -webkit-user-select: none;
     border-left: 0;
     border-bottom-left-radius: 0;
@@ -377,7 +414,7 @@ nav {
 .badge-message {
 	background-color:  		red;
 	padding: 				0px 4px;
-	border-radius: 			3px;
+	border-radius: 			0px;
 	vertical-align:  		top;
 	margin-top: 			-8px;
 	display:  				inline-block;
@@ -386,7 +423,7 @@ nav {
 .badge-givings {
 	background-color:  		#ec2a35;
 	padding: 				0px 4px;
-	border-radius: 			4px;
+	border-radius: 			0px;
 	vertical-align:  		top;
 	display:  				inline-block;
 	color:  				white;
@@ -398,7 +435,7 @@ nav {
 	margin-bottom: 15px;
 	background-color: #eaeaea;
 	padding: 2px;
-	border-radius: 4px;
+	border-radius: 0px;
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
 	border: 1px solid #d9d9d9;
@@ -407,7 +444,7 @@ nav {
 .panel-body {
 	margin-top: 4px;
 	margin-bottom: 10px;
-	border-radius: 4px;
+	border-radius: 0px;
 	border-top: 0;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
@@ -425,7 +462,7 @@ nav {
 .conversations-section-left {
 	display: table-cell;
 	padding: 2px 6px;
-	border-radius: 5px;
+	border-radius: 2px;
 	border: 1px solid #a9cad4;
 	width: 50%;
 	border-top-right-radius: 0px;
@@ -434,7 +471,7 @@ nav {
 .conversations-section-right {
 	display: table-cell;
 	padding: 2px 6px;
-	border-radius: 5px;
+	border-radius: 2px;
 	border: 1px solid #a9cad4;
 	width: 50%;
 	border-top-left-radius: 0px;
@@ -446,7 +483,7 @@ nav {
 .conversations-section-right.active {
 	font-weight: bold;
 	color: white;
-	background-color: #236375;
+	background: linear-gradient(8deg, #236375, #4ca1b9);
 }
 .conversations-section-left.inactive,
 .conversations-section-right.inactive {
@@ -534,27 +571,29 @@ nav {
 	min-height:  			150px;
 }
 .givings-header {
-	background-color: 		#656565;
-	border-radius: 			3px;
+	background: 			linear-gradient(8deg, #222, #aaa);;
+	border-radius: 			1px;
 	height: 				32px;
 	padding: 				3px;
 	color:  				#f0f0f0;
 	margin-bottom: 			5px;
 }
-.givings-header.left {
+.givings-header-left {
 	display:  				inline-block;
 	float: 					left;
 	height: 				28px;
+	padding: 				3px;
 }
-.givings-header.right {
+.givings-header-right {
 	display:  				inline-block;
 	float: 					right;
 	height:  				25px;
 	color: 					#606060;
 	min-width:  			100px;
 	margin-top: 			3px;
+	padding: 				3px;
 }
-.givings-header.left > h3 {
+.givings-header-left > h3 {
 	margin: 				2px;
 	font-size:  			1.25em;
 	text-align: 			left;
@@ -567,7 +606,7 @@ nav {
 	margin: 				5px;
 	background-color: 		#f0f0f0;
 	border: 				1px solid #e5e5e5;
-	border-radius:  		5px;
+	border-radius:  		3px;
 	box-shadow: 			5px 5px 15px #999999;
 	vertical-align: 		top;
 	text-align:  			center;
@@ -589,7 +628,7 @@ nav {
 	overflow:  				hidden;
 }
 .giving-preview-image img {
-	border-radius:  		3px;
+	border-radius:  		2px;
 	width:  				80px;
 	height: 				110px;
 	object-fit:  			cover;
@@ -610,11 +649,11 @@ nav {
 	height:  				60px;
 	display: 				inline-block;
 	vertical-align: 		middle;
-	background-color: 		#f1f3f9;
-    border-radius: 			5px;
+	background: 			linear-gradient(8deg, #c9dcde, #f0fafb);
+    border-radius: 			1px;
     padding: 				12px;
-    border:					1px solid #e4ebff;
-    transition:  			background-color 0.5s;
+    border:					1px solid #d3e8ea;
+    transition: background 0.5s;
 
     -webkit-transform: translateZ(0);
   	transform: translateZ(0);
@@ -623,6 +662,7 @@ nav {
   	backface-visibility: hidden;
     -moz-osx-font-smoothing: grayscale;
 
+	color: #236375;
 }
 .give-action:hover, .give-action:focus, .give-action:active {
   -webkit-animation-name: give-action;
@@ -633,10 +673,9 @@ nav {
   animation-timing-function: linear;
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
-  background-color: #e5eaf7;
-  color: #337ab7;
+  background: linear-gradient(8deg, #a1ccd2, #e5f3f3);
+  color: #236375;
 }
-
 
 /* Buzz Out */
 @-webkit-keyframes give-action {
@@ -787,7 +826,7 @@ nav {
     padding: 				15px;
     margin-bottom: 			20px;
     border: 				1px solid #F1BCBC;
-    border-radius: 			4px;
+    border-radius: 			0px;
 }
 .condition-info {
     background-color: 		#d9edf7;
@@ -796,7 +835,7 @@ nav {
     padding: 				15px;
     margin-bottom: 			20px;
     border: 				1px solid #bce8f1;
-    border-radius: 			4px;
+    border-radius: 			0px;
 }
 .alert {
     background-color: 		#F7ECD9;
@@ -806,7 +845,7 @@ nav {
     margin-bottom: 			20px;
     margin-top: 			12px;
     border: 				1px solid #F1BCBC;
-    border-radius: 			4px;
+    border-radius: 			0px;
 }
 
 
@@ -908,7 +947,7 @@ h2, h3 {
 }
 .topic-box-image img {
 	width: 					60px;
-	border-radius: 			4px;
+	border-radius: 			2px;
 
 }
 .topic-box-title {
@@ -951,32 +990,33 @@ h2, h3 {
 	position: 				absolute;
 	visibility: 			visible;
 	z-index: 				100;
-	background-color:   	#252525;
-	border-radius:  		3%;
+	background:   			linear-gradient(8deg, #777, #aaa);
+	border-radius:  		1px;
 	width: 					120px;
 	right: 					0;
 	font-size: 				1em;
+	list-style: 			none;
 }
 #options-dropdown > li {
-    padding-top:   			5px;
-    padding-bottom: 		5px;
-    border-radius:  		5%;
+    padding: 	  			5px;
+    padding-left: 			9px;
+    border-radius:  		0px;
 }
 #options-dropdown > li.editprofile {
-    border-color: 			#252525;
+    border-color: 			transparent;
     border-bottom-color: 	#454545;
     border-width:  			1px;
     border-style:  			solid;
 }
 #options-dropdown > li.signout {
-    border-color: 			#252525;
+    border-color: 			transparent;
     border-top-color: 		#454545;
     border-width:  			1px;
     border-style:  			solid;
 }
 #options-dropdown > li a {
 	transition: 			all 0.3s;
-    color: 					#a0a0a0;
+    color: 					#111;
 }
 #options-dropdown > li a:hover{
     color: 					#fafafa;
@@ -1068,7 +1108,7 @@ h2, h3 {
     width: 100%;
     border-style: solid;
     border-color: rgb(204, 204, 204);
-    border-radius: 2px;
+    border-radius: 0px;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;    
@@ -1078,7 +1118,7 @@ h2, h3 {
     border-width: 1px;
     border-style: solid;
     border-color: rgb(204, 204, 204);
-    border-radius: 2px;
+    border-radius: 0px;
     padding: 5px;
 }
 
@@ -1088,7 +1128,6 @@ h2, h3 {
     border: 1px dotted #ea9946;
     padding: 8px;
     background-color: #efe5da;
-    border-radius: 4px;
 }
 
 .user-giving-score-message {
@@ -1194,15 +1233,15 @@ h2, h3 {
 		height: 			39px;
 		padding: 			3px;
 	}
-	.givings-header.left {
+	.givings-header-left {
 		padding: 			0px 3px 3px 3px;
 		display:   			inline-block;
 	}
-	.givings-header.right {
+	.givings-header-right {
 		padding: 			0px 3px 3px 3px;
 		display:   			inline-block;
 	}
-	.givings-header.left h3 {
+	.givings-header-left h3 {
 		font-size: 	 		1.1em;
 	}
 
@@ -1228,6 +1267,9 @@ h2, h3 {
 	}
 	.main-content {
 		width: 				90%;
+	}
+	.main-content #dark-overlay {
+		top: 				80px;
 	}
 	.btn {
 	    padding: 			18px 28px;
@@ -1316,7 +1358,11 @@ h2, h3 {
 		margin-top: 2px;
 	}
 	#options-dropdown {
-		width: 				175px;
+		width: 				180px;
+	}
+	#options-dropdown > li {
+    	padding: 	  			8px;
+    	padding-left: 			28px;
 	}
 	.profile-name {
 		font-size:  			1.3em;
@@ -1341,4 +1387,8 @@ h2, h3 {
 	.user-details-mini {
 		width: 					72%;
 	}
+	.btn-reply {
+    	padding-left: 0.3em;
+    	padding-right: 0.3em;
+    }
 }
