@@ -36,7 +36,7 @@ a:hover {
 }
 
 nav {
-	background: linear-gradient(8deg, #222, #ddd);
+	background: linear-gradient(90deg, #222, #666);
 	border-color:  			#cacaca;
 	height:  				52px;
 	border-radius:   		0px;
@@ -87,10 +87,10 @@ nav {
 }
 .navbar-menu-account > li a {
 	transition: 			all 0.3s;
-    color: 					#111;
+    color: 					#bbb;
 }
 .navbar-menu-account > li a:hover {
-	color: 					#fafafa;
+	color: 					#fbfbfb;
 }
 
 .navbar-brand {
@@ -483,7 +483,7 @@ nav {
 .conversations-section-right.active {
 	font-weight: bold;
 	color: white;
-	background: linear-gradient(8deg, #236375, #4ca1b9);
+	background: linear-gradient(90deg, #236375, #4ca1b9);
 }
 .conversations-section-left.inactive,
 .conversations-section-right.inactive {
@@ -571,7 +571,7 @@ nav {
 	min-height:  			150px;
 }
 .givings-header {
-	background: 			linear-gradient(8deg, #222, #aaa);;
+	background: 			linear-gradient(90deg, #222, #555);;
 	border-radius: 			1px;
 	height: 				32px;
 	padding: 				3px;
@@ -649,7 +649,7 @@ nav {
 	height:  				60px;
 	display: 				inline-block;
 	vertical-align: 		middle;
-	background: 			linear-gradient(8deg, #c9dcde, #f0fafb);
+	background: 			linear-gradient(90deg, #c9dcde, #f0fafb);
     border-radius: 			1px;
     padding: 				12px;
     border:					1px solid #d3e8ea;
@@ -673,7 +673,7 @@ nav {
   animation-timing-function: linear;
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
-  background: linear-gradient(8deg, #a1ccd2, #e5f3f3);
+  background: linear-gradient(90deg, #a1ccd2, #e5f3f3);
   color: #236375;
 }
 
@@ -990,7 +990,7 @@ h2, h3 {
 	position: 				absolute;
 	visibility: 			visible;
 	z-index: 				100;
-	background:   			linear-gradient(8deg, #777, #aaa);
+	background:   			linear-gradient(90deg, #777, #aaa);
 	border-radius:  		1px;
 	width: 					120px;
 	right: 					0;
