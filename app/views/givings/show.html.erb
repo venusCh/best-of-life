@@ -22,7 +22,7 @@
 			<%= User.find_by_id(@giving.user_id).name %>
 			<% @giver_location = User.find_by_id(@giving.user_id).zip %>
 			<% if !@giver_location.nil? && @giver_location != "" %>
-				<br><span class="user-location"><%= @giver_location.to_s.to_region %></span>
+				<br><span class="user-location"><%= @giver_location.to_region %></span>
 			<% end %>
 		</div>
 	</div>
@@ -38,7 +38,7 @@
 					<%= @xfer_user.name %>
 					<% @location = @xfer_user.zip %>
 					<% if !@location.nil? %>
-						<br><span class="user-location"><%= @location.to_s.to_region %></span>
+						<br><span class="user-location"><%= @location.to_region %></span>
 					<% end %>
 				</div>
 			</div>

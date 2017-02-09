@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203235035) do
+ActiveRecord::Schema.define(version: 20170209035356) do
 
   create_table "asks", force: :cascade do |t|
     t.integer  "user_id"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20170203235035) do
     t.string   "provider"
     t.string   "uid"
     t.string   "location"
-    t.integer  "zip"
+    t.text     "zip"
     t.string   "country"
     t.decimal  "lng"
     t.decimal  "lat"

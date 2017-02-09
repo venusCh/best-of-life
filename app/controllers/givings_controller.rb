@@ -113,7 +113,7 @@ class GivingsController < ApplicationController
 
       @giving.previous_holder = @giving.current_holder
       @giving.current_holder = current_user.id
-      @giving.current_location = current_user.location
+      @giving.current_location = current_user.zip
       @giving.status += 100
 
       if @giving.regive_count.nil? then
@@ -134,7 +134,7 @@ class GivingsController < ApplicationController
   def create 
     @giving = current_user.givings.build(giving_params)
     @giving.current_holder = current_user.id
-    @giving.current_location = current_user.location
+    @giving.current_location = current_user.zip
     @giving.status = 0 # Available
     @giving.regive_count = 0
     @giving.save

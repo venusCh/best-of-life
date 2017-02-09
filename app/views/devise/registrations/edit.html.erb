@@ -44,7 +44,7 @@ $(function() {
 
   <div class="user-zip">
     <div class="form-group">
-      <%= f.text_field :zip, class: "giving-name-input", placeholder: "Zip Code", required: true %>
+      <%= f.text_field :zip, type: "tel", pattern: "[0-9]*", class: "giving-name-input", placeholder: "Zip Code", required: true %>
     </div>
   </div>
   

@@ -72,8 +72,8 @@
       <div class="user-details-mini-conv">
         <div class="user_profile"><%=user.name%></div>
         <div class="user-location">
-          <% if !user.zip.nil? && user.zip > 0 %>
-            <%= user.zip.to_s.to_region %>
+          <% if !user.zip.nil? %>
+            <%= user.zip.to_region %>
           <% end %>
         </div>
         <div class="user-reviews">

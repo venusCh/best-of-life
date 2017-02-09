@@ -62,8 +62,8 @@ $(function() {
       <div class="user-details-mini">
         <div class="user_profile"><%=@recipient.name%></div>
         <div class="user-location">
-          <% if !@recipient.zip.nil? && @recipient.zip > 0 %>
-            <%= @recipient.zip.to_s.to_region %>
+          <% if !@recipient.zip.nil? %>
+            <%= @recipient.zip.to_region %>
           <% end %>
         </div>
         <div class="user-reviews">

@@ -6,8 +6,8 @@
 		<div class="profile-name"><%= @user.name %> </div>
 		<% @giver_location = @user.zip %>
    		<div class="user-location">
-	   		<% if !@giver_location.nil? && @giver_location > 0 %>
-   				<%= @giver_location.to_s.to_region %>
+	   		<% if !@giver_location.nil? %>
+   				<%= @giver_location.to_region %>
    			<% end %>
    		</div>
 		<div style="margin-top: 1px;"> 
