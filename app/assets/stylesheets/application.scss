@@ -677,6 +677,19 @@ nav {
   color: #236375;
 }
 
+.givings-local {
+	display:inline-block;
+	font-style:italic;
+	font-size:0.9em;
+	color:#999;
+}
+.givings-local-mobile {
+	display: none;
+	font-style:italic;
+	font-size:0.9em;
+	color:#999;	
+}
+
 /* Buzz Out */
 @-webkit-keyframes give-action {
   10% {
@@ -1391,4 +1404,12 @@ h2, h3 {
     	padding-left: 0.3em;
     	padding-right: 0.3em;
     }
+    .givings-local {
+		display:none;
+	}
+	.givings-local-mobile {
+		display: inline-block;
+		font-size: 0.65em;
+		margin-left: -5px;
+	}
 }
