@@ -6,38 +6,14 @@
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true
 	= csrf_meta_tags
 	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-	:javascript
-		$(function() {
-			$("#options-dropdown").hide();
-
-			$("#user-pic").click(function() {
-				if ($("#options-dropdown").is(":visible")) {
-					$("#options-dropdown").hide();
-					$("#dark-overlay").css('display', 'none');
-				}
-				else {
-					$("#options-dropdown").show();
-					$("#dark-overlay").css('display', 'block');
-				}
-			});
-		});
-
-		$(document).mouseup(function (e) {
-			var container = $("#options-dropdown");
-			if (!container.is(e.target)
-				&& container.has(e.target).length === 0) {
-				container.hide();
-				$("#dark-overlay").css('display', 'none');			
-			}
-		});
-
+	
 %body
 	#full-content.full-content
 		%nav
 			.navbar-center
 				.navbar-brand
 					= link_to givings_path, class: "navbar-brand-logo" do
-						= image_tag "givers.png"
+						= image_tag "givers-small.png"
 					= link_to "Givers", givings_path
 
 				- if user_signed_in?
@@ -77,3 +53,43 @@
 
 	%footer.site-footer
 		© 2017 GiversApp.org
+
+	:javascript
+		(function() {
+			document.querySelector("#options-dropdown").style.display = 'none';
+
+			var user_pic = document.querySelector("#user-pic");
+			user_pic.onclick = function() {
+				var options_dropdown = document.querySelector("#options-dropdown");
+				var dark_overlay = document.querySelector("#dark-overlay");
+
+				if (options_dropdown.style.display != 'none') {
+					options_dropdown.style.display = 'none';
+					dark_overlay.style.display = 'none';
+				}
+				else {
+					options_dropdown.style.display = 'block';
+					dark_overlay.style.display = 'block';
+				}
+			};
+		})();
+
+		document.onmouseup = function (e) {
+			var container = document.querySelector("#options-dropdown");
+			if (container != e.target &&
+				!isDescendant(container, e.target)) {
+				container.style.display = 'none';
+				document.querySelector("#dark-overlay").style.display = 'none';
+			}
+		};
+
+		function isDescendant(parent, child) {
+			var node = child.parentNode;
+			while (node != null) {
+				if (node == parent) {
+					return true;
+				}
+				node = node.parentNode;
+			}
+			return false;
+		}
