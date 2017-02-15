@@ -100,19 +100,21 @@ nav {
 
 .navbar-brand {
 	display:   				inline-block;
-	margin-top: 			11px;
+	margin-top: 			13px;
 	margin-left:  			10px;
 }
 .navbar-brand > a {
 	color:  				#dde9ef;
 	text-decoration:   		none;
 	font-size:  			1.4em;
-	vertical-align: 		bottom;
+	vertical-align: 		top;
+	font-weight: 			bold;
+	font-style: 			italic;
 }
 .navbar-brand-logo > img {
 	display:   				inline-block;	
-	margin-top: 			5px;
-	height:  				20px;
+	margin-top: 			-1px;
+	height:  				25px;
 }
 
 .full-content {
@@ -1228,10 +1230,11 @@ h2, h3 {
 	}
 	.navbar-brand {
 		margin-left:  			6px;
-		margin-top: 			13px;
+		margin-top: 			25px;
 	}
 	.navbar-brand > a {
-		font-size:  			1.5em;
+		font-size: 				1.2em;
+		vertical-align: 		top;
 	}
 	.navbar-brand > img {
 		vertical-align:  		middle;
@@ -1309,7 +1312,7 @@ h2, h3 {
 		vertical-align: 	bottom;
 	}
 	.round-image-50 {
-	    border: 			1px solid #d9d9d9;
+	    border: 			1px solid #5f5f5f;
 	    border-radius: 		30px;
 	    -moz-border-radius: 30px;
 	    -webkit-border-radius: 30px;
