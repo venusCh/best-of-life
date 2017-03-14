@@ -1,4 +1,7 @@
 branch-defaults:
+  deployment:
+    environment: bol-env
+    group_suffix: null
   master:
     environment: null
 global:
