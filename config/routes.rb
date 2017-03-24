@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'profiles/:id' => 'profiles#show'
+  get '/.well-known/acme-challenge/:id' => 'pages#letsencrypt'
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", registrations: 'registrations'}
 
