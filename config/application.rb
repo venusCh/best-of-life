@@ -29,7 +29,7 @@ module GiversApp
         'X-Frame-Options' => 'ALLOWALL'
     }
 
-    config.force_ssl = true
+    config.force_ssl = false
 
   end
 end
