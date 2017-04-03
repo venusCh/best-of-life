@@ -2,8 +2,15 @@ branch-defaults:
   development:
     environment: GiversApp
   master:
-    environment: GiversApp-dev
+    environment: Givers
     group_suffix: null
+environment-defaults:
+  Givers:
+    branch: null
+    repository: null
+  GiversApp:
+    branch: null
+    repository: null
 global:
   application_name: GiversApp
   default_ec2_keyname: key-for-eb-ssh
