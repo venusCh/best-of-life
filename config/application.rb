@@ -24,5 +24,10 @@ module GiversApp
     config.active_record.raise_in_transactional_callbacks = true
 
     config.time_zone = 'Eastern Time (US & Canada)'
+
+    config.action_dispatch.default_headers = {
+        'X-Frame-Options' => 'ALLOWALL'
+    }
+
   end
 end

@@ -1,10 +1,3 @@
-<script>
-  function submitOnClick(formName){
-      console.log("Hello..", $('textarea#reply_message').val());
-      if ($('textarea#reply_message').val() !== "")
-        document.forms[formName].submit();
-  }
-</script>
 
 <% page_header "Conversation" %>
 <% @subject = "" %>
@@ -37,6 +30,7 @@
         <% if !@giving.regive_count.nil? && @giving.regive_count > 0%>
           <span style="color: #578e12;font-style: italic;">
           <% if @giving.regive_count == 1 %>
+            <!-- TODO: show this only if it's given to you -->
             Given to you!
           <% elsif @giving.regive_count == 2 %>
             Re-given once!
@@ -68,11 +62,11 @@
           <%= image_tag(User.find_by_id(user.id).avatar.url(:thumb)) %>
         </a>
       </div>
-      <div class="user-details-mini">
+      <div class="user-details-mini-conv">
         <div class="user_profile"><%=user.name%></div>
         <div class="user-location">
-          <% if !user.zip.nil? && user.zip > 0 %>
-            <%= user.zip.to_s.to_region %>
+          <% if !user.zip.nil? %>
+            <%= user.zip.to_region %>
           <% end %>
         </div>
         <div class="user-reviews">
@@ -121,19 +115,21 @@
   <div class="panel-body">
     <div class="messages" id="message_panel">
       <% @last_user = nil %>
-      <% @conversation.receipts_for(current_user).each do |receipt| %>
+      <% @conversation.receipts_for(current_user).reverse.each do |receipt| %>
         <% message = receipt.message %>
 
         <% @squeeze = "squeeze" %>
         <% if message.sender.id != @last_user %>
           <% @squeeze = "" %>
         <% end %>
-
+        <% @msg_body = message.body %>
         <% @msg_status = "" %>
-        <% if message.body == "<ConfirmedReceivingToken>" %>
+        <% if message.body == "ConfirmedReceivingToken" %>
           <% @msg_status= "confirmed" %>
-        <% elsif message.body == "<RequestAcceptedToken>" %>
+          <% @msg_body = "Confirmed Receiving." %>
+        <% elsif message.body == "RequestAcceptedToken" %>
           <% @msg_status= "accepted" %>
+          <% @msg_body = "Request Accepted." %>
         <% end %>
 
         <% if message.sender.nil? %>
@@ -149,7 +145,7 @@
             <% if false && message.sender.id != @last_user %> <!-- TODO: wait for user feedback -->
               <div class="user_profile"> <%= message.sender.name %> </div>
             <% end %>
-            <div><%= message.body %> </div>
+            <div><%= @msg_body %> </div>
             <span class="message_timestamp" style="color: #858585">
             <% if @today == message.created_at.strftime("%m/%d/%Y") %>
               <%= message.created_at.strftime("%I:%M%p") %>
@@ -247,3 +243,11 @@
 <%= link_to "Back", conversations_path(:sent => @show_sentbox)  %><br><br>
 
 <% @conversation.mark_as_read(current_user) %>
+
+<script>
+  function submitOnClick(formName){
+      console.log("Hello..", document.querySelector("#reply_message").value);
+      if (document.querySelector("#reply_message").value !== "")
+        document.forms[formName].submit();
+  }
+</script>

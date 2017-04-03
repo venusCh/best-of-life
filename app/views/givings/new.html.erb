@@ -1,25 +1,7 @@
-<script>
-$(function() {
-  $('#giving_image').on('change', function(event) {
-    var files = event.target.files;
-    var image = files[0]
-    var reader = new FileReader();
-    reader.onload = function(file) {
-      var img = new Image();
-      console.log(file);
-      img.src = file.target.result;
-      img.width = 150;
-      $('#image-target').html(img);
-      $('#upload-image-text').text('Change image');
-    }
-    reader.readAsDataURL(image);
-    console.log(files);
-  });
-});
-</script>
+
 <div class="main-content">
   <div class="givings-header" style="margin-top: 15px; margin-bottom: 25px;">
-      <div class="givings-header left"><h3>Add A Giving </h3></div>
+      <div class="givings-header-left"><h3>Add A Giving </h3></div>
   </div>
   <%= form_for :giving, url: givings_path do |f| %>
   	<p> <%= f.text_field :name, placeholder: "Name", class: "giving-name-input", :required => true, autofocus: true %> </p>
@@ -40,3 +22,24 @@ $(function() {
   <% end %>
 </div>
 <br>
+
+<script>
+(function() {
+  var giving_image = document.querySelector("#giving_image");
+  giving_image.onchange = function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      img.src = file.target.result;
+      img.width = 150;
+      var image_target = document.querySelector("#image-target");
+      image_target.removeChild(image_target.firstChild);
+      image_target.appendChild(img);
+      document.querySelector("#upload-image-text").textContent = "Change image";
+    }
+    reader.readAsDataURL(image);
+  }
+})();
+</script>

@@ -4,18 +4,19 @@
 <div>
 	<div class="conversations-heading">
 		<% if @show_sentbox %>
-			<div class="conversations-section-left inactive">
-				<%= link_to "My Givings", conversations_path(:group => @group_by_givings) %>
-			</div>
-			<div class="conversations-section-right active">
-				<%= link_to "My Requests", conversations_path(:sent => "true", :group => @group_by_givings) %>
-			</div>
+			<%= link_to conversations_path(:group => @group_by_givings), class: "conversations-section-left inactive" do %>
+				<div>My Givings</div>
+			<% end %>
+			<%= link_to conversations_path(:sent => "true", :group => @group_by_givings), class:"conversations-section-right active" do %>
+				<div>My Requests</div>
+			<% end %>
 		<% else %>
-			<div class="conversations-section-left active">
-				<%= link_to "My Givings", conversations_path(:group => @group_by_givings) %>
-			</div>
-			<div class="conversations-section-right inactive"><%= link_to "My Requests", conversations_path(:sent => "true", :group => @group_by_givings) %>
-			</div>
+			<%= link_to conversations_path(:group => @group_by_givings), class: "conversations-section-left active" do %>
+				<div>My Givings</div>
+			<% end %>
+			<%= link_to conversations_path(:sent => "true", :group => @group_by_givings), class: "conversations-section-right inactive" do %>
+				<div>My Requests</div>
+			<% end %>
 		<% end %>
 	</div>
 	<% if false %> 
@@ -86,6 +87,9 @@
 		<%= will_paginate %>
 	<% else %>
 		<!-- show aggregate conversations here -->
+		<% if @grouped_convos.count == 0 %>
+			<div class="condition-info" style="width: 90%;margin: auto;">No current givings. </div>
+		<% end %>
 		<% @grouped_convos.each_pair do |subject, convos| %>
 			<% @giving = Giving.find_by_id(subject) %>
 			<% if !@giving.nil? %> 

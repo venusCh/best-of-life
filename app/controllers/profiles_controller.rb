@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 
 	def show
 		@user = User.find_by_id(params[:id])
-		@user_givings = @user.givings.paginate(:page => params[:page], :per_page => 7)
+		@user_givings = @user.givings.paginate(:page => params[:page], :per_page => 9)
 
 		@canComment = false
 		@transfer = Transfer.where(["from_id = ? and to_id = ?", params[:id].to_i, current_user.id]).last

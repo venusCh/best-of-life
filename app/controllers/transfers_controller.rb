@@ -26,7 +26,7 @@ class TransfersController < ApplicationController
 
 		    # also auto-generate a reply to conversation
 		    @conversation = current_user.mailbox.conversations.find(@transfer.conversation)
-		    current_user.reply_to_conversation(@conversation, "<RequestAcceptedToken>")
+		    current_user.reply_to_conversation(@conversation, "RequestAcceptedToken")
 
 			redirect_to :back
 		else
@@ -45,6 +45,10 @@ class TransfersController < ApplicationController
 			@months = 3.months
 		elsif @giving.wish == 30
 			@months = 6.months
+		elsif @giving.wish == 40
+			@months = 12.months
+		elsif @giving.wish == 50
+			@months = 24.months
 		end
 		return @months
 	end

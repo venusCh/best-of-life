@@ -5,6 +5,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     resource.update_without_password(params)
+
+    loc = Geokit::Geocoders::GoogleGeocoder.geocode(params[:zip])
+    resource.lng = loc.lng
+    resource.lat = loc.lat
+    resource.save
   end
 
   private
