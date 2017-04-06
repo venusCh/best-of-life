@@ -74,7 +74,7 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'http://giversapp.at2tevh5f9.us-west-2.elasticbeanstalk.com' }
+  config.action_mailer.default_url_options = { host: 'http://giversapp.org' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -91,7 +91,7 @@ Rails.application.configure do
 
   config.paperclip_defaults = {
     :storage => :s3,
-    :s3_protocol => 'https',
+    :s3_protocol => :https,
     :s3_host_name => 's3-us-west-2.amazonaws.com',
     :s3_credentials => {
       :bucket => 'giversappstorage',
