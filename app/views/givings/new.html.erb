@@ -4,7 +4,7 @@
       <div class="givings-header-left"><h3>Add A Giving </h3></div>
   </div>
   <%= form_for :giving, url: givings_path do |f| %>
-  	<p> <%= f.text_field :name, placeholder: "Name", class: "giving-name-input", :required => true, autofocus: true %> </p>
+  	<p> <%= f.text_field :name, placeholder: "Giving Name", class: "giving-name-input", :required => true, autofocus: true %> </p>
   	<p> <div id="image-target"> </div>
   	<span class="btn-default btn-file">
   	<span id="upload-image-text">Add image</span> <%= f.file_field :image, accept: "image/*;capture=camera" %> 

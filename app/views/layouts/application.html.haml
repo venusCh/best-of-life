@@ -5,7 +5,9 @@
 	= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
 	= csrf_meta_tags
 	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-	
+	= favicon_link_tag 'givers-16x16.ico'
+	= favicon_link_tag 'givers-16x16.png', :rel => "icon", :type => "image/png"
+
 %body
 	#full-content.full-content
 		%nav

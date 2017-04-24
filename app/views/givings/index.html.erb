@@ -55,6 +55,16 @@
 			</div>
 		</div>
 		<div class="floating-box-givings">
+			<% if @givings.count == 0 %>
+				<div class="condition-toast" style="margin-top: 50px;width: 70%;margin-left: auto; margin-right: auto;">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					Sorry. No offers are available near you.
+				</div>
+				<div class="condition-info" style="margin-top: 30px;width: 70%;margin-left: auto; margin-right: auto;">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					Be the first to give! <br>Perhaps that book on the shelf that has been collecting dust for years?!
+				</div>
+			<% end %>
 			<% @givings.each do |giving| %>
 				<div class="giving-preview"> 
 					<div class="giving-preview-image">

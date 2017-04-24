@@ -88,7 +88,11 @@
 	<% else %>
 		<!-- show aggregate conversations here -->
 		<% if @grouped_convos.count == 0 %>
-			<div class="condition-info" style="width: 90%;margin: auto;">No current givings. </div>
+			<% if @show_sentbox == true %>
+				<div class="condition-info" style="width: 90%;margin: auto;">No current requests. </div>
+			<% else %>
+				<div class="condition-info" style="width: 90%;margin: auto;">No current givings. </div>
+			<% end %>
 		<% end %>
 		<% @grouped_convos.each_pair do |subject, convos| %>
 			<% @giving = Giving.find_by_id(subject) %>
