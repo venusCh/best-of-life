@@ -60,6 +60,9 @@
 			document.querySelector("#options-dropdown").style.display = 'none';
 
 			var user_pic = document.querySelector("#user-pic");
+			if (!user_pic) 
+				return;
+
 			user_pic.onclick = function() {
 				var options_dropdown = document.querySelector("#options-dropdown");
 				var dark_overlay = document.querySelector("#dark-overlay");
