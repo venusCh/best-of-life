@@ -6,6 +6,8 @@
 	= csrf_meta_tags
 	%meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
 	= favicon_link_tag 'givers-16x16.png', :rel => "icon", :type => "image/png"
+	:css
+		#options-dropdown { display : none; }
 
 %body
 	#full-content.full-content
@@ -56,8 +58,6 @@
 
 	:javascript
 		(function() {
-			document.querySelector("#options-dropdown").style.display = 'none';
-
 			var user_pic = document.querySelector("#user-pic");
 			if (!user_pic) 
 				return;
@@ -96,5 +96,3 @@
 			}
 			return false;
 		}
-
-	= javascript_include_tag 'application', 'data-turbolinks-track' => true
