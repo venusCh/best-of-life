@@ -9,9 +9,12 @@
 	= favicon_link_tag 'givers-16x16.png', :rel => "icon", :type => "image/png"
 
 	:css
-		#options-dropdown { display : none; }
+		.js #fouc { display: none; }
+		#options-dropdown { display: none; }
+	:javascript
+		document.documentElement.className = 'js';
 
-%body
+%body#fouc
 	#full-content.full-content
 		%nav
 			.navbar-center
@@ -98,3 +101,6 @@
 			}
 			return false;
 		}
+
+	:javascript
+		document.getElementById("fouc").style.display = "block";
