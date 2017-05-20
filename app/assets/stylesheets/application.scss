@@ -573,6 +573,31 @@ nav {
 	min-height:  			260px;
 	min-width:  			290px;
 	vertical-align: 		top;
+	display: 				block;
+}
+.floating-box-welcome {
+	margin:					20px auto 60px auto;
+	text-align:  			center;
+}
+.tile-container {
+	max-width: 600px;
+	height: 400px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	margin: 0px auto;
+}
+.tile-container.first {
+	background-image: url("givers-first-tile.png");
+}
+.tile-container.second {
+	background-image: url("givers-second-tile.png");
+}
+.tile-container.third {
+	background-image: url("givers-third-tile.png");
+}
+.tile-container.fourth {
+	background-image: url("givers-forth-tile.png");
 }
 .floating-box-givings {
 	min-width: 				290px;
@@ -1425,5 +1450,9 @@ h2, h3 {
 	.navbar-brand-logo > img {
 		height:  32px;
 		margin-left: 5px;
+	}
+	.tile-container {
+		width: 100%;
+		height: 285px;
 	}
 }

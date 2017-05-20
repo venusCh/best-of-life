@@ -1,3 +1,31 @@
+<% if @current_user.nil? %>
+	<div class="floating-box-welcome">
+		<div class="tile-container first"></div>
+		<div>
+		1. I believe that giving is better than getting<br>
+		"All those items collecting dust on those racks could help someone instead!"
+		</div>
+	</div>
+	<div class="floating-box-welcome">
+		<div class="tile-container second"></div>
+		<div>
+		2. Wouldn't it be great to see your giving helping many others as it passes hands?
+		</div>
+	</div>
+	<div class="floating-box-welcome">
+		<div class="tile-container third"></div>
+		<div>		
+		3. We hope Givers would be a useful tool facilitating giving and re-giving in your locality. 
+		</div>
+	</div>
+	<div class="floating-box-welcome">
+		<div class="tile-container fourth"></div>
+		<div>
+		4. We hope Givers would be a useful tool facilitating giving and re-giving in your locality. 
+		</div>
+	</div>
+<% end %>
+
 <section id="box-blocks">
 
 <% @givingList = nil %>
@@ -16,7 +44,7 @@
 	<% @givingList = @searchResults %>
 	<% @givingListName = "Results for \""+ @searchTerm + "\"" %>
 <% end %>
-	
+
 <% if !@givingList.nil? %>
   <div class="givings-header" style="margin-top: 15px; margin-bottom: 25px;">
       <div class="givings-header-left"><h3><%= @givingListName %></h3></div>
@@ -62,7 +90,7 @@
 				</div>
 				<div class="condition-info" style="margin-top: 30px;width: 70%;margin-left: auto; margin-right: auto;">
 					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-					Be the first to give! <br>Perhaps that book on the shelf that has been collecting dust for years?!
+					Be the first to give! <br>Perhaps that book on your shelf that's been collecting dust for years?!
 				</div>
 			<% end %>
 			<% @givings.each do |giving| %>

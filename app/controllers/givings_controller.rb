@@ -13,7 +13,7 @@ class GivingsController < ApplicationController
       @searchTerm = params[:query]
 
       if @searchResults.count === 0 then
-        redirect_to :back, notice: "We found no results for #{@searchTerm}!"
+        redirect_to :back, notice: "Sorry, we found no results for \"#{@searchTerm}\""
       end
     elsif (params[:givings] === "true") then
       # 1. Original givins plus those I wish to regive that I currently hold
