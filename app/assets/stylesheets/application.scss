@@ -588,16 +588,16 @@ nav {
 	margin: 0px auto;
 }
 .tile-container.first {
-	background-image: url("givers-first-tile.png");
+	background-image: image_url("givers-first-tile.png");
 }
 .tile-container.second {
-	background-image: url("givers-second-tile.png");
+	background-image: image_url("givers-second-tile.png");
 }
 .tile-container.third {
-	background-image: url("givers-third-tile.png");
+	background-image: image_url("givers-third-tile.png");
 }
 .tile-container.fourth {
-	background-image: url("givers-forth-tile.png");
+	background-image: image_url("givers-forth-tile.png");
 }
 .floating-box-givings {
 	min-width: 				290px;
