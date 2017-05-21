@@ -9,20 +9,20 @@
 		</div>
 		<div class="floating-box-welcome">
 			<div class="tile-container second"></div>
-			<div><br>
+			<div style="margin-top: 8px;">
 			Wouldn't it be great to see your giving helping many others as it passes hands?
 			</div>
 		</div>
 		<div class="floating-box-welcome">
 			<div class="tile-container third"></div>
-			<div><br>
+			<div style="margin-top: 8px;">
 			What if you can witness all the lives your giving touches over time? 
 			</div>
 		</div>
 		<div class="floating-box-welcome">
 			<div class="tile-container fourth"></div>
 			<div>
-			What if we can help you reward re-givers who keep their promises of regiving?
+			We hope Givers will help you reward re-givers who keep their promises of regiving?
 			</div>
 			<div class="lets-go" onclick="readyToGive()">
 				Ok, let's go!
@@ -116,6 +116,8 @@
 
 <script type="text/javascript">
 	(function() {
+		localStorage.clear();
+
 		if (!localStorage.getItem("givers-welcome-shown")) {
 			document.getElementById("welcome").style.display = "block";
 		} else {
@@ -129,5 +131,6 @@
 		localStorage.setItem("givers-welcome-shown", "true");
 		document.getElementById("welcome").style.display = "none";
 		document.getElementById("box-blocks").style.display = "block";
+		scroll(0,0);
 	}
 </script>
