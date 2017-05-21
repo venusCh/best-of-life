@@ -1,33 +1,37 @@
-<% if @current_user.nil? %>
-	<div class="floating-box-welcome">
-		<div class="tile-container first"></div>
-		<div>
-		1. I believe that giving is better than getting<br>
-		"All those items collecting dust on those racks could help someone instead!"
+<div id="welcome" style="display: none;">
+	<% if @current_user.nil? %>
+		<div class="floating-box-welcome">
+			<div class="tile-container first"></div>
+			<div>
+			We all know the satisfaction giving brings to us... <br>
+			<!-- "All those items collecting dust on those racks could help someone instead!" -->
+			</div>
 		</div>
-	</div>
-	<div class="floating-box-welcome">
-		<div class="tile-container second"></div>
-		<div><br>
-		2. Wouldn't it be great to see your giving helping many others as it passes hands?
+		<div class="floating-box-welcome">
+			<div class="tile-container second"></div>
+			<div><br>
+			Wouldn't it be great to see your giving helping many others as it passes hands?
+			</div>
 		</div>
-	</div>
-	<div class="floating-box-welcome">
-		<div class="tile-container third"></div>
-		<div><br>
-		3. We hope Givers would be a useful tool facilitating giving and re-giving in your locality. 
+		<div class="floating-box-welcome">
+			<div class="tile-container third"></div>
+			<div><br>
+			What if you can witness all the lives your giving touches over time? 
+			</div>
 		</div>
-	</div>
-	<div class="floating-box-welcome">
-		<div class="tile-container fourth"></div>
-		<div>
-		4. We hope Givers would be a useful tool facilitating giving and re-giving in your locality. 
+		<div class="floating-box-welcome">
+			<div class="tile-container fourth"></div>
+			<div>
+			What if we can help you reward re-givers who keep their promises of regiving?
+			</div>
+			<div class="lets-go" onclick="readyToGive()">
+				Ok, let's go!
+			</div>
 		</div>
-	</div>
-<% end %>
+	<% end %>
+</div>
 
-<section id="box-blocks">
-
+<section id="box-blocks" style="display: none;">
 <% @givingList = nil %>
 <% @givingListName = "" %>
 
@@ -108,5 +112,22 @@
 			</div>
 		</div>
 <% end %>
-
 </section>
+
+<script type="text/javascript">
+	(function() {
+		if (!localStorage.getItem("givers-welcome-shown")) {
+			document.getElementById("welcome").style.display = "block";
+		} else {
+			document.getElementById("box-blocks").style.display = "block";
+		}
+	})();
+</script>
+
+<script type="text/javascript">
+	function readyToGive() {
+		localStorage.setItem("givers-welcome-shown", "true");
+		document.getElementById("welcome").style.display = "none";
+		document.getElementById("box-blocks").style.display = "block";
+	}
+</script>

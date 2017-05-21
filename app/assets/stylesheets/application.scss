@@ -118,7 +118,7 @@ nav {
 }
 
 .full-content {
-	min-height:				100%;
+	min-height:				97%;
 	margin-bottom:  		-60px;
 
 	margin-left: 			auto;
@@ -578,6 +578,8 @@ nav {
 .floating-box-welcome {
 	margin:					20px auto 60px auto;
 	text-align:  			center;
+	font-size: 				1.3em;
+	color:   				#111;
 }
 .tile-container {
 	max-width: 600px;
@@ -708,6 +710,29 @@ nav {
   animation-iteration-count: 1;
   background: linear-gradient(90deg, #a1ccd2, #e5f3f3);
   color: #236375;
+}
+
+.lets-go {
+	font-size: 				2.5em;
+	position:  				relative;
+	top: 					92px;
+	font-weight: 			800;
+	line-height: 			1em;
+	height:  				55px;
+	display: 				inline-block;
+	vertical-align: 		middle;
+	background: 			linear-gradient(90deg, #c9dcde, #f0fafb);
+    border-radius: 			3px;
+    padding: 				12px;
+    border:					1px solid #d3e8ea;
+    transition: background 0.5s;
+    color: #236375;
+    margin-top:				100px;
+    margin-bottom: 			200px;
+    cursor:  				pointer;
+}
+.lets-go:hover {
+	background: linear-gradient(90deg, #a1ccd2, #e5f3f3);
 }
 
 .givings-local {
@@ -1454,5 +1479,8 @@ h2, h3 {
 	.tile-container {
 		width: 100%;
 		height: 285px;
+	}
+	.floating-box-welcome {
+		font-size: 0.85em;
 	}
 }
