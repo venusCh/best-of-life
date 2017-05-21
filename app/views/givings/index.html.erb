@@ -116,8 +116,7 @@
 
 <script type="text/javascript">
 	(function() {
-		localStorage.clear();
-
+		scroll(0,0);
 		if (!localStorage.getItem("givers-welcome-shown")) {
 			document.getElementById("welcome").style.display = "block";
 		} else {
